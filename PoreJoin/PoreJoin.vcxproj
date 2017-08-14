@@ -18,6 +18,26 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ElementList.cpp" />
+    <ClCompile Include="GarbageCollection.cpp" />
+    <ClCompile Include="Globals.cpp" />
+    <ClCompile Include="MIfstream.cpp" />
+    <ClCompile Include="NetworkElement.cpp" />
+    <ClCompile Include="Pore.cpp" />
+    <ClCompile Include="PoreJoin.cpp" />
+    <ClCompile Include="ReadInput.cpp" />
+    <ClCompile Include="RecursiveSweepForConnection.cpp" />
+    <ClCompile Include="Throat.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ElementList.h" />
+    <ClInclude Include="Globals.h" />
+    <ClInclude Include="MIfstream.h" />
+    <ClInclude Include="NetworkElement.h" />
+    <ClInclude Include="Pore.h" />
+    <ClInclude Include="Throat.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B5F24222-F5E1-4668-B050-2AFD61F1EB93}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -141,8 +161,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
