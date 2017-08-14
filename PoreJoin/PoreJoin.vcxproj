@@ -26,6 +26,7 @@
     <ClCompile Include="NetworkElement.cpp" />
     <ClCompile Include="Pore.cpp" />
     <ClCompile Include="PoreJoin.cpp" />
+    <ClCompile Include="ReadFiles.cpp" />
     <ClCompile Include="ReadInput.cpp" />
     <ClCompile Include="RecursiveSweepForConnection.cpp" />
     <ClCompile Include="Throat.cpp" />

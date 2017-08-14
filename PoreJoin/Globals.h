@@ -28,6 +28,7 @@ extern ElementList OutletThroats, InletThroats;
 
 extern FloatType Dx, Dy, Dz;				//Dimensions of the porous media
 extern unsigned int PoreNO, ThroatNO;
+extern unsigned int MainNx, MainNy, MainNz;
 
 void TerM(char *);
 void NormalFinish(void);
