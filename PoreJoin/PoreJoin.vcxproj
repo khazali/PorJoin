@@ -27,16 +27,18 @@
     <ClCompile Include="Pore.cpp" />
     <ClCompile Include="PoreJoin.cpp" />
     <ClCompile Include="ReadFiles.cpp" />
-    <ClCompile Include="ReadInput.cpp" />
     <ClCompile Include="RecursiveSweepForConnection.cpp" />
+    <ClCompile Include="PoreNetwork.cpp" />
     <ClCompile Include="Throat.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="dirent.h" />
     <ClInclude Include="ElementList.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="MIfstream.h" />
     <ClInclude Include="NetworkElement.h" />
     <ClInclude Include="Pore.h" />
+    <ClInclude Include="PoreNetwork.h" />
     <ClInclude Include="Throat.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

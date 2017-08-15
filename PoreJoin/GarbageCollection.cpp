@@ -13,6 +13,5 @@ void TerM(char *ErrorMessage) {
 }
 
 void NormalFinish(void) {
-	delete[] pores;
-	delete[] throats;
+	delete[] Networks;
 }
