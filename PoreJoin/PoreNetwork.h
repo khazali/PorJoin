@@ -14,7 +14,7 @@ private:
 	unsigned int *PorePointer, *ThroatPointer;
 
 public:
-	void ReadStatoilFormat(char *, char *, std::ofstream&, std::ofstream&);
+	void ReadStatoilFormat(char *, char *);
 	PoreNetwork();
 	~PoreNetwork();
 };

@@ -10,7 +10,7 @@ PoreNetwork::~PoreNetwork(void) {
 }
 
 
-void PoreNetwork::ReadStatoilFormat(char *FilePath, char *Prefix, std::ofstream& DrainageOut, std::ofstream& ImbibitionOut) {
+void PoreNetwork::ReadStatoilFormat(char *FilePath, char *Prefix) {
 	MIfstream ThroatData1, ThroatData2, PoreData1, PoreData2;
 	char ThroatData1File[MAX_PATH_LENGTH], ThroatData2File[MAX_PATH_LENGTH], PoreData1File[MAX_PATH_LENGTH], PoreData2File[MAX_PATH_LENGTH];
 	char str[MAX_STRING_LENGTH];
@@ -18,10 +18,10 @@ void PoreNetwork::ReadStatoilFormat(char *FilePath, char *Prefix, std::ofstream&
 
 
 	sLen = (unsigned int)strlen(FilePath);
-	if (FilePath[sLen - 1] != '\\') {		//MS Windows Path for now
+	/*if (FilePath[sLen - 1] != '\\') {		//MS Windows Path for now
 		FilePath[sLen] = '\\';
 		sLen++;
-	}
+	}*/
 
 	i = 0;
 	while (Prefix[i]) {
