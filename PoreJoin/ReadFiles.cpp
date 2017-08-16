@@ -48,17 +48,8 @@ void ReadInput(char *InfileName) {
 					closedir(dir);
 				}
 				else TerM("Incorrect path in the main file!");
-				/////////////////Read Finish
-
-
-
-
-
 			}
 		}
 	}
-
-
-
 	MainInput.close();
 }

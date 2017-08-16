@@ -1,7 +1,8 @@
 #include <math.h>
+#include "PoreNetwork.h"
 #include "Pore.h"
 #include "MIfstream.h"
-#include "PoreNetwork.h"
+
 
 
 

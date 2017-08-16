@@ -12,9 +12,10 @@ private:
 	FloatType Dx, Dy, Dz;				//Dimensions of the porous media
 	ElementList OutletThroats, InletThroats;
 	unsigned int *PorePointer, *ThroatPointer;
+	
 
 public:
 	void ReadStatoilFormat(char *, char *);
 	PoreNetwork();
-	~PoreNetwork();
+	~PoreNetwork();	
 };
