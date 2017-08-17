@@ -19,7 +19,7 @@ void Pore::SetLength(FloatType InLength) {
 	Length=InLength;
 }
 
-unsigned int Pore::ReadNode1(MIfstream& InputFile){
+unsigned int Pore::ReadNode1(MIfstream& InputFile, Pore *pores, Throat* throats){
 	char str[MAX_STRING_LENGTH];
 	register int j;
 	register unsigned int i, Nulls;

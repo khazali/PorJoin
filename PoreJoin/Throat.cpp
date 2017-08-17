@@ -8,7 +8,7 @@
 Throat::Throat(void) {
 
 }
-void Throat::ReadLink1(MIfstream& InputFile) {
+void Throat::ReadLink1(MIfstream& InputFile, Pore *pores, ElementList InletThroats, ElementList OutletThroats) {
 	char str[MAX_STRING_LENGTH];
 	register int i, j;
 	FloatType Z0, Z1;

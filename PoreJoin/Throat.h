@@ -17,24 +17,12 @@ private:
 
 public:
 	Throat();
-	void ReadLink1(MIfstream&);
+	void ReadLink1(MIfstream&, Pore *, ElementList, ElementList);
 	void ReadLink2(MIfstream&);
-	unsigned int CalculateImbibitionPc(FloatType);	
-	unsigned int TestFillReadiness(FloatType);
 	void SweepAdjacentPores(FluidType);
 	FloatType GetTotalLength(void);
-	FloatType GetOutletPorePressure(void);
-	void SetWaterConductancePerLength(FloatType);
-	void SetOilConductancePerLength(FloatType);
-	FloatType GetWaterConductancePerLength(void);
-	FloatType GetOilConductancePerLength(void);
-	void SetTotalConductancePerLength(FloatType);
-	FloatType GetTotalConductancePerLength(void);
 	void SweepAdjacentPoresForDeletion(ExitType);
 	int GetIOStat(void);
-	
-	void CalcWaterVelocity(void);
-	void CalcOilVelocity(void);
 };
 
 #endif
