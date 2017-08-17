@@ -13,6 +13,7 @@ private:
 	ElementList OutletThroats, InletThroats;
 	unsigned int *PorePointer, *ThroatPointer;
 	
+	FloatType MinX, MinY, MinZ;
 
 public:
 	void ReadStatoilFormat(char *, char *);

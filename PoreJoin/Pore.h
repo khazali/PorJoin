@@ -22,12 +22,13 @@ public:
 	Pore();
 	~Pore();
 	void SetLength(FloatType);
-	unsigned int ReadNode1(MIfstream&, Pore *, Throat*);
+	unsigned int ReadNode1(MIfstream&, Pore *, Throat*, FloatType&, FloatType&, FloatType&);
 	void ReadNode2(MIfstream&);	
 	void SweepAdjacentThroats(FluidType);
 	unsigned int GetCoordinationNumber(void);
 	void SweepAdjacentThroatsForDeletion(ExitType);
 	bool IsConnectedThroatNull(unsigned int);	
 	unsigned int NumberOfConnections(void);	
+	void CalibrateCoordinates(FloatType, FloatType, FloatType);
 };
 #endif
