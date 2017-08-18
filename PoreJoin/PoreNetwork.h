@@ -2,6 +2,7 @@
 #include "Pore.h"
 #include "Throat.h"
 #include "ElementList.h"
+#include "Globals.h"
 
 
 class PoreNetwork {
@@ -15,8 +16,16 @@ private:
 	
 	FloatType MinX, MinY, MinZ;
 
+	PoreNetwork *X_Before;
+	PoreNetwork *X_After;
+	PoreNetwork *Y_Before;
+	PoreNetwork *Y_After;
+	PoreNetwork *Z_Before;
+	PoreNetwork *Z_After;
+
 public:
 	void ReadStatoilFormat(char *, char *);
 	PoreNetwork();
-	~PoreNetwork();	
+	~PoreNetwork();
+	void SetNeighbours(PoreNetwork *, PoreNetwork *, PoreNetwork *, PoreNetwork *, PoreNetwork *, PoreNetwork *);
 };

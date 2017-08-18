@@ -11,6 +11,7 @@ void ReadInput(char *InfileName) {
 	DIR *dir;
 	struct dirent *ent;
 	unsigned int sLen;
+	PoreNetwork *X_Before, *X_After, *Y_Before, *Y_After, *Z_Before, *Z_After;
 	
 	MainInput.open(InfileName, std::fstream::in);
 	if (!MainInput.is_open()) TerM("Can not open first throat input file!");
@@ -42,6 +43,21 @@ void ReadInput(char *InfileName) {
 							for (n = 0; n < sLen; n++) Fname[n] = ent->d_name[i];
 							Fname[n] = '\0';
 							Networks[k*(MainNy*MainNx) + j*MainNx + i].ReadStatoilFormat(str, Fname);
+							
+							if (i == 0) X_Before = NULL;
+							else X_Before = &Networks[k*(MainNy*MainNx) + j*MainNx + i - 1];
+							if (i == (MainNx - 1)) X_After = NULL;
+							else X_After = &Networks[k*(MainNy*MainNx) + j*MainNx + i + 1];
+							if (j == 0) Y_Before = NULL;
+							else Y_Before = &Networks[k*(MainNy*MainNx) + (j - 1)*MainNx + i];
+							if (j == (MainNy - 1)) Y_After = NULL;
+							else Y_After = &Networks[k*(MainNy*MainNx) + (j + 1)*MainNx + i];
+							if (k == 0) Z_Before = NULL;
+							else Z_Before = &Networks[(k - 1)*(MainNy*MainNx) + j*MainNx + i];
+							if (k == (MainNz - 1)) Z_After = NULL;
+							else Z_After = &Networks[(k + 1)*(MainNy*MainNx) + j*MainNx + i];
+
+							Networks[k*(MainNy*MainNx) + j*MainNx + i].SetNeighbours(X_Before, X_After, Y_Before, Y_After, Z_Before, Z_After);
 							break;
 						}
 					}

@@ -141,4 +141,11 @@ void PoreNetwork::ReadStatoilFormat(char *FilePath, char *Prefix) {
 	PoreData2.close();
 }
 
-
+void PoreNetwork::SetNeighbours(PoreNetwork *XBefore, PoreNetwork *XAfter, PoreNetwork *YBefore, PoreNetwork *YAfter, PoreNetwork *ZBefore, PoreNetwork *ZAfter) {
+	X_Before = XBefore;
+	X_After = XAfter;
+	Y_Before = YBefore;
+	Y_After = YAfter;
+	Z_Before = ZBefore;
+	Z_After = ZAfter;
+}
