@@ -1,7 +1,9 @@
 #include <math.h>
+#include "Globals.h"
+
+#include "MIfstream.h"
 #include "Throat.h"
 #include "Pore.h"
-#include "MIfstream.h"
 #include "ElementList.h"
 
 

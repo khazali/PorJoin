@@ -1,9 +1,10 @@
 #include "PoreNetwork.h"
+#include "MIfstream.h"
+
+#include "Globals.h"
+
 
 PoreNetwork::PoreNetwork(void) {
-	MinX = 0;
-	MinY = 0;
-	MinZ = 0;
 }
 
 PoreNetwork::~PoreNetwork(void) {
@@ -115,22 +116,20 @@ void PoreNetwork::ReadStatoilFormat(char *FilePath, char *Prefix) {
 	throats = new Throat[ThroatNO];
 	pores = new Pore[PoreNO];
 
-
-
+	
 	//std::srand((unsigned int) time(NULL));
 
 	for (i = 0; i < PoreNO; i++) {
 		pores[i].SetIndex(i);
-		pores[i].ReadNode1(PoreData1, pores, throats, MinX, MinY, MinZ);
+		pores[i].ReadNode1(PoreData1, pores, throats);
 		pores[i].ReadNode2(PoreData2);
-	}
-	for (i = 0; i < PoreNO; i++) {
-		pores[i].CalibrateCoordinates(MinX, MinY, MinZ);
+		pores[i].SetNetworkIndex(NetworkIndex_X, NetworkIndex_Y, NetworkIndex_Z);
 	}
 	for (i = 0; i < ThroatNO; i++) {
 		throats[i].SetIndex(i);
 		throats[i].ReadLink1(ThroatData1, pores, InletThroats, OutletThroats);
 		throats[i].ReadLink2(ThroatData2);
+		throats[i].SetNetworkIndex(NetworkIndex_X, NetworkIndex_Y, NetworkIndex_Z);
 	}
 
 
@@ -148,4 +147,16 @@ void PoreNetwork::SetNeighbours(PoreNetwork *XBefore, PoreNetwork *XAfter, PoreN
 	Y_After = YAfter;
 	Z_Before = ZBefore;
 	Z_After = ZAfter;
+}
+
+void PoreNetwork::SetNetworkIndex(unsigned int XIndex, unsigned int YIndex, unsigned int ZIndex) {
+	NetworkIndex_X = XIndex;
+	NetworkIndex_Y = YIndex;
+	NetworkIndex_Z = ZIndex;
+}
+
+void PoreNetwork::GetNetworkIndex(unsigned int &XIndex, unsigned int &YIndex, unsigned int &ZIndex) {
+	XIndex = NetworkIndex_X;
+	YIndex = NetworkIndex_Y;
+	ZIndex = NetworkIndex_Z;
 }

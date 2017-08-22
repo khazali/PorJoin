@@ -1,8 +1,12 @@
 #include <iostream>
-#include "MIfstream.h"
-#include "Globals.h"
+
 #include "dirent.h"
+//#include "Globals.h"
 #include "PoreNetwork.h"
+//#include "MIfstream.h"
+
+
+
 
 void ReadInput(char *InfileName) {
 	MIfstream MainInput;
@@ -58,6 +62,7 @@ void ReadInput(char *InfileName) {
 							else Z_After = &Networks[(k + 1)*(MainNy*MainNx) + j*MainNx + i];
 
 							Networks[k*(MainNy*MainNx) + j*MainNx + i].SetNeighbours(X_Before, X_After, Y_Before, Y_After, Z_Before, Z_After);
+							Networks[k*(MainNy*MainNx) + j*MainNx + i].SetNetworkIndex(i, j, k);
 							break;
 						}
 					}

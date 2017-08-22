@@ -8,7 +8,7 @@ protected:
 	FloatType Z;				//Height coordinate
 	unsigned int Index;
 	bool IsConnectedToOutlet, IsConnectedToInlet;
-	bool IsVisited;	
+	bool IsVisited;
 	bool IsEnabled;
 	FloatType ClayVolume;
 	FloatType Volume;
@@ -16,6 +16,7 @@ protected:
 	int IOStat;					//Inlet=-1, Outlet=0, Normal=1;
 	FloatType ShapeFactor;
 	FloatType InscribedRadius;
+	unsigned int NetworkIndex_X, NetworkIndex_Y, NetworkIndex_Z;
 
 public:
 	void SetIndex(unsigned int);
@@ -31,5 +32,7 @@ public:
 	bool GetIsEnabled(void);
 	void SetIsEnabled(bool);
 	FloatType GetLength(void);
+	void SetNetworkIndex(unsigned int, unsigned int, unsigned int);
+	void GetNetworkIndex(unsigned int&, unsigned int&, unsigned int&);
 };
 #endif

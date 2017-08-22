@@ -19,7 +19,7 @@ void Pore::SetLength(FloatType InLength) {
 	Length=InLength;
 }
 
-unsigned int Pore::ReadNode1(MIfstream& InputFile, Pore *pores, Throat* throats, FloatType& MinX, FloatType& MinY, FloatType& MinZ){
+unsigned int Pore::ReadNode1(MIfstream& InputFile, Pore *pores, Throat* throats){
 	char str[MAX_STRING_LENGTH];
 	register int j;
 	register unsigned int i, Nulls;
@@ -29,15 +29,12 @@ unsigned int Pore::ReadNode1(MIfstream& InputFile, Pore *pores, Throat* throats,
 	if (!InputFile.ReadWord(str)) TerM("Incorrect node1 file format!");
 	if (!InputFile.ReadWord(str)) TerM("Incorrect node1 file format!");
 	X=atof(str);
-	if (X < MinX) MinX = X;
 
 	if (!InputFile.ReadWord(str)) TerM("Incorrect node1 file format!");
 	Y=atof(str);
-	if (Y < MinY) MinY = Y;
 
 	if (!InputFile.ReadWord(str)) TerM("Incorrect node1 file format!");
 	Z=atof(str);
-	if (Z < MinZ) MinZ = Z;
 
 	if (!InputFile.ReadWord(str)) TerM("Incorrect node1 file format!");
 	CoordinationNumber=atoi(str);

@@ -12,11 +12,14 @@ typedef double FloatType;
 
 
 enum ElementType {PORE, THROAT};
-
+class NetworkElement;
+class PoreNetwork;
+class MIfstream;
 class Pore;
 class Throat;
 class ElementList;
-class PoreNetwork;
+
+
 
 extern unsigned int MainNx, MainNy, MainNz;
 extern unsigned int TotalNetworks;

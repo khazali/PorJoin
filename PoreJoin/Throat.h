@@ -4,9 +4,10 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
+#include "MIfstream.h"
 #include "Globals.h"
 #include "NetworkElement.h"
-#include "MIfstream.h"
+
 
 class Throat: public NetworkElement {
 private:

@@ -52,3 +52,15 @@ bool NetworkElement::GetIsEnabled(void) {
 void NetworkElement::SetIsEnabled(bool EnableStat) {
 	IsEnabled = EnableStat;
 }
+
+void NetworkElement::SetNetworkIndex(unsigned int XIndex, unsigned int YIndex, unsigned int ZIndex) {
+	NetworkIndex_X = XIndex;
+	NetworkIndex_Y = YIndex;
+	NetworkIndex_Z = ZIndex;
+}
+
+void NetworkElement::GetNetworkIndex(unsigned int &XIndex, unsigned int &YIndex, unsigned int &ZIndex) {
+	XIndex = NetworkIndex_X;
+	YIndex = NetworkIndex_Y;
+	ZIndex = NetworkIndex_Z;
+}

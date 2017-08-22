@@ -22,7 +22,7 @@ public:
 	Pore();
 	~Pore();
 	void SetLength(FloatType);
-	unsigned int ReadNode1(MIfstream&, Pore *, Throat*, FloatType&, FloatType&, FloatType&);
+	unsigned int ReadNode1(MIfstream&, Pore *, Throat*);
 	void ReadNode2(MIfstream&);	
 	void SweepAdjacentThroats(FluidType);
 	unsigned int GetCoordinationNumber(void);
