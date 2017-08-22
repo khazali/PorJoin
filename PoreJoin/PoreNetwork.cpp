@@ -176,3 +176,10 @@ FloatType PoreNetwork::UpdatePoresLocation(FloatType X_Origin, FloatType Y_Origi
 
 	for (i = 0; i < PoreNO; i++) pores[i].UpdateLocation(X_Origin, Y_Origin, Z_Origin);
 }
+
+unsigned int PoreNetwork::GetPoreNO(void) {
+	return PoreNO;
+}
+unsigned int PoreNetwork::GetThroatNO(void) {
+	return ThroatNO;
+}

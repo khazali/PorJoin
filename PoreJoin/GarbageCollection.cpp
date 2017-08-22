@@ -14,4 +14,12 @@ void TerM(char *ErrorMessage) {
 
 void NormalFinish(void) {
 	delete[] Networks;
+	delete[] DXs;
+	delete[] DYs;
+	delete[] DZs;
+	delete[] SumDXs;
+	delete[] SumDYs;
+	delete[] SumDZs;
+	delete[] SumPoreNO;
+	delete[] SumThroatNO;
 }

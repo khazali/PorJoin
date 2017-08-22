@@ -30,7 +30,17 @@ void ReadInput(char *InfileName) {
 
 	TotalNetworks = MainNx*MainNy*MainNz + 1;
 	Networks = new PoreNetwork[TotalNetworks];
+	DXs = new unsigned int[MainNx];
+	DYs = new unsigned int[MainNy];
+	DZs = new unsigned int[MainNz];
+	SumDXs = new unsigned int[MainNx + 1];
+	SumDYs = new unsigned int[MainNy + 1];
+	SumDZs = new unsigned int[MainNz + 1];
+	SumPoreNO = new unsigned int[TotalNetworks + 1];
+	SumThroatNO = new unsigned int[TotalNetworks + 1];
 
+	SumPoreNO[0] = 0;
+	SumThroatNO[0] = 0;
 	for (k = 0; k < MainNz; k++) {
 		for (j = 0; j < MainNy; j++) {
 			for (i = 0; i < MainNx; i++) {
@@ -64,6 +74,9 @@ void ReadInput(char *InfileName) {
 
 							Networks[k*(MainNy*MainNx) + j*MainNx + i].SetNeighbours(X_Before, X_After, Y_Before, Y_After, Z_Before, Z_After);
 							Networks[k*(MainNy*MainNx) + j*MainNx + i].SetNetworkIndex(i, j, k);
+
+							SumPoreNO[k*(MainNy*MainNx) + j*MainNx + i + 1] = SumPoreNO[k*(MainNy*MainNx) + j*MainNx + i] + Networks[k*(MainNy*MainNx) + j*MainNx + i].GetPoreNO();
+							SumThroatNO[k*(MainNy*MainNx) + j*MainNx + i + 1] = SumThroatNO[k*(MainNy*MainNx) + j*MainNx + i] + Networks[k*(MainNy*MainNx) + j*MainNx + i].GetThroatNO();
 							break;
 						}
 					}
@@ -113,6 +126,20 @@ void ReadInput(char *InfileName) {
 		}
 	}
 
+	SumDXs[0] = 0;
+	SumDYs[0] = 0;
+	SumDZs[0] = 0;
 
-
+	for (i = 0; i < MainNx; i++) {
+		DXs[i] = Networks[i].GetXDim();
+		SumDXs[i + 1] = SumDXs[i] + DXs[i];
+	}
+	for (j = 0; j < MainNy; j++) {
+		DYs[j] = Networks[j*MainNx].GetYDim();
+		SumDYs[j + 1] = SumDYs[j] + DYs[j];
+	}
+	for (k = 0; k < MainNz; k++) {
+		DZs[k] = Networks[k*(MainNy*MainNx)].GetZDim();
+		SumDZs[k + 1] = SumDZs[k] + DZs[k];
+	}
 }

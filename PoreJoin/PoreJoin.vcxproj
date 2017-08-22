@@ -30,7 +30,7 @@
     <ClCompile Include="RecursiveSweepForConnection.cpp" />
     <ClCompile Include="PoreNetwork.cpp" />
     <ClCompile Include="Throat.cpp" />
-    <ClCompile Include="UpdateNetworks.cpp" />
+    <ClCompile Include="JoinNetworks.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dirent.h" />

@@ -24,8 +24,13 @@ class ElementList;
 extern unsigned int MainNx, MainNy, MainNz;
 extern unsigned int TotalNetworks;
 extern PoreNetwork *Networks;
+extern unsigned int *DXs, *DYs, *DZs;
+extern unsigned int *SumDXs, *SumDYs, *SumDZs;
+extern unsigned int *SumPoreNO, *SumThroatNO;
 
 void TerM(char *);
 void NormalFinish(void);
 void RecursiveSweepForConnection(FluidType);
+void UpdatePoresLocation(void);
+void ReadInput(char *);
 #endif

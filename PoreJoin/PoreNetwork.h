@@ -42,5 +42,7 @@ public:
 	FloatType GetYDim(void);
 	FloatType GetZDim(void);
 	FloatType UpdatePoresLocation(FloatType, FloatType, FloatType);
+	unsigned int GetPoreNO(void);
+	unsigned int GetThroatNO(void);
 };
 #endif
