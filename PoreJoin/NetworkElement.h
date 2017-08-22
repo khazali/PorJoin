@@ -4,8 +4,7 @@
 #include "Globals.h"
 
 class NetworkElement {
-protected:
-	FloatType Z;				//Height coordinate
+protected:	
 	unsigned int Index;
 	bool IsConnectedToOutlet, IsConnectedToInlet;
 	bool IsVisited;

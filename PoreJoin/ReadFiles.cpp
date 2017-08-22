@@ -16,6 +16,7 @@ void ReadInput(char *InfileName) {
 	struct dirent *ent;
 	unsigned int sLen;
 	PoreNetwork *X_Before, *X_After, *Y_Before, *Y_After, *Z_Before, *Z_After;
+	FloatType XDim, YDim, ZDim;
 	
 	MainInput.open(InfileName, std::fstream::in);
 	if (!MainInput.is_open()) TerM("Can not open first throat input file!");
@@ -73,4 +74,45 @@ void ReadInput(char *InfileName) {
 		}
 	}
 	MainInput.close();
+
+
+
+	for (k = 0; k < MainNz; k++) {
+		for (j = 0; j < MainNy; j++) {
+			YDim = Networks[k*(MainNy*MainNx) + j*MainNx].GetYDim();
+			ZDim = Networks[k*(MainNy*MainNx) + j*MainNx].GetZDim();
+			for (i = 1; i < MainNx; i++) {
+				if ((YDim != Networks[k*(MainNy*MainNx) + j*MainNx + i].GetYDim()) || (ZDim != Networks[k*(MainNy*MainNx) + j*MainNx + i].GetZDim())) {
+					TerM("Incompatible Dimensions in the main file!");
+				}
+			}
+		}
+	}
+
+	for (k = 0; k < MainNz; k++) {
+		for (i = 0; i < MainNx; i++) {
+			XDim = Networks[k*(MainNy*MainNx) + i].GetXDim();
+			ZDim = Networks[k*(MainNy*MainNx) + i].GetZDim();
+			for (j = 1; j < MainNy; j++) {
+				if ((XDim != Networks[k*(MainNy*MainNx) + j*MainNx + i].GetXDim()) || (ZDim != Networks[k*(MainNy*MainNx) + j*MainNx + i].GetZDim())) {
+					TerM("Incompatible Dimensions in the main file!");
+				}
+			}
+		}
+	}
+
+	for (j = 0; j < MainNy; j++) {
+		for (i = 0; i < MainNx; i++) {
+			XDim = Networks[j*MainNx + i].GetXDim();
+			YDim = Networks[j*MainNx + i].GetYDim();
+			for (k = 1; k < MainNz; k++) {
+				if ((XDim != Networks[k*(MainNy*MainNx) + j*MainNx + i].GetXDim()) || (YDim != Networks[k*(MainNy*MainNx) + j*MainNx + i].GetYDim())) {
+					TerM("Incompatible Dimensions in the main file!");
+				}
+			}
+		}
+	}
+
+
+
 }

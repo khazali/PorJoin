@@ -160,3 +160,19 @@ void PoreNetwork::GetNetworkIndex(unsigned int &XIndex, unsigned int &YIndex, un
 	YIndex = NetworkIndex_Y;
 	ZIndex = NetworkIndex_Z;
 }
+
+FloatType PoreNetwork::GetXDim(void) {
+	return Dx;
+}
+FloatType PoreNetwork::GetYDim(void) {
+	return Dy;
+}
+FloatType PoreNetwork::GetZDim(void) {
+	return Dz;
+}
+
+FloatType PoreNetwork::UpdatePoresLocation(FloatType X_Origin, FloatType Y_Origin, FloatType Z_Origin) {
+	register unsigned int i;
+
+	for (i = 0; i < PoreNO; i++) pores[i].UpdateLocation(X_Origin, Y_Origin, Z_Origin);
+}

@@ -13,7 +13,7 @@ Throat::Throat(void) {
 void Throat::ReadLink1(MIfstream& InputFile, Pore *pores, ElementList InletThroats, ElementList OutletThroats) {
 	char str[MAX_STRING_LENGTH];
 	register int i, j;
-	FloatType Z0, Z1;
+	
 
 	if (!InputFile.ReadWord(str)) TerM("Incorrect link1 file format!");
 	if (!InputFile.ReadWord(str)) TerM("Incorrect link1 file format!");
@@ -22,42 +22,34 @@ void Throat::ReadLink1(MIfstream& InputFile, Pore *pores, ElementList InletThroa
 		case -1:
 			//IOStat=-1;
 			ConnectingPores[0]=NULL;
-			Z0=0;
 			InletThroats.AddElement(Index);
 			break;
 		case 0:
 			//IOStat=0;
 			ConnectingPores[0]=NULL;
-			Z0=0;
 			OutletThroats.AddElement(Index);
 			break;
 		default:
 			//IOStat=1;
-			ConnectingPores[0]=&pores[i-1];
-			Z0=pores[i-1].GetZ();			
+			ConnectingPores[0]=&pores[i-1];			
 	}	
 	if (!InputFile.ReadWord(str)) TerM("Incorrect link1 file format!");
 	j=atoi(str);
 	switch (j) {
 		case -1:
 			//IOStat=-1;
-			ConnectingPores[1]=NULL;
-			Z1=0;
+			ConnectingPores[1]=NULL;			
 			InletThroats.AddElement(Index);
 			break;
 		case 0:
 			//IOStat=0;
-			ConnectingPores[1]=NULL;
-			Z1=0;
+			ConnectingPores[1]=NULL;			
 			OutletThroats.AddElement(Index);
 			break;
 		default:
 			//IOStat=1;
-			ConnectingPores[1]=&pores[j-1];
-			Z1=pores[j-1].GetZ();
-	}
-	if (Z0 && Z1) Z=(Z0+Z1)/2;
-	else Z=Z0+Z1;
+			ConnectingPores[1]=&pores[j-1];			
+	}	
 
 	if ((i==(-1)) || (j==(-1))) IOStat=-1;
 	else if ((i==0) || (j==0)) IOStat=0;

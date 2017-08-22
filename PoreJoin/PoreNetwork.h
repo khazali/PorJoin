@@ -38,5 +38,9 @@ public:
 	void SetNeighbours(PoreNetwork *, PoreNetwork *, PoreNetwork *, PoreNetwork *, PoreNetwork *, PoreNetwork *);
 	void SetNetworkIndex(unsigned int, unsigned int, unsigned int);
 	void GetNetworkIndex(unsigned int&, unsigned int&, unsigned int&);
+	FloatType GetXDim(void);
+	FloatType GetYDim(void);
+	FloatType GetZDim(void);
+	FloatType UpdatePoresLocation(FloatType, FloatType, FloatType);
 };
 #endif

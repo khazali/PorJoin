@@ -137,8 +137,8 @@ unsigned int Pore::NumberOfConnections(void) {
 	return j;
 }
 
-void Pore::CalibrateCoordinates(FloatType MinX, FloatType MinY, FloatType MinZ) {
-	X -= MinX;
-	Y -= MinY;
-	Z -= MinZ;
+void Pore::UpdateLocation(FloatType X_Origin, FloatType Y_Origin, FloatType Z_Origin) {
+	X += X_Origin;
+	Y += Y_Origin;
+	Z += Z_Origin;
 }

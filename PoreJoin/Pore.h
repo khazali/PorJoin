@@ -14,7 +14,7 @@ private:
 	unsigned int CoordinationNumber;
 	Pore** AdjacentPores;
 	Throat** ConnectingThroats;
-	FloatType X, Y;					//Pore location coordinates	
+	FloatType X, Y, Z;					//Pore location coordinates	
 	unsigned int MatrixPlace;
 	FloatType Pressure;
 	
@@ -29,6 +29,6 @@ public:
 	void SweepAdjacentThroatsForDeletion(ExitType);
 	bool IsConnectedThroatNull(unsigned int);	
 	unsigned int NumberOfConnections(void);	
-	void CalibrateCoordinates(FloatType, FloatType, FloatType);
+	void UpdateLocation(FloatType, FloatType, FloatType);
 };
 #endif
