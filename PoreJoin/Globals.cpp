@@ -7,3 +7,4 @@ unsigned int *SumDXs, *SumDYs, *SumDZs;
 unsigned int *SumPoreNO, *SumThroatNO;
 
 PoreNetwork *Networks;
+PoreNetwork GeneralNetwork;

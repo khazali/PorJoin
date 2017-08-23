@@ -158,3 +158,46 @@ void Pore::UpdatePoreIndexes(unsigned int PoreRef, unsigned int ThroatRef) {
 		ThroatIndexes[i] += ThroatRef;
 	}
 }
+
+void Pore::GetProperties(FloatType &XLocation, FloatType &YLocation, FloatType &ZLocation, unsigned int &CN, int &IOStatus, FloatType &PoreVolume, FloatType &PoreInscribedRadius, FloatType &PoreShapeFactor, FloatType &PoreClayVolume, FloatType &PoreLength) {
+	XLocation = X;
+	YLocation = Y;
+	ZLocation = Z;
+	CN = CoordinationNumber;
+	IOStatus = IOStat;
+	PoreVolume = Volume;
+	PoreInscribedRadius = InscribedRadius;
+	PoreShapeFactor = ShapeFactor;
+	PoreClayVolume = ClayVolume;
+	PoreLength = Length;
+}
+
+void Pore::SetProperties(FloatType XLocation, FloatType YLocation, FloatType ZLocation, unsigned int CN, int IOStatus, FloatType PoreVolume, FloatType PoreInscribedRadius, FloatType PoreShapeFactor, FloatType PoreClayVolume, FloatType PoreLength) {
+	X = XLocation;
+	Y = YLocation;
+	Z = ZLocation;
+	CoordinationNumber = CN;
+	IOStat = IOStatus;
+	Volume = PoreVolume;
+	InscribedRadius = PoreInscribedRadius;
+	ShapeFactor = PoreShapeFactor;
+	ClayVolume = PoreClayVolume;
+	Length = PoreLength;
+}
+
+void Pore::SetConnectingPoreAndThroats(int *PPores, int*PThroats) {
+	register int i;
+
+	for (i = 0; i < CoordinationNumber; i++) {
+		PoreIndexes[i] = PPores[i];
+		ThroatIndexes[i] = PThroats[i];
+	}
+}
+void Pore::GetConnectingPoreAndThroats(int *PPores, int*PThroats) {
+	register int i;
+
+	for (i = 0; i < CoordinationNumber; i++) {
+		PPores[i] = PoreIndexes[i];
+		PThroats[i] = ThroatIndexes[i];
+	}
+}

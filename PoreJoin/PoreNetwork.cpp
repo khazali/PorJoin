@@ -189,3 +189,55 @@ void PoreNetwork::UpdateElementIndex(unsigned int PorRef, unsigned int ThroatRef
 	for (i = 0; i < PoreNO; i++) pores[i].UpdatePoreIndexes(PorRef, ThroatRef);
 	for (i = 0; i < ThroatNO; i++) throats[i].UpdateThroatIndexes(PorRef, ThroatRef);
 }
+
+void PoreNetwork::GetPoreProperties(unsigned int Index, FloatType &X, FloatType &Y, FloatType &Z, unsigned int &CoordinationNumber, int &IOStat, FloatType &Volume, FloatType &InscribedRadius, FloatType &ShapeFactor, FloatType &ClayVolume, FloatType &Length) {
+	pores[Index].GetProperties(X, Y, Z, CoordinationNumber, IOStat, Volume, InscribedRadius, ShapeFactor, ClayVolume, Length);
+}
+
+void PoreNetwork::SetPoreProperties(unsigned int Index, FloatType X, FloatType Y, FloatType Z, unsigned int CoordinationNumber, int IOStat, FloatType Volume, FloatType InscribedRadius, FloatType ShapeFactor, FloatType ClayVolume, FloatType Length) {
+	pores[Index].SetProperties(X, Y, Z, CoordinationNumber, IOStat, Volume, InscribedRadius, ShapeFactor, ClayVolume, Length);
+}
+
+void PoreNetwork::SetPoreAndThroatsPointers(unsigned int Index, int *PPores, int *PThroats) {
+	pores[Index].SetConnectingPoreAndThroats(PPores, PThroats);
+}
+
+void PoreNetwork::GetPoreAndThroatsPointers(unsigned int Index, int *PPores, int *PThroats) {
+	pores[Index].GetConnectingPoreAndThroats(PPores, PThroats);
+}
+
+void PoreNetwork::GetThroatProperties(unsigned int Index, int &Pore1Index, int &Pore2Index, int &IOStat, FloatType &InscribedRadius, FloatType &ShapeFactor, FloatType &TotalLength, FloatType &Length, FloatType &Volume, FloatType &ClayVolume) {
+	throats[Index].GetProperties(Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume);
+}
+
+void PoreNetwork::SetThroatProperties(unsigned int Index, int Pore1Index, int Pore2Index, int IOStat, FloatType InscribedRadius, FloatType ShapeFactor, FloatType TotalLength, FloatType Length, FloatType Volume, FloatType ClayVolume) {
+	throats[Index].SetProperties(Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume);
+}
+
+void PoreNetwork::CopyFromOthers(PoreNetwork &Source) {
+	register unsigned int i;
+	FloatType X, Y, Z, Volume, InscribedRadius, ShapeFactor, ClayVolume, Length, TotalLength;
+	unsigned int CoordinationNumber, SourcePoreNO, SourceThroatNO;
+	int IOStat, Pore1Index, Pore2Index;
+	int *AdjacentPores, *ConnectingThroats;
+
+	SourcePoreNO = Source.GetPoreNO();
+	for (i = 0; i < SourcePoreNO; i++) {
+		Source.GetPoreProperties(i, X, Y, Z, CoordinationNumber, IOStat, Volume, InscribedRadius, ShapeFactor, ClayVolume, Length);
+		AdjacentPores = new int[CoordinationNumber];
+		ConnectingThroats = new int[CoordinationNumber];
+		Source.GetPoreAndThroatsPointers(i, AdjacentPores, ConnectingThroats);
+		SetPoreAndThroatsPointers(i, AdjacentPores, ConnectingThroats);
+		delete[] AdjacentPores;
+		delete[] ConnectingThroats;
+		AdjacentPores = NULL;
+		ConnectingThroats = NULL;
+		SetPoreProperties(i, X, Y, Z, CoordinationNumber, IOStat, Volume, InscribedRadius, ShapeFactor, ClayVolume, Length);		
+	}
+
+	SourceThroatNO = Source.GetThroatNO();
+	for (i = 0; i < SourceThroatNO; i++) {
+		Source.GetThroatProperties(i, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume);
+		SetThroatProperties(i, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume);
+	}
+}

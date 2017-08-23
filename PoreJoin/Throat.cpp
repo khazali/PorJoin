@@ -156,3 +156,27 @@ void Throat::UpdateThroatIndexes(unsigned int PoreRef, unsigned int ThroatRef) {
 	Pore1Index += PoreRef;
 	Pore2Index += PoreRef;	
 }
+
+void Throat::GetProperties(int &Pore1Pointer, int &Pore2Pointer, int &IOStatus, FloatType &ThroatInscribedRadius, FloatType &ThroatShapeFactor, FloatType &ThroatTotalLength, FloatType &ThroatLength, FloatType &ThroatVolume, FloatType &ThroatClayVolume) {
+	Pore1Pointer = Pore1Index;
+	Pore2Pointer = Pore2Index;
+	IOStatus = IOStat;
+	InscribedRadius = ThroatInscribedRadius;
+	ShapeFactor = ThroatShapeFactor;
+	ThroatTotalLength = TotalLength;
+	ThroatLength = Length;
+	ThroatVolume = Volume;
+	ThroatClayVolume = ClayVolume;
+}
+
+void Throat::SetProperties(int Pore1Pointer, int Pore2Pointer, int IOStatus, FloatType ThroatInscribedRadius, FloatType ThroatShapeFactor, FloatType ThroatTotalLength, FloatType ThroatLength, FloatType ThroatVolume, FloatType ThroatClayVolume) {
+	Pore1Index = Pore1Pointer;
+	Pore2Index = Pore2Pointer;
+	IOStat = IOStatus;
+	ThroatInscribedRadius = InscribedRadius;
+	ThroatShapeFactor = ShapeFactor;
+	TotalLength = ThroatTotalLength;
+	Length = ThroatLength;
+	Volume = ThroatVolume;
+	ClayVolume = ThroatClayVolume;
+}

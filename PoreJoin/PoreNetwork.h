@@ -45,5 +45,12 @@ public:
 	unsigned int GetPoreNO(void);
 	unsigned int GetThroatNO(void);
 	void UpdateElementIndex(unsigned int, unsigned int);
+	void CopyFromOthers(PoreNetwork &);
+	void GetPoreProperties(unsigned int, FloatType &, FloatType &, FloatType &, unsigned int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
+	void SetPoreProperties(unsigned int, FloatType, FloatType, FloatType, unsigned int, int, FloatType, FloatType, FloatType, FloatType, FloatType);
+	void SetPoreAndThroatsPointers(unsigned int, int *, int *);
+	void GetPoreAndThroatsPointers(unsigned int, int *, int *);
+	void GetThroatProperties(unsigned int, int &, int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
+	void SetThroatProperties(unsigned int, int, int, int, FloatType, FloatType, FloatType, FloatType, FloatType, FloatType);
 };
 #endif
