@@ -12,7 +12,9 @@ Pore::Pore(void) {
 
 Pore::~Pore(void) {
 	delete[] AdjacentPores;	
-	delete[] ConnectingThroats;		
+	delete[] ConnectingThroats;
+	delete[] PoreIndexes;
+	delete[] ThroatIndexes;
 }
 
 void Pore::SetLength(FloatType InLength) {
@@ -41,10 +43,13 @@ unsigned int Pore::ReadNode1(MIfstream& InputFile, Pore *pores, Throat* throats)
 
 	AdjacentPores=new Pore* [CoordinationNumber];
 	ConnectingThroats=new Throat* [CoordinationNumber];
+	PoreIndexes = new int[CoordinationNumber];
+	ThroatIndexes = new int[CoordinationNumber];
 
 	for (i=0; i<CoordinationNumber; i++) {
 		if (!InputFile.ReadWord(str)) TerM("Incorrect node1 file format!");
 		j=atoi(str);
+		PoreIndexes[i] = j;
 		if (j>0) AdjacentPores[i]=&pores[j-1];
 		else {
 			AdjacentPores[i]=NULL;
@@ -63,6 +68,7 @@ unsigned int Pore::ReadNode1(MIfstream& InputFile, Pore *pores, Throat* throats)
 	for (i=0; i<CoordinationNumber; i++) {
 		if (!InputFile.ReadWord(str)) TerM("Incorrect node1 file format!");
 		j=atoi(str);
+		ThroatIndexes[i] = j;
 		if (j>0) ConnectingThroats[i]=&throats[j-1];
 		else ConnectingThroats[i]=NULL;		
 	}
@@ -141,4 +147,14 @@ void Pore::UpdateLocation(FloatType X_Origin, FloatType Y_Origin, FloatType Z_Or
 	X += X_Origin;
 	Y += Y_Origin;
 	Z += Z_Origin;
+}
+
+void Pore::UpdatePoreIndexes(unsigned int PoreRef, unsigned int ThroatRef) {
+	register unsigned int i;
+
+	Index += PoreRef;
+	for (i = 0; i < CoordinationNumber; i++) {
+		PoreIndexes[i] += PoreRef;
+		ThroatIndexes[i] += ThroatRef;
+	}
 }

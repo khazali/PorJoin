@@ -44,5 +44,6 @@ public:
 	FloatType UpdatePoresLocation(FloatType, FloatType, FloatType);
 	unsigned int GetPoreNO(void);
 	unsigned int GetThroatNO(void);
+	void UpdateElementIndex(unsigned int, unsigned int);
 };
 #endif

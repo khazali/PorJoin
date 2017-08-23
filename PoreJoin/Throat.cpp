@@ -22,33 +22,39 @@ void Throat::ReadLink1(MIfstream& InputFile, Pore *pores, ElementList InletThroa
 		case -1:
 			//IOStat=-1;
 			ConnectingPores[0]=NULL;
+			Pore1Index = -1;
 			InletThroats.AddElement(Index);
 			break;
 		case 0:
 			//IOStat=0;
 			ConnectingPores[0]=NULL;
+			Pore1Index = 0;
 			OutletThroats.AddElement(Index);
 			break;
 		default:
 			//IOStat=1;
-			ConnectingPores[0]=&pores[i-1];			
+			ConnectingPores[0]=&pores[i-1];
+			Pore1Index = i;
 	}	
 	if (!InputFile.ReadWord(str)) TerM("Incorrect link1 file format!");
 	j=atoi(str);
 	switch (j) {
 		case -1:
 			//IOStat=-1;
-			ConnectingPores[1]=NULL;			
+			ConnectingPores[1]=NULL;
+			Pore2Index = -1;
 			InletThroats.AddElement(Index);
 			break;
 		case 0:
 			//IOStat=0;
-			ConnectingPores[1]=NULL;			
+			ConnectingPores[1]=NULL;
+			Pore2Index = 0;
 			OutletThroats.AddElement(Index);
 			break;
 		default:
 			//IOStat=1;
-			ConnectingPores[1]=&pores[j-1];			
+			ConnectingPores[1]=&pores[j-1];
+			Pore2Index = j;
 	}	
 
 	if ((i==(-1)) || (j==(-1))) IOStat=-1;
@@ -135,4 +141,18 @@ void Throat::SweepAdjacentPoresForDeletion(ExitType mExit) {
 
 int Throat::GetIOStat(void) {
 	return IOStat;
+}
+
+int Throat::GetPore1Index(void) {
+	return Pore1Index;
+}
+
+int Throat::GetPore2Index(void) {
+	return Pore2Index;
+}
+
+void Throat::UpdateThroatIndexes(unsigned int PoreRef, unsigned int ThroatRef) {
+	Index += ThroatRef;
+	Pore1Index += PoreRef;
+	Pore2Index += PoreRef;	
 }

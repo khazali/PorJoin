@@ -183,3 +183,9 @@ unsigned int PoreNetwork::GetPoreNO(void) {
 unsigned int PoreNetwork::GetThroatNO(void) {
 	return ThroatNO;
 }
+void PoreNetwork::UpdateElementIndex(unsigned int PorRef, unsigned int ThroatRef) {
+	register unsigned int i;
+
+	for (i = 0; i < PoreNO; i++) pores[i].UpdatePoreIndexes(PorRef, ThroatRef);
+	for (i = 0; i < ThroatNO; i++) throats[i].UpdateThroatIndexes(PorRef, ThroatRef);
+}

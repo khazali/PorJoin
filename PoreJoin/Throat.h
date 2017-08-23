@@ -15,6 +15,7 @@ private:
 	FloatType TotalLength;		//Throat Total Length (pore center to pore center)
 	FloatType WaterConductancePerLength, OilConductancePerLength, TotalConductancePerLength;
 	FloatType OilVelocity, WaterVelocity;
+	int Pore1Index, Pore2Index;
 
 public:
 	Throat();
@@ -24,6 +25,9 @@ public:
 	FloatType GetTotalLength(void);
 	void SweepAdjacentPoresForDeletion(ExitType);
 	int GetIOStat(void);
+	int GetPore1Index(void);
+	int GetPore2Index(void);
+	void UpdateThroatIndexes(unsigned int, unsigned int);
 };
 
 #endif

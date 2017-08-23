@@ -17,6 +17,8 @@ private:
 	FloatType X, Y, Z;					//Pore location coordinates	
 	unsigned int MatrixPlace;
 	FloatType Pressure;
+
+	int *PoreIndexes, *ThroatIndexes;
 	
 public:
 	Pore();
@@ -30,5 +32,6 @@ public:
 	bool IsConnectedThroatNull(unsigned int);	
 	unsigned int NumberOfConnections(void);	
 	void UpdateLocation(FloatType, FloatType, FloatType);
+	void UpdatePoreIndexes(unsigned int, unsigned int);
 };
 #endif
