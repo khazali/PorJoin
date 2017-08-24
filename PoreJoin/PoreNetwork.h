@@ -46,11 +46,11 @@ public:
 	unsigned int GetThroatNO(void);
 	void UpdateElementIndex(unsigned int, unsigned int);
 	void CopyFromOthers(PoreNetwork &);
-	void GetPoreProperties(unsigned int, FloatType &, FloatType &, FloatType &, unsigned int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
-	void SetPoreProperties(unsigned int, FloatType, FloatType, FloatType, unsigned int, int, FloatType, FloatType, FloatType, FloatType, FloatType);
+	void GetPoreProperties(unsigned int, unsigned int&, FloatType &, FloatType &, FloatType &, unsigned int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
+	void SetPoreProperties(unsigned int, unsigned int, FloatType, FloatType, FloatType, unsigned int, int, FloatType, FloatType, FloatType, FloatType, FloatType);
 	void SetPoreAndThroatsPointers(unsigned int, int *, int *);
 	void GetPoreAndThroatsPointers(unsigned int, int *, int *);
-	void GetThroatProperties(unsigned int, int &, int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
-	void SetThroatProperties(unsigned int, int, int, int, FloatType, FloatType, FloatType, FloatType, FloatType, FloatType);
+	void GetThroatProperties(unsigned int, unsigned int&, int &, int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
+	void SetThroatProperties(unsigned int, unsigned int, int, int, int, FloatType, FloatType, FloatType, FloatType, FloatType, FloatType);
 };
 #endif

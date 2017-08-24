@@ -26,15 +26,13 @@ public:
 	void SetLength(FloatType);
 	unsigned int ReadNode1(MIfstream&, Pore *, Throat*);
 	void ReadNode2(MIfstream&);	
-	void SweepAdjacentThroats(FluidType);
 	unsigned int GetCoordinationNumber(void);
-	void SweepAdjacentThroatsForDeletion(ExitType);
 	bool IsConnectedThroatNull(unsigned int);	
 	unsigned int NumberOfConnections(void);	
 	void UpdateLocation(FloatType, FloatType, FloatType);
 	void UpdatePoreIndexes(unsigned int, unsigned int);
-	void SetProperties(FloatType, FloatType, FloatType, unsigned int, int, FloatType, FloatType, FloatType, FloatType, FloatType);
-	void GetProperties(FloatType &, FloatType &, FloatType &, unsigned int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
+	void SetProperties(unsigned int, FloatType, FloatType, FloatType, unsigned int, int, FloatType, FloatType, FloatType, FloatType, FloatType);
+	void GetProperties(unsigned int&, FloatType &, FloatType &, FloatType &, unsigned int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
 	void SetConnectingPoreAndThroats(int *, int *);
 	void GetConnectingPoreAndThroats(int *, int *);
 };

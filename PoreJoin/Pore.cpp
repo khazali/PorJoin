@@ -92,41 +92,6 @@ void Pore::ReadNode2(MIfstream& InputFile){
 	ClayVolume=atof(str);
 }
 
-void Pore::SweepAdjacentThroats(FluidType Fluid) {
-	register unsigned int i;
-	for (i=0; i<CoordinationNumber; i++) {
-		if ((ConnectingThroats[i]!=NULL) && (!ConnectingThroats[i]->GetIsVisited()) && (((Fluid==OIL) || (ConnectingThroats[i]->GetIsOilFilled())) || ((Fluid==WATER) || (ConnectingThroats[i]->GetWaterCoatingExist()))) && (ConnectingThroats[i]->GetIsEnabled())) {
-			ConnectingThroats[i]->SetIsVisited(true);
-			ConnectingThroats[i]->SetIsConnectedToOutlet(Fluid, true);
-			ConnectingThroats[i]->SweepAdjacentPores(Fluid);
-		}
-	}
-}
-
-void Pore::SweepAdjacentThroatsForDeletion(ExitType mExit) {
-	register unsigned int i;
-
-	if (mExit == OUTLET) {
-		for (i = 0; i < CoordinationNumber; i++) {
-			if ((ConnectingThroats[i] != NULL) && (!ConnectingThroats[i]->GetIsVisited())) {
-				ConnectingThroats[i]->SetIsVisited(true);
-				ConnectingThroats[i]->SetIsConnectedToOutlet(WATER, true);
-				ConnectingThroats[i]->SweepAdjacentPoresForDeletion(OUTLET);
-			}
-		}
-	}
-	else {
-		for (i = 0; i < CoordinationNumber; i++) {
-			if ((ConnectingThroats[i] != NULL) && (!ConnectingThroats[i]->GetIsVisited())) {
-				ConnectingThroats[i]->SetIsVisited(true);
-				ConnectingThroats[i]->SetIsConnectedToInlet(true);
-				ConnectingThroats[i]->SweepAdjacentPoresForDeletion(INLET);
-			}
-		}
-	}
-	
-}
-
 unsigned int Pore::GetCoordinationNumber(void) {
 	return CoordinationNumber;
 }
@@ -154,12 +119,16 @@ void Pore::UpdatePoreIndexes(unsigned int PoreRef, unsigned int ThroatRef) {
 
 	Index += PoreRef;
 	for (i = 0; i < CoordinationNumber; i++) {
-		PoreIndexes[i] += PoreRef;
+		if (PoreIndexes[i]) PoreIndexes[i] += PoreRef;
+		else {
+			if ()
+			CoordinationNumber--;
+		}
 		ThroatIndexes[i] += ThroatRef;
 	}
 }
 
-void Pore::GetProperties(FloatType &XLocation, FloatType &YLocation, FloatType &ZLocation, unsigned int &CN, int &IOStatus, FloatType &PoreVolume, FloatType &PoreInscribedRadius, FloatType &PoreShapeFactor, FloatType &PoreClayVolume, FloatType &PoreLength) {
+void Pore::GetProperties(unsigned int &PIndex, FloatType &XLocation, FloatType &YLocation, FloatType &ZLocation, unsigned int &CN, int &IOStatus, FloatType &PoreVolume, FloatType &PoreInscribedRadius, FloatType &PoreShapeFactor, FloatType &PoreClayVolume, FloatType &PoreLength) {
 	XLocation = X;
 	YLocation = Y;
 	ZLocation = Z;
@@ -170,9 +139,10 @@ void Pore::GetProperties(FloatType &XLocation, FloatType &YLocation, FloatType &
 	PoreShapeFactor = ShapeFactor;
 	PoreClayVolume = ClayVolume;
 	PoreLength = Length;
+	PIndex = Index;
 }
 
-void Pore::SetProperties(FloatType XLocation, FloatType YLocation, FloatType ZLocation, unsigned int CN, int IOStatus, FloatType PoreVolume, FloatType PoreInscribedRadius, FloatType PoreShapeFactor, FloatType PoreClayVolume, FloatType PoreLength) {
+void Pore::SetProperties(unsigned int PIndex, FloatType XLocation, FloatType YLocation, FloatType ZLocation, unsigned int CN, int IOStatus, FloatType PoreVolume, FloatType PoreInscribedRadius, FloatType PoreShapeFactor, FloatType PoreClayVolume, FloatType PoreLength) {
 	X = XLocation;
 	Y = YLocation;
 	Z = ZLocation;
@@ -183,10 +153,14 @@ void Pore::SetProperties(FloatType XLocation, FloatType YLocation, FloatType ZLo
 	ShapeFactor = PoreShapeFactor;
 	ClayVolume = PoreClayVolume;
 	Length = PoreLength;
+	Index = PIndex;
 }
 
 void Pore::SetConnectingPoreAndThroats(int *PPores, int*PThroats) {
 	register int i;
+
+	PoreIndexes = new int[CoordinationNumber];
+	ThroatIndexes = new int[CoordinationNumber];
 
 	for (i = 0; i < CoordinationNumber; i++) {
 		PoreIndexes[i] = PPores[i];

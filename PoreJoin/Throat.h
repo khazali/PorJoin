@@ -21,15 +21,13 @@ public:
 	Throat();
 	void ReadLink1(MIfstream&, Pore *, ElementList, ElementList);
 	void ReadLink2(MIfstream&);
-	void SweepAdjacentPores(FluidType);
 	FloatType GetTotalLength(void);
-	void SweepAdjacentPoresForDeletion(ExitType);
 	int GetIOStat(void);
 	int GetPore1Index(void);
 	int GetPore2Index(void);
 	void UpdateThroatIndexes(unsigned int, unsigned int);
-	void GetProperties(int &, int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
-	void SetProperties(int, int, int, FloatType, FloatType, FloatType, FloatType, FloatType, FloatType);
+	void GetProperties(unsigned int &, int &, int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
+	void SetProperties(unsigned int, int, int, int, FloatType, FloatType, FloatType, FloatType, FloatType, FloatType);
 };
 
 #endif

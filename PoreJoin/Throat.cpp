@@ -94,49 +94,8 @@ void Throat::ReadLink2(MIfstream& InputFile) {
 	ClayVolume=atof(str);
 }
 
-void Throat::SweepAdjacentPores(FluidType Fluid) {
-	if ((ConnectingPores[0]!=NULL) && (!ConnectingPores[0]->GetIsVisited()) && (((Fluid==OIL) && (ConnectingPores[0]->GetIsOilFilled())) || ((Fluid==WATER) && (ConnectingPores[0]->GetWaterCoatingExist()))) && (ConnectingPores[0]->GetIsEnabled())) {
-		ConnectingPores[0]->SetIsVisited(true);
-		ConnectingPores[0]->SetIsConnectedToOutlet(Fluid, true);
-		ConnectingPores[0]->SweepAdjacentThroats(Fluid);
-	}
-	if ((ConnectingPores[1]!=NULL) && (!ConnectingPores[1]->GetIsVisited()) && (((Fluid==OIL) && (ConnectingPores[1]->GetIsOilFilled())) || ((Fluid==WATER) && (ConnectingPores[1]->GetWaterCoatingExist()))) && (ConnectingPores[1]->GetIsEnabled())) {
-		ConnectingPores[1]->SetIsVisited(true);
-		ConnectingPores[1]->SetIsConnectedToOutlet(Fluid, true);
-		ConnectingPores[1]->SweepAdjacentThroats(Fluid);
-	}	
-}
-
 FloatType Throat::GetTotalLength(void){
 	return TotalLength;
-}
-
-void Throat::SweepAdjacentPoresForDeletion(ExitType mExit) {
-	if (mExit == OUTLET) {
-		if ((ConnectingPores[0] != NULL) && (!ConnectingPores[0]->GetIsVisited())) {
-			ConnectingPores[0]->SetIsVisited(true);
-			ConnectingPores[0]->SetIsConnectedToOutlet(WATER, true);
-			ConnectingPores[0]->SweepAdjacentThroatsForDeletion(OUTLET);
-		}
-		if ((ConnectingPores[1] != NULL) && (!ConnectingPores[1]->GetIsVisited())) {
-			ConnectingPores[1]->SetIsVisited(true);
-			ConnectingPores[1]->SetIsConnectedToOutlet(WATER, true);
-			ConnectingPores[1]->SweepAdjacentThroatsForDeletion(OUTLET);
-		}
-	}
-	else {
-		if ((ConnectingPores[0] != NULL) && (!ConnectingPores[0]->GetIsVisited())) {
-			ConnectingPores[0]->SetIsVisited(true);
-			ConnectingPores[0]->SetIsConnectedToInlet(true);
-			ConnectingPores[0]->SweepAdjacentThroatsForDeletion(INLET);
-		}
-		if ((ConnectingPores[1] != NULL) && (!ConnectingPores[1]->GetIsVisited())) {
-			ConnectingPores[1]->SetIsVisited(true);
-			ConnectingPores[1]->SetIsConnectedToInlet(true);
-			ConnectingPores[1]->SweepAdjacentThroatsForDeletion(INLET);
-		}
-	}
-	
 }
 
 int Throat::GetIOStat(void) {
@@ -157,7 +116,7 @@ void Throat::UpdateThroatIndexes(unsigned int PoreRef, unsigned int ThroatRef) {
 	Pore2Index += PoreRef;	
 }
 
-void Throat::GetProperties(int &Pore1Pointer, int &Pore2Pointer, int &IOStatus, FloatType &ThroatInscribedRadius, FloatType &ThroatShapeFactor, FloatType &ThroatTotalLength, FloatType &ThroatLength, FloatType &ThroatVolume, FloatType &ThroatClayVolume) {
+void Throat::GetProperties(unsigned int &ThroatIndex, int &Pore1Pointer, int &Pore2Pointer, int &IOStatus, FloatType &ThroatInscribedRadius, FloatType &ThroatShapeFactor, FloatType &ThroatTotalLength, FloatType &ThroatLength, FloatType &ThroatVolume, FloatType &ThroatClayVolume) {
 	Pore1Pointer = Pore1Index;
 	Pore2Pointer = Pore2Index;
 	IOStatus = IOStat;
@@ -167,9 +126,10 @@ void Throat::GetProperties(int &Pore1Pointer, int &Pore2Pointer, int &IOStatus, 
 	ThroatLength = Length;
 	ThroatVolume = Volume;
 	ThroatClayVolume = ClayVolume;
+	ThroatIndex = Index;
 }
 
-void Throat::SetProperties(int Pore1Pointer, int Pore2Pointer, int IOStatus, FloatType ThroatInscribedRadius, FloatType ThroatShapeFactor, FloatType ThroatTotalLength, FloatType ThroatLength, FloatType ThroatVolume, FloatType ThroatClayVolume) {
+void Throat::SetProperties(unsigned int ThroatIndex, int Pore1Pointer, int Pore2Pointer, int IOStatus, FloatType ThroatInscribedRadius, FloatType ThroatShapeFactor, FloatType ThroatTotalLength, FloatType ThroatLength, FloatType ThroatVolume, FloatType ThroatClayVolume) {
 	Pore1Index = Pore1Pointer;
 	Pore2Index = Pore2Pointer;
 	IOStat = IOStatus;
@@ -179,4 +139,5 @@ void Throat::SetProperties(int Pore1Pointer, int Pore2Pointer, int IOStatus, Flo
 	Length = ThroatLength;
 	Volume = ThroatVolume;
 	ClayVolume = ThroatClayVolume;
+	Index = ThroatIndex;
 }
