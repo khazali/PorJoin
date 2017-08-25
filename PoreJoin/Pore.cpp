@@ -115,14 +115,14 @@ void Pore::UpdateLocation(FloatType X_Origin, FloatType Y_Origin, FloatType Z_Or
 }
 
 void Pore::UpdatePoreIndexes(unsigned int PoreRef, unsigned int ThroatRef) {
-	register unsigned int i;
+	register unsigned int i, Terminations;
 
+	Terminations = 0;
 	Index += PoreRef;
-	for (i = 0; i < CoordinationNumber; i++) {
-		if (PoreIndexes[i]) PoreIndexes[i] += PoreRef;
+	for (i = 0; (i+Terminations) < CoordinationNumber; i++) {
+		if (PoreIndexes[i+Terminations]) PoreIndexes[i-Terminations] += PoreRef;
 		else {
-			if ()
-			CoordinationNumber--;
+			if (IOStat == 1) Terminations++;
 		}
 		ThroatIndexes[i] += ThroatRef;
 	}
