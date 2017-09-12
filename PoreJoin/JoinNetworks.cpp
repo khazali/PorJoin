@@ -27,4 +27,5 @@ void UpdateIndexes(void) {
 
 void MergeNetworks(void) {
 	GeneralNetwork.CopyFromOthers();
+	GeneralNetwork.RemoveDeadEnds();
 }

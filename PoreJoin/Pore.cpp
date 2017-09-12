@@ -115,15 +115,11 @@ void Pore::UpdateLocation(FloatType X_Origin, FloatType Y_Origin, FloatType Z_Or
 }
 
 void Pore::UpdatePoreIndexes(unsigned int PoreRef, unsigned int ThroatRef) {
-	register unsigned int i, Terminations;
+	register unsigned int i;
 
-	Terminations = 0;
 	Index += PoreRef;
-	for (i = 0; (i+Terminations) < CoordinationNumber; i++) {
-		if (PoreIndexes[i+Terminations]) PoreIndexes[i-Terminations] += PoreRef;
-		else {
-			if (IOStat == 1) Terminations++;
-		}
+	for (i = 0; i < CoordinationNumber; i++) {
+		PoreIndexes[i] += PoreRef;
 		ThroatIndexes[i] += ThroatRef;
 	}
 }
@@ -142,7 +138,7 @@ void Pore::GetProperties(unsigned int &PIndex, FloatType &XLocation, FloatType &
 	PIndex = Index;
 }
 
-void Pore::SetProperties(unsigned int PIndex, FloatType XLocation, FloatType YLocation, FloatType ZLocation, unsigned int CN, int IOStatus, FloatType PoreVolume, FloatType PoreInscribedRadius, FloatType PoreShapeFactor, FloatType PoreClayVolume, FloatType PoreLength) {
+void Pore::SetProperties(unsigned int PIndex, FloatType XLocation, FloatType YLocation, FloatType ZLocation, unsigned int CN, int IOStatus, FloatType PoreVolume, FloatType PoreInscribedRadius, FloatType PoreShapeFactor, FloatType PoreClayVolume, FloatType PoreLength, bool DeadEndCondition) {
 	X = XLocation;
 	Y = YLocation;
 	Z = ZLocation;
@@ -154,9 +150,10 @@ void Pore::SetProperties(unsigned int PIndex, FloatType XLocation, FloatType YLo
 	ClayVolume = PoreClayVolume;
 	Length = PoreLength;
 	Index = PIndex;
+	HasDeadEnds = DeadEndCondition;
 }
 
-void Pore::SetConnectingPoreAndThroats(int *PPores, int*PThroats) {
+void Pore::SetConnectingPoreAndThroats(int *PPores, int *PThroats) {
 	register int i;
 
 	PoreIndexes = new int[CoordinationNumber];
@@ -167,7 +164,7 @@ void Pore::SetConnectingPoreAndThroats(int *PPores, int*PThroats) {
 		ThroatIndexes[i] = PThroats[i];
 	}
 }
-void Pore::GetConnectingPoreAndThroats(int *PPores, int*PThroats) {
+void Pore::GetConnectingPoreAndThroats(int *PPores, int *PThroats) {
 	register int i;
 
 	for (i = 0; i < CoordinationNumber; i++) {

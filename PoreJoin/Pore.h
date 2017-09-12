@@ -31,7 +31,7 @@ public:
 	unsigned int NumberOfConnections(void);	
 	void UpdateLocation(FloatType, FloatType, FloatType);
 	void UpdatePoreIndexes(unsigned int, unsigned int);
-	void SetProperties(unsigned int, FloatType, FloatType, FloatType, unsigned int, int, FloatType, FloatType, FloatType, FloatType, FloatType);
+	void SetProperties(unsigned int, FloatType, FloatType, FloatType, unsigned int, int, FloatType, FloatType, FloatType, FloatType, FloatType, bool);
 	void GetProperties(unsigned int&, FloatType &, FloatType &, FloatType &, unsigned int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
 	void SetConnectingPoreAndThroats(int *, int *);
 	void GetConnectingPoreAndThroats(int *, int *);

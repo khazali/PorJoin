@@ -64,3 +64,10 @@ void NetworkElement::GetNetworkIndex(unsigned int &XIndex, unsigned int &YIndex,
 	YIndex = NetworkIndex_Y;
 	ZIndex = NetworkIndex_Z;
 }
+
+void NetworkElement::SetDeadEnds(bool DeadEndCondition) {
+	HasDeadEnds = DeadEndCondition;
+}
+bool NetworkElement::GetDeadEnds(void) {
+	return HasDeadEnds;
+}

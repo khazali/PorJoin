@@ -21,6 +21,7 @@ private:
 	ElementList OutletThroats, InletThroats;
 	unsigned int *PorePointer, *ThroatPointer;
 	
+	
 	//FloatType MinX, MinY, MinZ;
 
 	PoreNetwork *X_Before;
@@ -47,10 +48,11 @@ public:
 	void UpdateElementIndex(unsigned int, unsigned int);
 	void CopyFromOthers(PoreNetwork &);
 	void GetPoreProperties(unsigned int, unsigned int&, FloatType &, FloatType &, FloatType &, unsigned int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
-	void SetPoreProperties(unsigned int, unsigned int, FloatType, FloatType, FloatType, unsigned int, int, FloatType, FloatType, FloatType, FloatType, FloatType);
+	void SetPoreProperties(unsigned int, unsigned int, FloatType, FloatType, FloatType, unsigned int, int, FloatType, FloatType, FloatType, FloatType, FloatType, bool);
 	void SetPoreAndThroatsPointers(unsigned int, int *, int *);
 	void GetPoreAndThroatsPointers(unsigned int, int *, int *);
 	void GetThroatProperties(unsigned int, unsigned int&, int &, int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
-	void SetThroatProperties(unsigned int, unsigned int, int, int, int, FloatType, FloatType, FloatType, FloatType, FloatType, FloatType);
+	void SetThroatProperties(unsigned int, unsigned int, int, int, int, FloatType, FloatType, FloatType, FloatType, FloatType, FloatType, bool);
+	void RemoveDeadEnds(void);
 };
 #endif
