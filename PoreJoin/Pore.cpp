@@ -165,10 +165,15 @@ void Pore::SetConnectingPoreAndThroats(int *PPores, int *PThroats) {
 	}
 }
 void Pore::GetConnectingPoreAndThroats(int *PPores, int *PThroats) {
-	register int i;
+	register unsigned int i;
 
 	for (i = 0; i < CoordinationNumber; i++) {
 		PPores[i] = PoreIndexes[i];
 		PThroats[i] = ThroatIndexes[i];
 	}
+}
+
+void Pore::GetNumberedConnectingPoreAndThroats(unsigned int ConnectionIndex, int &PPores, int &PThroats) {
+	PPores = PoreIndexes[ConnectionIndex];
+	PThroats = ThroatIndexes[ConnectionIndex];
 }

@@ -259,11 +259,21 @@ void PoreNetwork::CopyFromOthers(PoreNetwork &Source) {
 }
 
 void PoreNetwork::RemoveDeadEnds(void) {
-	register unsigned int i;
+	register unsigned int i, j;
+	unsigned int CoNumber, Nulls;
+	int P2Pore, P2Throat;
 
 	for (i = 0; i < PoreNO; i++) {
 		if (pores[i].GetDeadEnds()) {
-
+			CoNumber = pores[i].GetCoordinationNumber();
+			Nulls = 0;
+			for (j = 0; j < CoNumber; j++) {
+				pores[i].GetNumberedConnectingPoreAndThroats(j, P2Pore, P2Throat);
+				if (P2Pore < 1) {
+					Nulls++;
+					deleteporeindex(P2Throat)
+				}
+			}
 		}
 	}
 }

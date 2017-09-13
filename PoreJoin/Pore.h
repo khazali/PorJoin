@@ -35,5 +35,6 @@ public:
 	void GetProperties(unsigned int&, FloatType &, FloatType &, FloatType &, unsigned int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
 	void SetConnectingPoreAndThroats(int *, int *);
 	void GetConnectingPoreAndThroats(int *, int *);
+	void GetNumberedConnectingPoreAndThroats(unsigned int, int &, int &);
 };
 #endif
