@@ -271,7 +271,7 @@ void PoreNetwork::RemoveDeadEnds(void) {
 				pores[i].GetNumberedConnectingPoreAndThroats(j, P2Pore, P2Throat);
 				if (P2Pore < 1) {
 					Nulls++;
-					deleteporeindex(P2Throat)
+					deletethroatindex(P2Throat)
 				}
 			}
 		}
