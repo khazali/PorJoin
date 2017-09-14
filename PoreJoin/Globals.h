@@ -29,10 +29,11 @@ extern unsigned int *SumDXs, *SumDYs, *SumDZs;
 extern unsigned int *SumPoreNO, *SumThroatNO;
 extern PoreNetwork GeneralNetwork;
 extern unsigned int MaxThroatNO;
+extern FloatType ***StatMatrix;
+extern FloatType TotalSD, TotalAve;
 
 void TerM(char *);
 void NormalFinish(void);
-void RecursiveSweepForConnection(FluidType);
 void UpdatePoresLocation(void);
 void ReadInput(char *);
 #endif

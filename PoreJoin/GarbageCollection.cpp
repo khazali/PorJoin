@@ -13,6 +13,8 @@ void TerM(char *ErrorMessage) {
 }
 
 void NormalFinish(void) {
+	register unsigned int i, j;
+
 	delete[] Networks;
 	delete[] DXs;
 	delete[] DYs;
@@ -22,4 +24,10 @@ void NormalFinish(void) {
 	delete[] SumDZs;
 	delete[] SumPoreNO;
 	delete[] SumThroatNO;
+
+	for (i = 0; i < TotalNetworks; ++i) {		
+		for (j = 0; j < TotalNetworks; j++) delete[] StatMatrix[i][j];
+		delete[] StatMatrix[i];
+	}
+	delete[] StatMatrix;
 }

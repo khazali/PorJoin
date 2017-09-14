@@ -29,6 +29,15 @@ void ReadInput(char *InfileName) {
 	MainNz = atoi(str);
 
 	TotalNetworks = MainNx*MainNy*MainNz;
+	StatMatrix = new FloatType **[TotalNetworks];
+	for (i = 0; i < TotalNetworks; ++i) {
+		StatMatrix[i] = new FloatType *[TotalNetworks];
+		for (j = 0; j < TotalNetworks; j++) {
+			StatMatrix[i][j] = new FloatType[2];
+			for (k = 0; k < 2; k++) StatMatrix[i][j][k] = 0;
+		}
+	}
+
 	Networks = new PoreNetwork[TotalNetworks];
 	DXs = new unsigned int[MainNx];
 	DYs = new unsigned int[MainNy];
