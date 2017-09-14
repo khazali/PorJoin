@@ -28,7 +28,7 @@ void ReadInput(char *InfileName) {
 	if (!MainInput.ReadWord(str)) TerM("Incorrect main file format!");
 	MainNz = atoi(str);
 
-	TotalNetworks = MainNx*MainNy*MainNz + 1;
+	TotalNetworks = MainNx*MainNy*MainNz;
 	Networks = new PoreNetwork[TotalNetworks];
 	DXs = new unsigned int[MainNx];
 	DYs = new unsigned int[MainNy];

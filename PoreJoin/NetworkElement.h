@@ -21,8 +21,6 @@ protected:
 public:
 	void SetIndex(unsigned int);
 	NetworkElement(void);
-	void SetIsConnectedToOutlet(FluidType, bool);
-	bool GetIsConnectedToOutlet(FluidType);
 	void SetIsConnectedToInlet(bool);
 	bool GetIsConnectedToInlet(void);
 	void SetIsVisited(bool);

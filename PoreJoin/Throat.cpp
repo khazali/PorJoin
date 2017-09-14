@@ -129,6 +129,21 @@ void Throat::GetProperties(unsigned int &ThroatIndex, int &Pore1Pointer, int &Po
 	ThroatIndex = Index;
 }
 
+void Throat::GetPropertiesWithDeadEnd(unsigned int &ThroatIndex, int &Pore1Pointer, int &Pore2Pointer, int &IOStatus, FloatType &ThroatInscribedRadius, FloatType &ThroatShapeFactor, FloatType &ThroatTotalLength, FloatType &ThroatLength, FloatType &ThroatVolume, FloatType &ThroatClayVolume, bool &DeadEndCondition) {
+	Pore1Pointer = Pore1Index;
+	Pore2Pointer = Pore2Index;
+	IOStatus = IOStat;
+	InscribedRadius = ThroatInscribedRadius;
+	ShapeFactor = ThroatShapeFactor;
+	ThroatTotalLength = TotalLength;
+	ThroatLength = Length;
+	ThroatVolume = Volume;
+	ThroatClayVolume = ClayVolume;
+	ThroatIndex = Index;
+	DeadEndCondition = HasDeadEnds;
+}
+
+
 void Throat::SetProperties(unsigned int ThroatIndex, int Pore1Pointer, int Pore2Pointer, int IOStatus, FloatType ThroatInscribedRadius, FloatType ThroatShapeFactor, FloatType ThroatTotalLength, FloatType ThroatLength, FloatType ThroatVolume, FloatType ThroatClayVolume, bool DeadEndCondition) {
 	Pore1Index = Pore1Pointer;
 	Pore2Index = Pore2Pointer;

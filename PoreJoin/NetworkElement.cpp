@@ -13,13 +13,6 @@ NetworkElement::NetworkElement(void) {
 	IsEnabled = true;
 }
 
-void NetworkElement::SetIsConnectedToOutlet(FluidType Fluid, bool ConnectionStatus) {
-	IsConnectedToOutlet = ConnectionStatus;	
-}
-bool NetworkElement::GetIsConnectedToOutlet(FluidType Fluid) {
-	return IsConnectedToOutlet;
-}
-
 void NetworkElement::SetIsConnectedToInlet(bool ConnectionStatus) {
 	IsConnectedToInlet = ConnectionStatus;
 }

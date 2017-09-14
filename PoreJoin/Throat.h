@@ -27,6 +27,7 @@ public:
 	int GetPore2Index(void);
 	void UpdateThroatIndexes(unsigned int, unsigned int);
 	void GetProperties(unsigned int &, int &, int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
+	void GetPropertiesWithDeadEnd(unsigned int &, int &, int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, bool &);	
 	void SetProperties(unsigned int, int, int, int, FloatType, FloatType, FloatType, FloatType, FloatType, FloatType, bool);
 };
 
