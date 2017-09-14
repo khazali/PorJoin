@@ -36,5 +36,6 @@ public:
 	void SetConnectingPoreAndThroats(int *, int *);
 	void GetConnectingPoreAndThroats(int *, int *);
 	void GetNumberedConnectingPoreAndThroats(unsigned int, int &, int &);
+	void SetCoordinationNumber(unsigned int);
 };
 #endif

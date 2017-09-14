@@ -28,6 +28,7 @@ extern unsigned int *DXs, *DYs, *DZs;
 extern unsigned int *SumDXs, *SumDYs, *SumDZs;
 extern unsigned int *SumPoreNO, *SumThroatNO;
 extern PoreNetwork GeneralNetwork;
+extern unsigned int MaxThroatNO;
 
 void TerM(char *);
 void NormalFinish(void);

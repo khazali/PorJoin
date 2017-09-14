@@ -53,6 +53,7 @@ void ReadInput(char *InfileName) {
 				}
 				if ((dir = opendir(str)) != NULL) {
 					while ((ent = readdir(dir)) != NULL) {
+						MaxThroatNO = 0;
 						if ((*(ent->d_name)) != '.') {
 							sLen = (unsigned int)strlen(ent->d_name) - 10;
 							for (n = 0; n < sLen; n++) Fname[n] = ent->d_name[i];
@@ -77,6 +78,9 @@ void ReadInput(char *InfileName) {
 
 							SumPoreNO[k*(MainNy*MainNx) + j*MainNx + i + 1] = SumPoreNO[k*(MainNy*MainNx) + j*MainNx + i] + Networks[k*(MainNy*MainNx) + j*MainNx + i].GetPoreNO();
 							SumThroatNO[k*(MainNy*MainNx) + j*MainNx + i + 1] = SumThroatNO[k*(MainNy*MainNx) + j*MainNx + i] + Networks[k*(MainNy*MainNx) + j*MainNx + i].GetThroatNO();
+
+							if (Networks[k*(MainNy*MainNx) + j*MainNx + i].GetThroatNO() > MaxThroatNO) MaxThroatNO = Networks[k*(MainNy*MainNx) + j*MainNx + i].GetThroatNO();
+
 							break;
 						}
 					}

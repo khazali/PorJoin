@@ -297,6 +297,14 @@ void PoreNetwork::RemoveDeadEnds(void) {
 					ThroatNO--;
 				}
 			}
+			pores[i].SetCoordinationNumber(CoNumber - Nulls);
 		}
 	}
+}
+
+void PoreNetwork::GetAllThroatsLength(unsigned int &NumberOfThroats , FloatType *Lengths) {
+	register unsigned int i;
+
+	NumberOfThroats = ThroatNO;
+	for (i = 0; i < ThroatNO; i++) Lengths[i] = throats[i].GetTotalLength();
 }

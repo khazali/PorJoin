@@ -177,3 +177,7 @@ void Pore::GetNumberedConnectingPoreAndThroats(unsigned int ConnectionIndex, int
 	PPores = PoreIndexes[ConnectionIndex];
 	PThroats = ThroatIndexes[ConnectionIndex];
 }
+
+void Pore::SetCoordinationNumber(unsigned int CoNumber) {
+	CoordinationNumber = CoNumber;
+}
