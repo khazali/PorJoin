@@ -157,3 +157,7 @@ void Throat::SetProperties(unsigned int ThroatIndex, int Pore1Pointer, int Pore2
 	Index = ThroatIndex;
 	HasDeadEnds = DeadEndCondition;
 }
+
+FloatType Throat::GetInscribedRadius(void) {
+	return InscribedRadius;
+}

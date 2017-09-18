@@ -33,8 +33,8 @@ void ReadInput(char *InfileName) {
 	for (i = 0; i < TotalNetworks; ++i) {
 		StatMatrix[i] = new FloatType *[TotalNetworks];
 		for (j = 0; j < TotalNetworks; j++) {
-			StatMatrix[i][j] = new FloatType[2];
-			for (k = 0; k < 2; k++) StatMatrix[i][j][k] = 0;
+			StatMatrix[i][j] = new FloatType[4];
+			for (k = 0; k < 4; k++) StatMatrix[i][j][k] = 0;
 		}
 	}
 

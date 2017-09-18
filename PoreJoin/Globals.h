@@ -30,7 +30,7 @@ extern unsigned int *SumPoreNO, *SumThroatNO;
 extern PoreNetwork GeneralNetwork;
 extern unsigned int MaxThroatNO;
 extern FloatType ***StatMatrix;
-extern FloatType TotalSD, TotalAve;
+extern FloatType LengthTotalSD, LengthTotalAve, RadiusTotalSD, RadiusTotalAve;
 
 void TerM(char *);
 void NormalFinish(void);

@@ -302,9 +302,12 @@ void PoreNetwork::RemoveDeadEnds(void) {
 	}
 }
 
-void PoreNetwork::GetAllThroatsLength(unsigned int &NumberOfThroats , FloatType *Lengths) {
+void PoreNetwork::GetAllThroatsLength(unsigned int &NumberOfThroats , FloatType *Lengths, FloatType *IR) {
 	register unsigned int i;
 
 	NumberOfThroats = ThroatNO;
-	for (i = 0; i < ThroatNO; i++) Lengths[i] = throats[i].GetTotalLength();
+	for (i = 0; i < ThroatNO; i++) {
+		Lengths[i] = throats[i].GetTotalLength();
+		IR[i] = throats[i].GetInscribedRadius();
+	}
 }
