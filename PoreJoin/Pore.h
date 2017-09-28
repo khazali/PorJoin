@@ -19,6 +19,7 @@ private:
 	FloatType Pressure;
 
 	int *PoreIndexes, *ThroatIndexes;
+	unsigned int Primary_Index;
 	
 public:
 	Pore();
@@ -31,11 +32,14 @@ public:
 	unsigned int NumberOfConnections(void);	
 	void UpdateLocation(FloatType, FloatType, FloatType);
 	void UpdatePoreIndexes(unsigned int, unsigned int);
-	void SetProperties(unsigned int, FloatType, FloatType, FloatType, unsigned int, int, FloatType, FloatType, FloatType, FloatType, FloatType, bool);
+	void SetProperties(unsigned int, FloatType, FloatType, FloatType, unsigned int, int, FloatType, FloatType, FloatType, FloatType, FloatType, bool, unsigned int);
 	void GetProperties(unsigned int&, FloatType &, FloatType &, FloatType &, unsigned int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
 	void SetConnectingPoreAndThroats(int *, int *);
 	void GetConnectingPoreAndThroats(int *, int *);
 	void GetNumberedConnectingPoreAndThroats(unsigned int, int &, int &);
 	void SetCoordinationNumber(unsigned int);
+	unsigned int GetPrimaryIndex(void);
+	FloatType GetX(void);
+	FloatType GetY(void);
 };
 #endif

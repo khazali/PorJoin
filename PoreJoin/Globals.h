@@ -6,6 +6,10 @@
 
 #define MAX_STRING_LENGTH 1024
 #define MAX_PATH_LENGTH 4096
+#define USE_GLOBAL_DISTRIBUTION false
+#define CONNECTION_FRACTION 0.01
+#define SQRT_2PI 2.506628274631000502415765284811
+#define SIMPSON_1_3_INTEGRATION 1000
 
 typedef double FloatType;
 
@@ -31,9 +35,11 @@ extern PoreNetwork GeneralNetwork;
 extern unsigned int MaxThroatNO;
 extern FloatType ***StatMatrix;
 extern FloatType LengthTotalSD, LengthTotalAve, RadiusTotalSD, RadiusTotalAve;
+extern FloatType MaxLength, MinLength, MaxRadius, MinRadius;
 
 void TerM(char *);
 void NormalFinish(void);
 void UpdatePoresLocation(void);
 void ReadInput(char *);
+bool NormalSelect(FloatType, FloatType, FloatType, FloatType, FloatType);
 #endif

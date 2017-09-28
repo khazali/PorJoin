@@ -46,9 +46,9 @@ public:
 	unsigned int GetPoreNO(void);
 	unsigned int GetThroatNO(void);
 	void UpdateElementIndex(unsigned int, unsigned int);
-	void CopyFromOthers(PoreNetwork &);
+	void CopyFromOthers(void);
 	void GetPoreProperties(unsigned int, unsigned int&, FloatType &, FloatType &, FloatType &, unsigned int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
-	void SetPoreProperties(unsigned int, unsigned int, FloatType, FloatType, FloatType, unsigned int, int, FloatType, FloatType, FloatType, FloatType, FloatType, bool);
+	void SetPoreProperties(unsigned int, unsigned int, FloatType, FloatType, FloatType, unsigned int, int, FloatType, FloatType, FloatType, FloatType, FloatType, bool, unsigned int);
 	void SetPoreAndThroatsPointers(unsigned int, int *, int *);
 	void GetPoreAndThroatsPointers(unsigned int, int *, int *);
 	void GetThroatProperties(unsigned int, unsigned int&, int &, int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
@@ -56,5 +56,6 @@ public:
 	void RemoveDeadEnds(void);
 	void GetThroatPropertiesWithDeadEnd(unsigned int, unsigned int&, int &, int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, bool &);
 	void GetAllThroatsLength(unsigned int &, FloatType *, FloatType *);
+	void MakeNewConnections(void);
 };
 #endif

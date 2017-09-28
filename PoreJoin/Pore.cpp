@@ -138,7 +138,7 @@ void Pore::GetProperties(unsigned int &PIndex, FloatType &XLocation, FloatType &
 	PIndex = Index;
 }
 
-void Pore::SetProperties(unsigned int PIndex, FloatType XLocation, FloatType YLocation, FloatType ZLocation, unsigned int CN, int IOStatus, FloatType PoreVolume, FloatType PoreInscribedRadius, FloatType PoreShapeFactor, FloatType PoreClayVolume, FloatType PoreLength, bool DeadEndCondition) {
+void Pore::SetProperties(unsigned int PIndex, FloatType XLocation, FloatType YLocation, FloatType ZLocation, unsigned int CN, int IOStatus, FloatType PoreVolume, FloatType PoreInscribedRadius, FloatType PoreShapeFactor, FloatType PoreClayVolume, FloatType PoreLength, bool DeadEndCondition, unsigned int PrimaryIndex) {
 	X = XLocation;
 	Y = YLocation;
 	Z = ZLocation;
@@ -151,6 +151,7 @@ void Pore::SetProperties(unsigned int PIndex, FloatType XLocation, FloatType YLo
 	Length = PoreLength;
 	Index = PIndex;
 	HasDeadEnds = DeadEndCondition;
+	Primary_Index = PrimaryIndex;
 }
 
 void Pore::SetConnectingPoreAndThroats(int *PPores, int *PThroats) {
@@ -180,4 +181,15 @@ void Pore::GetNumberedConnectingPoreAndThroats(unsigned int ConnectionIndex, int
 
 void Pore::SetCoordinationNumber(unsigned int CoNumber) {
 	CoordinationNumber = CoNumber;
+}
+
+unsigned int Pore::GetPrimaryIndex(void) {
+	return Primary_Index;
+}
+
+FloatType Pore::GetX(void) {
+	return X;
+}
+FloatType Pore::GetY(void) {
+	return Y;
 }

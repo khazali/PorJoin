@@ -8,6 +8,7 @@ unsigned int *SumPoreNO, *SumThroatNO;
 unsigned int MaxThroatNO;
 FloatType ***StatMatrix;
 FloatType LengthTotalSD, LengthTotalAve, RadiusTotalSD, RadiusTotalAve;
+FloatType MaxLength, MinLength, MaxRadius, MinRadius;
 
 PoreNetwork *Networks;
 PoreNetwork GeneralNetwork;
