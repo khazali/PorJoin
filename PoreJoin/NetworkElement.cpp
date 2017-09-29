@@ -31,9 +31,7 @@ FloatType NetworkElement::GetLength(void){
 	return Length;
 }
 
-FloatType NetworkElement::GetZ(void) {
-	return Z;
-}
+
 unsigned int NetworkElement::GetIndex(void) {
 	return Index;
 }

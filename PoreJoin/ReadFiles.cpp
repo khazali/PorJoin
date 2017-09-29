@@ -14,10 +14,12 @@ void ReadInput(char *InfileName) {
 	register unsigned int i, j, k, n;
 	DIR *dir;
 	struct dirent *ent;
-	unsigned int sLen;
+	unsigned int sLen, sLen1;
 	PoreNetwork *X_Before, *X_After, *Y_Before, *Y_After, *Z_Before, *Z_After;
 	FloatType XDim, YDim, ZDim;
 	
+	std::srand((unsigned int)time(NULL));
+
 	MainInput.open(InfileName, std::fstream::in);
 	if (!MainInput.is_open()) TerM("Can not open first throat input file!");
 
@@ -56,9 +58,10 @@ void ReadInput(char *InfileName) {
 				*str = '\0';
 				MainInput.getline(str, MAX_STRING_LENGTH, '\n');
 				if ((*str) == '\0') TerM("Incorrect main file format!");
-				if (str[strlen(str) - 1] != '\\') {
-					str[strlen(str)] = '\\';
-					str[strlen(str) + 1] = '\0';
+				sLen1 = strlen(str);
+				if (str[sLen1 - 1] != '\\') {
+					str[sLen1] = '\\';
+					str[sLen1 + 1] = '\0';
 				}
 				if ((dir = opendir(str)) != NULL) {
 					while ((ent = readdir(dir)) != NULL) {
@@ -68,7 +71,7 @@ void ReadInput(char *InfileName) {
 							for (n = 0; n < sLen; n++) Fname[n] = ent->d_name[i];
 							Fname[n] = '\0';
 							Networks[k*(MainNy*MainNx) + j*MainNx + i].ReadStatoilFormat(str, Fname);
-							
+
 							if (i == 0) X_Before = NULL;
 							else X_Before = &Networks[k*(MainNy*MainNx) + j*MainNx + i - 1];
 							if (i == (MainNx - 1)) X_After = NULL;
@@ -98,6 +101,14 @@ void ReadInput(char *InfileName) {
 				else TerM("Incorrect path in the main file!");
 			}
 		}
+	}
+	*ResultPath = '\0';
+	MainInput.getline(ResultPath, MAX_STRING_LENGTH, '\n');
+	if ((*ResultPath) == '\0') TerM("Incorrect main file format!");
+	sLen1 = strlen(ResultPath);
+	if (ResultPath[sLen1 - 1] != '\\') {
+		ResultPath[sLen1] = '\\';
+		ResultPath[sLen1 + 1] = '\0';
 	}
 	MainInput.close();
 

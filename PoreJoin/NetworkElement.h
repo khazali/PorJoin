@@ -24,8 +24,7 @@ public:
 	void SetIsConnectedToInlet(bool);
 	bool GetIsConnectedToInlet(void);
 	void SetIsVisited(bool);
-	bool GetIsVisited(void);
-	FloatType GetZ(void);
+	bool GetIsVisited(void);	
 	unsigned int GetIndex(void);
 	bool GetIsEnabled(void);
 	void SetIsEnabled(bool);

@@ -11,10 +11,8 @@
 
 class Throat: public NetworkElement {
 private:
-	Pore *ConnectingPores[2];
+	//Pore *ConnectingPores[2];
 	FloatType TotalLength;		//Throat Total Length (pore center to pore center)
-	FloatType WaterConductancePerLength, OilConductancePerLength, TotalConductancePerLength;
-	FloatType OilVelocity, WaterVelocity;
 	int Pore1Index, Pore2Index;
 
 public:

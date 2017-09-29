@@ -21,19 +21,19 @@ void Throat::ReadLink1(MIfstream& InputFile, Pore *pores, ElementList InletThroa
 	switch (i) {
 		case -1:
 			//IOStat=-1;
-			ConnectingPores[0]=NULL;
+			//ConnectingPores[0]=NULL;
 			Pore1Index = -1;
 			InletThroats.AddElement(Index);
 			break;
 		case 0:
 			//IOStat=0;
-			ConnectingPores[0]=NULL;
+			//ConnectingPores[0]=NULL;
 			Pore1Index = 0;
 			OutletThroats.AddElement(Index);
 			break;
 		default:
 			//IOStat=1;
-			ConnectingPores[0]=&pores[i-1];
+			//ConnectingPores[0]=&pores[i-1];
 			Pore1Index = i;
 	}	
 	if (!InputFile.ReadWord(str)) TerM("Incorrect link1 file format!");
@@ -41,19 +41,19 @@ void Throat::ReadLink1(MIfstream& InputFile, Pore *pores, ElementList InletThroa
 	switch (j) {
 		case -1:
 			//IOStat=-1;
-			ConnectingPores[1]=NULL;
+			//ConnectingPores[1]=NULL;
 			Pore2Index = -1;
 			InletThroats.AddElement(Index);
 			break;
 		case 0:
 			//IOStat=0;
-			ConnectingPores[1]=NULL;
+			//ConnectingPores[1]=NULL;
 			Pore2Index = 0;
 			OutletThroats.AddElement(Index);
 			break;
 		default:
 			//IOStat=1;
-			ConnectingPores[1]=&pores[j-1];
+			//ConnectingPores[1]=&pores[j-1];
 			Pore2Index = j;
 	}	
 

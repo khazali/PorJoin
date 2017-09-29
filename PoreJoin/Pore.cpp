@@ -10,9 +10,7 @@ Pore::Pore(void) {
 
 }
 
-Pore::~Pore(void) {
-	delete[] AdjacentPores;	
-	delete[] ConnectingThroats;
+Pore::~Pore(void) {	
 	delete[] PoreIndexes;
 	delete[] ThroatIndexes;
 }
@@ -41,8 +39,6 @@ unsigned int Pore::ReadNode1(MIfstream& InputFile, Pore *pores, Throat* throats)
 	if (!InputFile.ReadWord(str)) TerM("Incorrect node1 file format!");
 	CoordinationNumber=atoi(str);
 
-	AdjacentPores=new Pore* [CoordinationNumber];
-	ConnectingThroats=new Throat* [CoordinationNumber];
 	PoreIndexes = new int[CoordinationNumber];
 	ThroatIndexes = new int[CoordinationNumber];
 
@@ -50,11 +46,7 @@ unsigned int Pore::ReadNode1(MIfstream& InputFile, Pore *pores, Throat* throats)
 		if (!InputFile.ReadWord(str)) TerM("Incorrect node1 file format!");
 		j=atoi(str);
 		PoreIndexes[i] = j;
-		if (j>0) AdjacentPores[i]=&pores[j-1];
-		else {
-			AdjacentPores[i]=NULL;
-			Nulls++;
-		}
+		if (j<=0) Nulls++;		
 	}
 
 	if (!InputFile.ReadWord(str)) TerM("Incorrect node1 file format!");
@@ -68,9 +60,7 @@ unsigned int Pore::ReadNode1(MIfstream& InputFile, Pore *pores, Throat* throats)
 	for (i=0; i<CoordinationNumber; i++) {
 		if (!InputFile.ReadWord(str)) TerM("Incorrect node1 file format!");
 		j=atoi(str);
-		ThroatIndexes[i] = j;
-		if (j>0) ConnectingThroats[i]=&throats[j-1];
-		else ConnectingThroats[i]=NULL;		
+		ThroatIndexes[i] = j;	
 	}
 
 	return CoordinationNumber-Nulls;
@@ -94,18 +84,6 @@ void Pore::ReadNode2(MIfstream& InputFile){
 
 unsigned int Pore::GetCoordinationNumber(void) {
 	return CoordinationNumber;
-}
-
-bool Pore::IsConnectedThroatNull(unsigned int AdjacentPoresIndex) {
-	return (AdjacentPores[AdjacentPoresIndex] == NULL);
-}
-
-unsigned int Pore::NumberOfConnections(void) {
-	register unsigned int i, j;
-
-	j = 0;
-	for (i = 0; i < CoordinationNumber; i++) if (AdjacentPores[i] != NULL) j++;
-	return j;
 }
 
 void Pore::UpdateLocation(FloatType X_Origin, FloatType Y_Origin, FloatType Z_Origin) {
@@ -192,4 +170,55 @@ FloatType Pore::GetX(void) {
 }
 FloatType Pore::GetY(void) {
 	return Y;
+}
+
+FloatType Pore::GetZ(void) {
+	return Z;
+}
+
+void Pore::AddThroat(int ThroatIndex, int OtherPoreIndeex) {
+	int *PoreIndexesCopy, *ThroatIndexesCopy;
+	register unsigned int i;
+
+	PoreIndexesCopy = new int[CoordinationNumber];
+	ThroatIndexesCopy = new int[CoordinationNumber];
+
+	for (i = 0; i < CoordinationNumber; i++) {
+		PoreIndexesCopy[i] = PoreIndexes[i];
+		ThroatIndexesCopy[i] = ThroatIndexes[i];
+	}
+	delete[] PoreIndexes;
+	delete[] ThroatIndexes;
+	PoreIndexes = NULL;
+	ThroatIndexes = NULL;
+
+	CoordinationNumber++;
+	PoreIndexes = new int[CoordinationNumber];
+	ThroatIndexes = new int[CoordinationNumber];
+	for (i = 0; i < (CoordinationNumber - 1); i++) {
+		PoreIndexes[i] = PoreIndexesCopy[i];
+		ThroatIndexes[i] = ThroatIndexesCopy[i];
+	}
+	PoreIndexes[CoordinationNumber - 1] = OtherPoreIndeex;
+	ThroatIndexes[CoordinationNumber - 1] = ThroatIndex;
+
+	delete[] PoreIndexesCopy;
+	delete[] ThroatIndexesCopy;
+}
+
+void Pore::WriteNeighbours(std::ofstream &Output) {
+	register int i;
+
+	for (i = 0; i < CoordinationNumber; i++) Output << PoreIndexes[i] << '\t';
+
+	switch (IOStat) {
+	case -1:
+		Output << 1 << '\t' << 0 << '\t';
+	case 0:
+		Output << 0 << '\t' << 1 << '\t';
+	case 1:
+		Output << 0 << '\t' << 0 << '\t';	
+	}
+
+	for (i = 0; i < CoordinationNumber; i++) Output << ThroatIndexes[i] << '\t';
 }

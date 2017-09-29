@@ -12,3 +12,5 @@ FloatType MaxLength, MinLength, MaxRadius, MinRadius;
 
 PoreNetwork *Networks;
 PoreNetwork GeneralNetwork;
+
+char ResultPath[MAX_PATH_LENGTH];

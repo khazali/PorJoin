@@ -2,6 +2,8 @@
 #include "PoreNetwork.h"
 #include <cstdlib>
 #include <cstdio>
+#include <math.h>
+
 
 void UpdatePoresLocation(void) {
 	register unsigned int i, j, k;
@@ -350,9 +352,6 @@ bool NormalSelect(FloatType Length, FloatType Average, FloatType StandardDeviati
 	FloatType cProb, Integral, a, x, h, SelectionProbability;
 	register unsigned int i;
 
-	std::srand((unsigned int)time(NULL));
-
-
 	h = (Max - Min) / SIMPSON_1_3_INTEGRATION;
 	Integral = 0;
 	for (i = 0; i < SIMPSON_1_3_INTEGRATION; i++) {
@@ -365,8 +364,38 @@ bool NormalSelect(FloatType Length, FloatType Average, FloatType StandardDeviati
 	}
 	Integral *= h / 3;
 
-	cProb = CONNECTION_FRACTION*(Max - Min)*StandardDeviation*SQRT_2PI / Integral;
+	cProb = CONNECTION_FRACTION*(Max - Min) / Integral;
 	SelectionProbability = cProb*exp(-(Length - Average)*(Length - Average) / (2 * Length*Length));
 
 	return ((((FloatType)rand()) / RAND_MAX) < SelectionProbability);
+}
+
+FloatType NormRand(FloatType Average, FloatType StandardDeviation, FloatType Min, FloatType Max) {
+	FloatType U1, U2, W, mult, NRand;
+	static FloatType X1, X2;
+	static bool call = false;
+
+	do {
+		if (call) {
+			call = !call;
+			NRand = Average + StandardDeviation * (double)X2;
+		}
+		else {
+			do {
+				U1 = -1 + ((double)rand() / RAND_MAX) * 2;
+				U2 = -1 + ((double)rand() / RAND_MAX) * 2;
+				W = pow(U1, 2) + pow(U2, 2);
+			} while (W >= 1 || W == 0);
+
+			mult = sqrt((-2 * log(W)) / W);
+			X1 = U1 * mult;
+			X2 = U2 * mult;
+
+			call = !call;
+
+			NRand = Average + StandardDeviation * (double)X1;
+		}
+	} while ((NRand<Min) || (NRand>Max));	
+
+	return NRand;
 }

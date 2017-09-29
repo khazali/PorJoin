@@ -1,6 +1,6 @@
 #include "PoreNetwork.h"
 #include "MIfstream.h"
-
+#include <fstream>
 #include "Globals.h"
 
 
@@ -232,7 +232,7 @@ void PoreNetwork::CopyFromOthers(void) {
 	Dx = SumDXs[MainNx];
 	Dy = SumDXs[MainNy];
 	Dz = SumDXs[MainNz];	
-	throats = new Throat[ThroatNO];
+	throats = new Throat[MAX_THROATS_COEFFICIENT*ThroatNO];
 	pores = new Pore[PoreNO];
 	
 	for (Iz = 0; Iz < MainNz; Iz++) {
@@ -324,6 +324,8 @@ void PoreNetwork::MakeNewConnections(void) {
 	register unsigned int i, j;
 	FloatType Distance, LAve, LSD, RAve, RSD, LMin, LMax, RMin, RMax;
 	unsigned int iPrimaryIndex, jPrimaryIndex;
+	FloatType TRadius, TVolume, TShapeFactor, TLength;
+	//int TPore1Index, TPore2Index;
 
 	for (i = 0; i < (PoreNO - 1); i++) {
 		for (j = (i + 1); j < PoreNO; j++) {
@@ -342,22 +344,140 @@ void PoreNetwork::MakeNewConnections(void) {
 				RMax = MaxRadius;
 			}
 			else {
-				LAve = StatMatrix[i][j][0];
-				LSD = StatMatrix[i][j][1];
-				RAve = StatMatrix[i][j][2];
-				RSD = StatMatrix[i][j][3];
-				LMin = StatMatrix[i][j][4];
-				LMax = StatMatrix[i][j][5];
-				RMin = StatMatrix[i][j][6];
-				RMax = StatMatrix[i][j][7];
+				LAve = StatMatrix[iPrimaryIndex][jPrimaryIndex][0];
+				LSD = StatMatrix[iPrimaryIndex][jPrimaryIndex][1];
+				RAve = StatMatrix[iPrimaryIndex][jPrimaryIndex][2];
+				RSD = StatMatrix[iPrimaryIndex][jPrimaryIndex][3];
+				LMin = StatMatrix[iPrimaryIndex][jPrimaryIndex][4];
+				LMax = StatMatrix[iPrimaryIndex][jPrimaryIndex][5];
+				RMin = StatMatrix[iPrimaryIndex][jPrimaryIndex][6];
+				RMax = StatMatrix[iPrimaryIndex][jPrimaryIndex][7];
 			}
 			if (NormalSelect(Distance, LAve, LSD, LMin, LMax)) {
-				//norm_rand(throat radius)
+				TRadius = NormRand(RAve, RSD, RMin, RMax);
 				//add throats between i and j
+				//throats[k].SetProperties(PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);
+				TLength = Distance - pores[i].GetLength() - pores[j].GetLength();
+				TVolume = PI*TRadius*TRadius*TLength;
+				throats[ThroatNO].SetProperties(ThroatNO + 1, i, j, 1, TRadius, 1.0 / (4.0*PI), Distance, TLength, TVolume, 0, false);
+				ThroatNO++;
+				pores[i].AddThroat(ThroatNO, j);
+				pores[j].AddThroat(ThroatNO, i);
 			}
-
-
-
 		}
 	}
+}
+
+void PoreNetwork::WriteStatoilFormat(char *FilePath) {
+	std::ofstream ThroatData1, ThroatData2, PoreData1, PoreData2;
+	char ThroatData1File[MAX_PATH_LENGTH], ThroatData2File[MAX_PATH_LENGTH], PoreData1File[MAX_PATH_LENGTH], PoreData2File[MAX_PATH_LENGTH];
+	char str[MAX_STRING_LENGTH];
+	unsigned int sLen;
+
+	unsigned int i;
+	FloatType X, Y, Z, Volume, InscribedRadius, ShapeFactor, ClayVolume, Length, TotalLength;
+	unsigned int CoordinationNumber, SourcePoreNO, SourceThroatNO, PTIndex, N_X, N_Y, N_Z, PrimaryIndex;
+	int IOStat, Pore1Index, Pore2Index;
+	char Prefix[MAX_STRING_LENGTH] = "Result";
+
+	sLen = (unsigned int)strlen(FilePath);
+	/*if (FilePath[sLen - 1] != '\\') {		//MS Windows Path for now
+	FilePath[sLen] = '\\';
+	sLen++;
+	}*/
+
+	i = 0;
+	while (Prefix[i]) {
+		FilePath[sLen] = Prefix[i];
+		sLen++;
+		i++;
+	}
+
+	FilePath[sLen] = '\0';
+	//sLen++;
+
+	//std::cout<<FilePath;
+
+	strcpy_s(ThroatData1File, MAX_PATH_LENGTH - 12, FilePath);
+	strcpy_s(ThroatData2File, MAX_PATH_LENGTH - 12, FilePath);
+	strcpy_s(PoreData1File, MAX_PATH_LENGTH - 12, FilePath);
+	strcpy_s(PoreData2File, MAX_PATH_LENGTH - 12, FilePath);
+
+
+	ThroatData1File[sLen] = '_';
+	ThroatData1File[sLen + 1] = 'l';
+	ThroatData1File[sLen + 2] = 'i';
+	ThroatData1File[sLen + 3] = 'n';
+	ThroatData1File[sLen + 4] = 'k';
+	ThroatData1File[sLen + 5] = '1';
+	ThroatData1File[sLen + 6] = '.';
+	ThroatData1File[sLen + 7] = 'd';
+	ThroatData1File[sLen + 8] = 'a';
+	ThroatData1File[sLen + 9] = 't';
+	ThroatData1File[sLen + 10] = '\0';
+
+	ThroatData2File[sLen] = '_';
+	ThroatData2File[sLen + 1] = 'l';
+	ThroatData2File[sLen + 2] = 'i';
+	ThroatData2File[sLen + 3] = 'n';
+	ThroatData2File[sLen + 4] = 'k';
+	ThroatData2File[sLen + 5] = '2';
+	ThroatData2File[sLen + 6] = '.';
+	ThroatData2File[sLen + 7] = 'd';
+	ThroatData2File[sLen + 8] = 'a';
+	ThroatData2File[sLen + 9] = 't';
+	ThroatData2File[sLen + 10] = '\0';
+
+	PoreData1File[sLen] = '_';
+	PoreData1File[sLen + 1] = 'n';
+	PoreData1File[sLen + 2] = 'o';
+	PoreData1File[sLen + 3] = 'd';
+	PoreData1File[sLen + 4] = 'e';
+	PoreData1File[sLen + 5] = '1';
+	PoreData1File[sLen + 6] = '.';
+	PoreData1File[sLen + 7] = 'd';
+	PoreData1File[sLen + 8] = 'a';
+	PoreData1File[sLen + 9] = 't';
+	PoreData1File[sLen + 10] = '\0';
+
+	PoreData2File[sLen] = '_';
+	PoreData2File[sLen + 1] = 'n';
+	PoreData2File[sLen + 2] = 'o';
+	PoreData2File[sLen + 3] = 'd';
+	PoreData2File[sLen + 4] = 'e';
+	PoreData2File[sLen + 5] = '2';
+	PoreData2File[sLen + 6] = '.';
+	PoreData2File[sLen + 7] = 'd';
+	PoreData2File[sLen + 8] = 'a';
+	PoreData2File[sLen + 9] = 't';
+	PoreData2File[sLen + 10] = '\0';
+
+	ThroatData1.open(ThroatData1File, std::fstream::out);
+	if (!ThroatData1.is_open()) TerM("Can not open first throat input file!");
+	ThroatData2.open(ThroatData2File, std::fstream::out);
+	if (!ThroatData2.is_open()) TerM("Can not open second throat input file!");
+	PoreData1.open(PoreData1File, std::fstream::out);
+	if (!PoreData1.is_open()) TerM("Can not open first pore input file!");
+	PoreData2.open(PoreData2File, std::fstream::out);
+	if (!PoreData2.is_open()) TerM("Can not open second pore input file!");
+
+	ThroatData1 << ThroatNO << std::endl;
+	for (i = 0; i < ThroatNO; i++) {
+		throats[i].GetProperties(PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume);
+		ThroatData1 << i << '\t' << Pore1Index << '\t' << Pore2Index << '\t' << InscribedRadius << '\t' << ShapeFactor << '\t' << TotalLength << std::endl;
+		ThroatData2 << i << '\t' << Pore1Index << '\t' << Pore2Index << '\t' << pores[Pore1Index].GetLength() << '\t' << pores[Pore2Index].GetLength() << '\t' << Length << '\t' << Volume << '\t' << ClayVolume << std::endl;
+	}
+	ThroatData1.close();
+	ThroatData2.close();
+
+	PoreData1 << PoreNO << '\t' << Dx << '\t' << Dy << '\t' << Dz << std::endl;
+	for (i = 0; i < PoreNO; i++) {
+		pores[i].GetProperties(PTIndex, X, Y, Z, CoordinationNumber, IOStat, Volume, InscribedRadius, ShapeFactor, ClayVolume, Length);
+		PoreData1 << i << '\t' << X << '\t' << Y << '\t' << Z << '\t' << CoordinationNumber << '\t';
+		pores[i].WriteNeighbours(PoreData1);
+		PoreData1 << std::endl;
+		PoreData2 << i << '\t' << Volume << '\t' << InscribedRadius << '\t' << ShapeFactor << '\t' << ClayVolume << std::endl;
+	}
+	PoreData1.close();
+	PoreData2.close();
 }
