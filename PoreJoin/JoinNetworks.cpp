@@ -352,6 +352,8 @@ bool NormalSelect(FloatType Length, FloatType Average, FloatType StandardDeviati
 	FloatType cProb, Integral, a, x, h, SelectionProbability;
 	register unsigned int i;
 
+	if ((Length < Min) || (Length > Max)) return false;
+
 	h = (Max - Min) / SIMPSON_1_3_INTEGRATION;
 	Integral = 0;
 	for (i = 0; i < SIMPSON_1_3_INTEGRATION; i++) {
