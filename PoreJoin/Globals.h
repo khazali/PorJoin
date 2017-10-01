@@ -46,4 +46,8 @@ void UpdatePoresLocation(void);
 void ReadInput(char *);
 bool NormalSelect(FloatType, FloatType, FloatType, FloatType, FloatType);
 FloatType NormRand(FloatType, FloatType, FloatType, FloatType);
+void UpdateIndexes(void);
+void CalculateStatistics(void);
+void ReadInput(char *);
+
 #endif

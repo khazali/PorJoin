@@ -338,16 +338,6 @@ void CalculateStatistics(void) {
 	delete[] Radius2;
 }
 
-void MergeNetworks(void) {
-
-	GeneralNetwork.CopyFromOthers();	
-	GeneralNetwork.RemoveDeadEnds();
-	CalculateStatistics();
-
-	
-
-}
-
 bool NormalSelect(FloatType Length, FloatType Average, FloatType StandardDeviation, FloatType Min, FloatType Max) {
 	FloatType cProb, Integral, a, x, h, SelectionProbability;
 	register unsigned int i;

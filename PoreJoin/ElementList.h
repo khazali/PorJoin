@@ -10,7 +10,6 @@ public:
 	ElementList();
 	~ElementList();
 	void AddReadyToFillElement(unsigned int, ElementType);
-	void SortElements(SortType);		//Batcher Sort
 	void DestroyList(void);
 	unsigned int GetListContent(unsigned int);
 	unsigned int GetListLength(void);
