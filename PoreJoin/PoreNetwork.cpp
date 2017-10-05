@@ -127,7 +127,7 @@ void PoreNetwork::ReadStatoilFormat(char *FilePath, char *Prefix) {
 	}
 	for (i = 0; i < ThroatNO; i++) {
 		throats[i].SetIndex(i);
-		throats[i].ReadLink1(ThroatData1, pores);
+		throats[i].ReadLink1(ThroatData1);
 		throats[i].ReadLink2(ThroatData2, pores);
 		throats[i].SetNetworkIndex(NetworkIndex_X, NetworkIndex_Y, NetworkIndex_Z);
 	}

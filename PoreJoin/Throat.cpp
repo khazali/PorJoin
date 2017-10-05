@@ -10,7 +10,7 @@
 Throat::Throat(void) {
 
 }
-void Throat::ReadLink1(MIfstream& InputFile, Pore *pores) {
+void Throat::ReadLink1(MIfstream& InputFile) {
 	char str[MAX_STRING_LENGTH];
 	register int i, j;
 	

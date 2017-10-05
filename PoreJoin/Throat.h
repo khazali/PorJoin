@@ -18,7 +18,7 @@ private:
 public:
 	Throat();
 	//void ReadLink1(MIfstream&, Pore *, ElementList, ElementList);
-	void ReadLink1(MIfstream&, Pore *);
+	void ReadLink1(MIfstream&);
 	void ReadLink2(MIfstream&, Pore *);
 	FloatType GetTotalLength(void);
 	int GetIOStat(void);
