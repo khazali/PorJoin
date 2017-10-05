@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "Pore.h"
 #include "Throat.h"
+#include "PoreNetwork.h"
 
 
 void TerM(char *ErrorMessage) {

@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ElementList.cpp" />
     <ClCompile Include="GarbageCollection.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="MIfstream.cpp" />
@@ -27,14 +26,12 @@
     <ClCompile Include="Pore.cpp" />
     <ClCompile Include="PoreJoin.cpp" />
     <ClCompile Include="ReadFiles.cpp" />
-    <ClCompile Include="RecursiveSweepForConnection.cpp" />
     <ClCompile Include="PoreNetwork.cpp" />
     <ClCompile Include="Throat.cpp" />
     <ClCompile Include="JoinNetworks.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dirent.h" />
-    <ClInclude Include="ElementList.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="MIfstream.h" />
     <ClInclude Include="NetworkElement.h" />

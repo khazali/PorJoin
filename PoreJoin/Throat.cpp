@@ -4,13 +4,13 @@
 #include "MIfstream.h"
 #include "Throat.h"
 #include "Pore.h"
-#include "ElementList.h"
+//#include "ElementList.h"
 
 
 Throat::Throat(void) {
 
 }
-void Throat::ReadLink1(MIfstream& InputFile, Pore *pores, ElementList InletThroats, ElementList OutletThroats) {
+void Throat::ReadLink1(MIfstream& InputFile, Pore *pores) {
 	char str[MAX_STRING_LENGTH];
 	register int i, j;
 	
@@ -23,13 +23,13 @@ void Throat::ReadLink1(MIfstream& InputFile, Pore *pores, ElementList InletThroa
 			//IOStat=-1;
 			//ConnectingPores[0]=NULL;
 			Pore1Index = -1;
-			InletThroats.AddElement(Index);
+			//InletThroats.AddElement(Index);
 			break;
 		case 0:
 			//IOStat=0;
 			//ConnectingPores[0]=NULL;
 			Pore1Index = 0;
-			OutletThroats.AddElement(Index);
+			//OutletThroats.AddElement(Index);
 			break;
 		default:
 			//IOStat=1;
@@ -43,13 +43,13 @@ void Throat::ReadLink1(MIfstream& InputFile, Pore *pores, ElementList InletThroa
 			//IOStat=-1;
 			//ConnectingPores[1]=NULL;
 			Pore2Index = -1;
-			InletThroats.AddElement(Index);
+			//InletThroats.AddElement(Index);
 			break;
 		case 0:
 			//IOStat=0;
 			//ConnectingPores[1]=NULL;
 			Pore2Index = 0;
-			OutletThroats.AddElement(Index);
+			//OutletThroats.AddElement(Index);
 			break;
 		default:
 			//IOStat=1;
@@ -71,7 +71,7 @@ void Throat::ReadLink1(MIfstream& InputFile, Pore *pores, ElementList InletThroa
 	TotalLength=atof(str);
 }
 
-void Throat::ReadLink2(MIfstream& InputFile) {
+void Throat::ReadLink2(MIfstream& InputFile, Pore *pores) {
 	char str[MAX_STRING_LENGTH];
 
 	if (!InputFile.ReadWord(str)) TerM("Incorrect link2 file format!");
@@ -79,10 +79,10 @@ void Throat::ReadLink2(MIfstream& InputFile) {
 	if (!InputFile.ReadWord(str)) TerM("Incorrect link2 file format!");
 
 	if (!InputFile.ReadWord(str)) TerM("Incorrect link2 file format!");
-	if (ConnectingPores[0]!=NULL) ConnectingPores[0]->SetLength(atof(str));
+	if (Pore1Index>0) pores[Pore1Index].SetLength(atof(str));
 
 	if (!InputFile.ReadWord(str)) TerM("Incorrect link2 file format!");
-	if (ConnectingPores[1]!=NULL) ConnectingPores[1]->SetLength(atof(str));
+	if (Pore2Index>0) pores[Pore2Index].SetLength(atof(str));
 
 	if (!InputFile.ReadWord(str)) TerM("Incorrect link2 file format!");
 	Length=atof(str);

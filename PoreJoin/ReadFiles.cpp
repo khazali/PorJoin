@@ -41,12 +41,12 @@ void ReadInput(char *InfileName) {
 	}
 
 	Networks = new PoreNetwork[TotalNetworks];
-	DXs = new unsigned int[MainNx];
-	DYs = new unsigned int[MainNy];
-	DZs = new unsigned int[MainNz];
-	SumDXs = new unsigned int[MainNx + 1];
-	SumDYs = new unsigned int[MainNy + 1];
-	SumDZs = new unsigned int[MainNz + 1];
+	DXs = new FloatType[MainNx];
+	DYs = new FloatType[MainNy];
+	DZs = new FloatType[MainNz];
+	SumDXs = new FloatType[MainNx + 1];
+	SumDYs = new FloatType[MainNy + 1];
+	SumDZs = new FloatType[MainNz + 1];
 	SumPoreNO = new unsigned int[TotalNetworks + 1];
 	SumThroatNO = new unsigned int[TotalNetworks + 1];
 

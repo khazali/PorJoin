@@ -2,7 +2,7 @@
 #define PORENETWORK_H
 
 #include "MIfstream.h"
-#include "ElementList.h"
+//#include "ElementList.h"
 #include "NetworkElement.h"
 //#include "Globals.h"
 #include "Pore.h"
@@ -18,7 +18,7 @@ private:
 	Throat *throats;
 	unsigned int PoreNO, ThroatNO;
 	FloatType Dx, Dy, Dz;				//Dimensions of the porous media
-	ElementList OutletThroats, InletThroats;
+	//ElementList OutletThroats, InletThroats;
 	unsigned int *PorePointer, *ThroatPointer;
 	
 	
@@ -42,7 +42,7 @@ public:
 	FloatType GetXDim(void);
 	FloatType GetYDim(void);
 	FloatType GetZDim(void);
-	FloatType UpdatePoresLocation(FloatType, FloatType, FloatType);
+	void UpdatePoresLocation(FloatType, FloatType, FloatType);
 	unsigned int GetPoreNO(void);
 	unsigned int GetThroatNO(void);
 	void UpdateElementIndex(unsigned int, unsigned int);

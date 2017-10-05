@@ -127,8 +127,8 @@ void PoreNetwork::ReadStatoilFormat(char *FilePath, char *Prefix) {
 	}
 	for (i = 0; i < ThroatNO; i++) {
 		throats[i].SetIndex(i);
-		throats[i].ReadLink1(ThroatData1, pores, InletThroats, OutletThroats);
-		throats[i].ReadLink2(ThroatData2);
+		throats[i].ReadLink1(ThroatData1, pores);
+		throats[i].ReadLink2(ThroatData2, pores);
 		throats[i].SetNetworkIndex(NetworkIndex_X, NetworkIndex_Y, NetworkIndex_Z);
 	}
 
@@ -171,7 +171,7 @@ FloatType PoreNetwork::GetZDim(void) {
 	return Dz;
 }
 
-FloatType PoreNetwork::UpdatePoresLocation(FloatType X_Origin, FloatType Y_Origin, FloatType Z_Origin) {
+void PoreNetwork::UpdatePoresLocation(FloatType X_Origin, FloatType Y_Origin, FloatType Z_Origin) {
 	register unsigned int i;
 
 	for (i = 0; i < PoreNO; i++) pores[i].UpdateLocation(X_Origin, Y_Origin, Z_Origin);
@@ -324,7 +324,7 @@ void PoreNetwork::MakeNewConnections(void) {
 	register unsigned int i, j;
 	FloatType Distance, LAve, LSD, RAve, RSD, LMin, LMax, RMin, RMax;
 	unsigned int iPrimaryIndex, jPrimaryIndex;
-	FloatType TRadius, TVolume, TShapeFactor, TLength;
+	FloatType TRadius, TVolume, TLength;
 	//int TPore1Index, TPore2Index;
 
 	for (i = 0; i < (PoreNO - 1); i++) {
@@ -332,7 +332,7 @@ void PoreNetwork::MakeNewConnections(void) {
 			iPrimaryIndex = pores[i].GetPrimaryIndex();
 			jPrimaryIndex = pores[j].GetPrimaryIndex();
 			if (iPrimaryIndex == jPrimaryIndex) continue;
-			Distance = sqrt((pores[i].GetX - pores[j].GetX())*(pores[i].GetX - pores[j].GetX()) + (pores[i].GetY - pores[j].GetY())*(pores[i].GetY - pores[j].GetY()) + (pores[i].GetZ - pores[j].GetZ())*(pores[i].GetZ - pores[j].GetZ()));
+			Distance = sqrt((pores[i].GetX() - pores[j].GetX())*(pores[i].GetX() - pores[j].GetX()) + (pores[i].GetY() - pores[j].GetY())*(pores[i].GetY() - pores[j].GetY()) + (pores[i].GetZ() - pores[j].GetZ())*(pores[i].GetZ() - pores[j].GetZ()));
 			if (USE_GLOBAL_DISTRIBUTION) {
 				LAve = LengthTotalAve;
 				LSD = LengthTotalSD;
@@ -371,12 +371,11 @@ void PoreNetwork::MakeNewConnections(void) {
 void PoreNetwork::WriteStatoilFormat(char *FilePath) {
 	std::ofstream ThroatData1, ThroatData2, PoreData1, PoreData2;
 	char ThroatData1File[MAX_PATH_LENGTH], ThroatData2File[MAX_PATH_LENGTH], PoreData1File[MAX_PATH_LENGTH], PoreData2File[MAX_PATH_LENGTH];
-	char str[MAX_STRING_LENGTH];
 	unsigned int sLen;
 
 	unsigned int i;
 	FloatType X, Y, Z, Volume, InscribedRadius, ShapeFactor, ClayVolume, Length, TotalLength;
-	unsigned int CoordinationNumber, SourcePoreNO, SourceThroatNO, PTIndex, N_X, N_Y, N_Z, PrimaryIndex;
+	unsigned int CoordinationNumber, PTIndex;
 	int IOStat, Pore1Index, Pore2Index;
 	char Prefix[MAX_STRING_LENGTH] = "Result";
 

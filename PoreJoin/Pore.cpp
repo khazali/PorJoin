@@ -133,7 +133,7 @@ void Pore::SetProperties(unsigned int PIndex, FloatType XLocation, FloatType YLo
 }
 
 void Pore::SetConnectingPoreAndThroats(int *PPores, int *PThroats) {
-	register int i;
+	register unsigned int i;
 
 	PoreIndexes = new int[CoordinationNumber];
 	ThroatIndexes = new int[CoordinationNumber];
@@ -207,7 +207,7 @@ void Pore::AddThroat(int ThroatIndex, int OtherPoreIndeex) {
 }
 
 void Pore::WriteNeighbours(std::ofstream &Output) {
-	register int i;
+	register unsigned int i;
 
 	for (i = 0; i < CoordinationNumber; i++) Output << PoreIndexes[i] << '\t';
 

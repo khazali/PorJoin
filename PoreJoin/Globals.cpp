@@ -1,9 +1,10 @@
 #include "Globals.h"
+#include "PoreNetwork.h"
 
 unsigned int MainNx, MainNy, MainNz;
 unsigned int TotalNetworks;
-unsigned int *DXs, *DYs, *DZs;
-unsigned int *SumDXs, *SumDYs, *SumDZs;
+FloatType *DXs, *DYs, *DZs;
+FloatType *SumDXs, *SumDYs, *SumDZs;
 unsigned int *SumPoreNO, *SumThroatNO;
 unsigned int MaxThroatNO;
 FloatType ***StatMatrix;
