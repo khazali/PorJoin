@@ -68,7 +68,7 @@ void ReadInput(char *InfileName) {
 						MaxThroatNO = 0;
 						if ((*(ent->d_name)) != '.') {
 							sLen = (unsigned int)strlen(ent->d_name) - 10;
-							for (n = 0; n < sLen; n++) Fname[n] = ent->d_name[i];
+							for (n = 0; n < sLen; n++) Fname[n] = ent->d_name[n];
 							Fname[n] = '\0';
 							Networks[k*(MainNy*MainNx) + j*MainNx + i].ReadStatoilFormat(str, Fname);
 

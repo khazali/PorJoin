@@ -5,8 +5,11 @@
 int __cdecl main(void) {
 	char FName[MAX_PATH_LENGTH];
 	
+	/*
 	std::cout<<"Enter the input file path and name:\n";
 	std::cin.getline(FName, MAX_PATH_LENGTH);
+	*/
+	strcpy(FName, "Data\\indata.dat");
 
 	ReadInput(FName);
 	GeneralNetwork.CopyFromOthers();
