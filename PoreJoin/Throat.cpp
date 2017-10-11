@@ -112,8 +112,8 @@ int Throat::GetPore2Index(void) {
 
 void Throat::UpdateThroatIndexes(unsigned int PoreRef, unsigned int ThroatRef) {
 	Index += ThroatRef;
-	Pore1Index += PoreRef;
-	Pore2Index += PoreRef;	
+	//Pore1Index += PoreRef;
+	//Pore2Index += PoreRef;	
 }
 
 void Throat::GetProperties(unsigned int &ThroatIndex, int &Pore1Pointer, int &Pore2Pointer, int &IOStatus, FloatType &ThroatInscribedRadius, FloatType &ThroatShapeFactor, FloatType &ThroatTotalLength, FloatType &ThroatLength, FloatType &ThroatVolume, FloatType &ThroatClayVolume) {

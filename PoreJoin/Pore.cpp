@@ -93,13 +93,13 @@ void Pore::UpdateLocation(FloatType X_Origin, FloatType Y_Origin, FloatType Z_Or
 }
 
 void Pore::UpdatePoreIndexes(unsigned int PoreRef, unsigned int ThroatRef) {
-	register unsigned int i;
+	//register unsigned int i;
 
 	Index += PoreRef;
-	for (i = 0; i < CoordinationNumber; i++) {
+	/*for (i = 0; i < CoordinationNumber; i++) {
 		PoreIndexes[i] += PoreRef;
 		ThroatIndexes[i] += ThroatRef;
-	}
+	}*/
 }
 
 void Pore::GetProperties(unsigned int &PIndex, FloatType &XLocation, FloatType &YLocation, FloatType &ZLocation, unsigned int &CN, int &IOStatus, FloatType &PoreVolume, FloatType &PoreInscribedRadius, FloatType &PoreShapeFactor, FloatType &PoreClayVolume, FloatType &PoreLength) {
@@ -153,7 +153,7 @@ void Pore::GetConnectingPoreAndThroats(int *PPores, int *PThroats) {
 }
 
 void Pore::GetNumberedConnectingPoreAndThroats(unsigned int ConnectionIndex, int &PPores, int &PThroats) {
-	PPores = PoreIndexes[ConnectionIndex];
+    PPores = PoreIndexes[ConnectionIndex];
 	PThroats = ThroatIndexes[ConnectionIndex];
 }
 

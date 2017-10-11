@@ -12,7 +12,9 @@ int __cdecl main(void) {
 	strcpy(FName, "Data\\indata.dat");
 
 	ReadInput(FName);
+	UpdatePoresLocation();	
 	GeneralNetwork.CopyFromOthers();
+	UpdateIndexes();
 	GeneralNetwork.RemoveDeadEnds();
 	CalculateStatistics();
 	GeneralNetwork.MakeNewConnections();
