@@ -79,10 +79,10 @@ void Throat::ReadLink2(MIfstream& InputFile, Pore *pores) {
 	if (!InputFile.ReadWord(str)) TerM("Incorrect link2 file format!");
 
 	if (!InputFile.ReadWord(str)) TerM("Incorrect link2 file format!");
-	if (Pore1Index>0) pores[Pore1Index].SetLength(atof(str));
+	if (Pore1Index > 0) pores[Pore1Index - 1].SetLength(atof(str));
 
 	if (!InputFile.ReadWord(str)) TerM("Incorrect link2 file format!");
-	if (Pore2Index>0) pores[Pore2Index].SetLength(atof(str));
+	if (Pore2Index > 0) pores[Pore2Index - 1].SetLength(atof(str));
 
 	if (!InputFile.ReadWord(str)) TerM("Incorrect link2 file format!");
 	Length=atof(str);

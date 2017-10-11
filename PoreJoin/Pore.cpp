@@ -232,3 +232,9 @@ void Pore::DelBranch(unsigned int Branch) {
 		ThroatIndexes[i] = ThroatIndexes[i + 1];
 	}
 }
+
+void Pore::UpdateConnectingThroatIndexes(unsigned int *UpdatePointer) {
+	register unsigned int i;
+
+	for (i = 0; i < CoordinationNumber; i++) ThroatIndexes[i] = UpdatePointer[ThroatIndexes[i]];
+}

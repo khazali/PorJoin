@@ -42,5 +42,6 @@ public:
 	void AddThroat(int, int);
 	void WriteNeighbours(std::ofstream &);
 	void DelBranch(unsigned int);
+	void UpdateConnectingThroatIndexes(unsigned int *);
 };
 #endif

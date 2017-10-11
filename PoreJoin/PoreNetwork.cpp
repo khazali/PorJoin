@@ -299,6 +299,9 @@ void PoreNetwork::RemoveDeadEnds(void) {
 	bool DeadEndCondition;
 	unsigned int DeletedThroats = 0;
 	unsigned int *DeadPool = new unsigned int[2 * ThroatNO];
+	unsigned int *ReverseIndex = new unsigned int[ThroatNO];
+
+	for (i = 0; i < ThroatNO; i++) ReverseIndex[i] = 0;
 
 	for (i = 0; i < PoreNO; i++) {
 		if (pores[i].GetDeadEnds()) {
@@ -353,14 +356,20 @@ void PoreNetwork::RemoveDeadEnds(void) {
 	for (i = 0; i < (ThroatNO - DeletedThroats); i++) {		
 		if (j) {
 			throats[i].GetPropertiesWithDeadEnd(PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);
-			throats[i - j].SetProperties(PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);
+			throats[i - j].SetProperties(i - j + 1, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);
+			ReverseIndex[PTIndex] = i - j + 1;
 		}
 		if (((i + 1) == DeadPool[j]) && (j < DeletedThroats)) j++;
 	}
 	////////////////////////////////////////
 	ThroatNO -= DeletedThroats;
+
+	for (i = 0; i < PoreNO; i++) {
+		pores[i].UpdateConnectingThroatIndexes(ReverseIndex);
+	}
 		
 	delete[] DeadPool;
+	delete[] ReverseIndex;
 }
 
 void PoreNetwork::GetAllThroatsLength(unsigned int &NumberOfThroats , FloatType *Lengths, FloatType *IR) {
