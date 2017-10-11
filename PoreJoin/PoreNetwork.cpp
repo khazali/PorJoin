@@ -304,21 +304,16 @@ void PoreNetwork::RemoveDeadEnds(void) {
 		if (pores[i].GetDeadEnds()) {
 			CoNumber = pores[i].GetCoordinationNumber();
 			Nulls = 0;
-			for (j = 0; j < CoNumber; j++) {
-				pores[i].GetNumberedConnectingPoreAndThroats(j, P2Pore, P2Throat);
+			for (j = 0; j < (CoNumber - Nulls); j++) {
+				pores[i].GetNumberedConnectingPoreAndThroats(j - Nulls, P2Pore, P2Throat);
 				if (P2Pore < 1) {
-					Nulls++;
 					DeadPool[DeletedThroats] = P2Throat;
 					DeletedThroats++;
-					/*
-					for (k = P2Throat; k < (ThroatNO - 1); k++) {
-						throats[k + 1].GetPropertiesWithDeadEnd(PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);
-						throats[k].SetProperties(PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);
-					}*/
-					//ThroatNO--;
+					pores[i].DelBranch(j - Nulls);
+					Nulls++;
 				}
 			}
-			pores[i].SetCoordinationNumber(CoNumber - Nulls);
+			//pores[i].SetCoordinationNumber(CoNumber - Nulls);
 		}
 	}
 	///////////////////////////////////////

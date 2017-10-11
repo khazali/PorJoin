@@ -222,3 +222,13 @@ void Pore::WriteNeighbours(std::ofstream &Output) {
 
 	for (i = 0; i < CoordinationNumber; i++) Output << ThroatIndexes[i] << '\t';
 }
+
+void Pore::DelBranch(unsigned int Branch) {
+	register unsigned int i;
+
+	CoordinationNumber--;
+	for (i = Branch; i < CoordinationNumber; i++) {
+		PoreIndexes[i] = PoreIndexes[i + 1];
+		ThroatIndexes[i] = ThroatIndexes[i + 1];
+	}
+}

@@ -41,5 +41,6 @@ public:
 	FloatType GetZ(void);
 	void AddThroat(int, int);
 	void WriteNeighbours(std::ofstream &);
+	void DelBranch(unsigned int);
 };
 #endif
