@@ -247,7 +247,8 @@ void PoreNetwork::CopyFromOthers(void) {
 				for (i = 0; i < SourcePoreNO; i++) {
 					Source->GetPoreProperties(i, PTIndex, X, Y, Z, Coordination_Number, IOStat, Volume, InscribedRadius, ShapeFactor, ClayVolume, Length);
 					Source->GetNetworkIndex(N_X, N_Y, N_Z);
-					if (!(((N_Z == (MainNz - 1)) && (IOStat == 0)) || ((N_Z == 0) && (IOStat == (-1))))) {
+					if (((IOStat == 0) && (N_Z != (MainNz - 1))) || ((IOStat == (-1)) && (N_Z != 0))) {
+					//if (!(((N_Z == (MainNz - 1)) && (IOStat == 0)) || ((N_Z == 0) && (IOStat == (-1))))) {
 						IOStat = 1;
 						DeadEndCondition = true;
 					}
@@ -260,7 +261,7 @@ void PoreNetwork::CopyFromOthers(void) {
 					ConnectingThroats = new int[Coordination_Number];
 					Source->GetPoreAndThroatsPointers(i, AdjacentPores, ConnectingThroats);
 					for (j = 0; j < Coordination_Number; j++) {
-						AdjacentPores[j] += BasePoreNO;
+						if (AdjacentPores[j] > 0) AdjacentPores[j] += BasePoreNO;
 						ConnectingThroats[j] += BaseThroatNO;
 					}
 					SetPoreAndThroatsPointers(i + BasePoreNO, AdjacentPores, ConnectingThroats);
@@ -274,7 +275,8 @@ void PoreNetwork::CopyFromOthers(void) {
 				SourceThroatNO = Source->GetThroatNO();
 				for (i = 0; i < SourceThroatNO; i++) {
 					Source->GetThroatProperties(i, PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume);
-					if (!(((N_Z == (MainNz - 1)) && (IOStat == 0)) || ((N_Z == 0) && (IOStat == (-1))))) {
+					if (((IOStat == 0) && (N_Z != (MainNz - 1))) || ((IOStat == (-1)) && (N_Z != 0))) {
+					//if (!(((N_Z == (MainNz - 1)) && (IOStat == 0)) || ((N_Z == 0) && (IOStat == (-1))))) {
 						IOStat = 1;
 						DeadEndCondition = true;
 					}

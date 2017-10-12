@@ -11,6 +11,7 @@ void NetworkElement::SetIndex(unsigned int ElementIndex) {
 
 NetworkElement::NetworkElement(void) {
 	IsEnabled = true;
+	HasDeadEnds = false;
 }
 
 void NetworkElement::SetIsConnectedToInlet(bool ConnectionStatus) {
