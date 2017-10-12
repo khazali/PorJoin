@@ -353,13 +353,15 @@ void PoreNetwork::RemoveDeadEnds(void) {
 	}
 
 	j = 0;
-	for (i = 0; i < (ThroatNO - DeletedThroats); i++) {		
+	for (i = 0; i < (ThroatNO - DeletedThroats); i++) {
+		ReverseIndex[i] = i - j;
 		if (j) {
 			throats[i].GetPropertiesWithDeadEnd(PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);
-			throats[i - j].SetProperties(i - j + 1, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);
-			ReverseIndex[PTIndex] = i - j + 1;
+			throats[i - j].SetProperties(i - j, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);			
 		}
-		if (((i + 1) == DeadPool[j]) && (j < DeletedThroats)) j++;
+		if (((i + 1) == DeadPool[j]) && (j < DeletedThroats)) {
+			j++;
+		}
 	}
 	////////////////////////////////////////
 	ThroatNO -= DeletedThroats;
