@@ -52,6 +52,7 @@ void ReadInput(char *InfileName) {
 
 	SumPoreNO[0] = 0;
 	SumThroatNO[0] = 0;
+	MaxThroatNO = 0;
 	for (k = 0; k < MainNz; k++) {
 		for (j = 0; j < MainNy; j++) {
 			for (i = 0; i < MainNx; i++) {
@@ -64,8 +65,7 @@ void ReadInput(char *InfileName) {
 					str[sLen1 + 1] = '\0';
 				}
 				if ((dir = opendir(str)) != NULL) {
-					while ((ent = readdir(dir)) != NULL) {
-						MaxThroatNO = 0;
+					while ((ent = readdir(dir)) != NULL) {						
 						if ((*(ent->d_name)) != '.') {
 							sLen = (unsigned int)strlen(ent->d_name) - 10;
 							for (n = 0; n < sLen; n++) Fname[n] = ent->d_name[n];
