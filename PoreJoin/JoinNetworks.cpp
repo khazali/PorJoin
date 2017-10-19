@@ -154,7 +154,6 @@ void CalculateStatistics(void) {
 			sum2 = 0;
 			sq2R = 0;
 			sum2R = 0;
-
 			for (j = 0; j < LengthNO2; j++) {
 				sq2 += Lengths2[j] * Lengths2[j];
 				sum2 += Lengths2[j];
@@ -256,7 +255,7 @@ void CalculateStatistics(void) {
 			StatMatrix[i][i - MainNx*MainNy][6] = (MinR1 < MinR2) ? MinR1 : MinR2;
 			StatMatrix[i][i - MainNx*MainNy][7] = (MaxR1 > MaxR2) ? MaxR1 : MaxR2;
 		}
-		if (i + MainNx*MainNy < MainNx*MainNy*MainNz) {
+		if ((i + MainNx*MainNy) < (MainNx*MainNy*MainNz)) {
 			Networks[i + MainNx*MainNy].GetAllThroatsLength(LengthNO2, Lengths2, Radius2);
 			sq2 = 0;
 			sum2 = 0;

@@ -120,8 +120,8 @@ void Throat::GetProperties(unsigned int &ThroatIndex, int &Pore1Pointer, int &Po
 	Pore1Pointer = Pore1Index;
 	Pore2Pointer = Pore2Index;
 	IOStatus = IOStat;
-	InscribedRadius = ThroatInscribedRadius;
-	ShapeFactor = ThroatShapeFactor;
+	ThroatInscribedRadius = InscribedRadius;
+	ThroatShapeFactor = ShapeFactor;
 	ThroatTotalLength = TotalLength;
 	ThroatLength = Length;
 	ThroatVolume = Volume;
@@ -133,8 +133,8 @@ void Throat::GetPropertiesWithDeadEnd(unsigned int &ThroatIndex, int &Pore1Point
 	Pore1Pointer = Pore1Index;
 	Pore2Pointer = Pore2Index;
 	IOStatus = IOStat;
-	InscribedRadius = ThroatInscribedRadius;
-	ShapeFactor = ThroatShapeFactor;
+	ThroatInscribedRadius = InscribedRadius;
+	ThroatShapeFactor = ShapeFactor;
 	ThroatTotalLength = TotalLength;
 	ThroatLength = Length;
 	ThroatVolume = Volume;
@@ -148,8 +148,8 @@ void Throat::SetProperties(unsigned int ThroatIndex, int Pore1Pointer, int Pore2
 	Pore1Index = Pore1Pointer;
 	Pore2Index = Pore2Pointer;
 	IOStat = IOStatus;
-	ThroatInscribedRadius = InscribedRadius;
-	ThroatShapeFactor = ShapeFactor;
+	InscribedRadius = ThroatInscribedRadius;
+	ShapeFactor = ThroatShapeFactor;
 	TotalLength = ThroatTotalLength;
 	Length = ThroatLength;
 	Volume = ThroatVolume;
