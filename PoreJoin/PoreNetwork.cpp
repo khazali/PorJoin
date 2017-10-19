@@ -392,8 +392,16 @@ void PoreNetwork::MakeNewConnections(void) {
 	unsigned int iPrimaryIndex, jPrimaryIndex;
 	FloatType TRadius, TVolume, TLength;
 	//int TPore1Index, TPore2Index;
+	unsigned int AddedPores = 0;
+	unsigned int CompletePercent;
 
 	for (i = 0; i < (PoreNO - 1); i++) {
+		
+		if ((!i) || (CompletePercent != (unsigned int)((i + 1.0)*100.0 / PoreNO))) {
+			CompletePercent = (unsigned int)((i + 1.0)*100.0 / PoreNO);
+			std::cout << "\r" << CompletePercent << "\t\tPercent Completed!";
+		}
+		
 		for (j = (i + 1); j < PoreNO; j++) {
 			iPrimaryIndex = pores[i].GetPrimaryIndex();
 			jPrimaryIndex = pores[j].GetPrimaryIndex();
@@ -429,9 +437,12 @@ void PoreNetwork::MakeNewConnections(void) {
 				ThroatNO++;
 				pores[i].AddThroat(ThroatNO, j);
 				pores[j].AddThroat(ThroatNO, i);
+				AddedPores++;
 			}
 		}
 	}
+
+	std::cout << AddedPores << "\n Pores connected!\n";
 }
 
 void PoreNetwork::WriteStatoilFormat(char *FilePath) {
