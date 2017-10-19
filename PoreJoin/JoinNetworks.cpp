@@ -46,32 +46,23 @@ void CalculateStatistics(void) {
 	sqt = 0;
 	NOt = 0;
 	sumtR = 0;
-	sqtR = 0;
-	MinLength = 0;
-	MaxLength = 0;
-	MinRadius = 0;
-	MaxRadius = 0;
+	sqtR = 0;	
 	for (i = 0; i < TotalNetworks; i++) {
 		Networks[i].GetAllThroatsLength(LengthNO1, Lengths1, Radius1);
 		sq1 = 0;
 		sum1 = 0;
 		sq1R = 0;
 		sum1R = 0;
-
-		MinR1 = 0;
-		MinL1 = 0;
-		MaxR1 = 0;
-		MaxL1 = 0;
 		for (j = 0; j < LengthNO1; j++) {
 			sq1 += Lengths1[j] * Lengths1[j];
 			sum1 += Lengths1[j];
 			sq1R += Radius1[j] * Radius1[j];
 			sum1R += Radius1[j];
 
-			if (MinR1 > Radius1[j]) MinR1 = Radius1[j];
-			if (MaxR1 < Radius1[j]) MaxR1 = Radius1[j];
-			if (MinL1 > Lengths1[j]) MinL1 = Lengths1[j];
-			if (MaxL1 < Lengths1[j]) MaxR1 = Lengths1[j];
+			if ((!j) || (MinR1 > Radius1[j])) MinR1 = Radius1[j];
+			if ((!j) || (MaxR1 < Radius1[j])) MaxR1 = Radius1[j];
+			if ((!j) || (MinL1 > Lengths1[j])) MinL1 = Lengths1[j];
+			if ((!j) || (MaxL1 < Lengths1[j])) MaxL1 = Lengths1[j];
 		}
 		sqt += sq1;
 		sumt += sum1;
@@ -79,10 +70,10 @@ void CalculateStatistics(void) {
 		sumtR += sum1R;
 		NOt += LengthNO1;
 
-		if (MinRadius > MinR1) MinRadius = MinR1;
-		if (MaxRadius < MaxR1) MaxRadius = MinR1;
-		if (MinLength > MinL1) MinLength = MinL1;
-		if (MaxLength < MaxL1) MaxLength = MaxL1;
+		if ((!i) || (MinRadius > MinR1)) MinRadius = MinR1;
+		if ((!i) || (MaxRadius < MaxR1)) MaxRadius = MaxR1;
+		if ((!i) || (MinLength > MinL1)) MinLength = MinL1;
+		if ((!i) || (MaxLength < MaxL1)) MaxLength = MaxL1;
 
 		if ((i%MainNx) != 0) {
 			Networks[i - 1].GetAllThroatsLength(LengthNO2, Lengths2, Radius2);
@@ -90,27 +81,22 @@ void CalculateStatistics(void) {
 			sum2 = 0;
 			sq2R = 0;
 			sum2R = 0;
-
-			MinR2 = 0;
-			MinL2 = 0;
-			MaxR2 = 0;
-			MaxL2 = 0;
 			for (j = 0; j < LengthNO2; j++) {
 				sq2 += Lengths2[j] * Lengths2[j];
 				sum2 += Lengths2[j];
 				sq2R += Radius2[j] * Radius2[j];
 				sum2R += Radius2[j];
 
-				if (MinR2 > Radius1[j]) MinR2 = Radius2[j];
-				if (MaxR2 < Radius1[j]) MaxR2 = Radius2[j];
-				if (MinL2 > Lengths1[j]) MinL2 = Lengths2[j];
-				if (MaxL2 < Lengths1[j]) MaxR2 = Lengths2[j];
+				if ((!j) || (MinR2 > Radius2[j])) MinR2 = Radius2[j];
+				if ((!j) || (MaxR2 < Radius2[j])) MaxR2 = Radius2[j];
+				if ((!j) || (MinL2 > Lengths2[j])) MinL2 = Lengths2[j];
+				if ((!j) || (MaxL2 < Lengths2[j])) MaxL2 = Lengths2[j];
 				
 			}
-			if (MinRadius > MinR2) MinRadius = MinR2;
-			if (MaxRadius < MaxR2) MaxRadius = MinR2;
-			if (MinLength > MinL2) MinLength = MinL2;
-			if (MaxLength < MaxL2) MaxLength = MaxL2;
+			if ((!i) || (MinRadius > MinR2)) MinRadius = MinR2;
+			if ((!i) || (MaxRadius < MaxR2)) MaxRadius = MaxR2;
+			if ((!i) || (MinLength > MinL2)) MinLength = MinL2;
+			if ((!i) || (MaxLength < MaxL2)) MaxLength = MaxL2;
 
 			Ave = (sum1 + sum2) / (LengthNO1 + LengthNO2);
 			SD = sqrt((sq1 + sq2) / (LengthNO1 + LengthNO2) - Ave*Ave);
@@ -133,25 +119,21 @@ void CalculateStatistics(void) {
 			sq2R = 0;
 			sum2R = 0;
 
-			MinR2 = 0;
-			MinL2 = 0;
-			MaxR2 = 0;
-			MaxL2 = 0;
 			for (j = 0; j < LengthNO2; j++) {
 				sq2 += Lengths2[j] * Lengths2[j];
 				sum2 += Lengths2[j];
 				sq2R += Radius2[j] * Radius2[j];
 				sum2R += Radius2[j];
 
-				if (MinR2 > Radius1[j]) MinR2 = Radius2[j];
-				if (MaxR2 < Radius1[j]) MaxR2 = Radius2[j];
-				if (MinL2 > Lengths1[j]) MinL2 = Lengths2[j];
-				if (MaxL2 < Lengths1[j]) MaxR2 = Lengths2[j];
+				if ((!j) || (MinR2 > Radius2[j])) MinR2 = Radius2[j];
+				if ((!j) || (MaxR2 < Radius2[j])) MaxR2 = Radius2[j];
+				if ((!j) || (MinL2 > Lengths2[j])) MinL2 = Lengths2[j];
+				if ((!j) || (MaxL2 < Lengths2[j])) MaxL2 = Lengths2[j];
 			}
-			if (MinRadius > MinR2) MinRadius = MinR2;
-			if (MaxRadius < MaxR2) MaxRadius = MinR2;
-			if (MinLength > MinL2) MinLength = MinL2;
-			if (MaxLength < MaxL2) MaxLength = MaxL2;
+			if ((!i) || (MinRadius > MinR2)) MinRadius = MinR2;
+			if ((!i) || (MaxRadius < MaxR2)) MaxRadius = MaxR2;
+			if ((!i) || (MinLength > MinL2)) MinLength = MinL2;
+			if ((!i) || (MaxLength < MaxL2)) MaxLength = MaxL2;
 
 			Ave = (sum1 + sum2) / (LengthNO1 + LengthNO2);
 			SD = sqrt((sq1 + sq2) / (LengthNO1 + LengthNO2) - Ave*Ave);
@@ -173,25 +155,21 @@ void CalculateStatistics(void) {
 			sq2R = 0;
 			sum2R = 0;
 
-			MinR2 = 0;
-			MinL2 = 0;
-			MaxR2 = 0;
-			MaxL2 = 0;
 			for (j = 0; j < LengthNO2; j++) {
 				sq2 += Lengths2[j] * Lengths2[j];
 				sum2 += Lengths2[j];
 				sq2R += Radius2[j] * Radius2[j];
 				sum2R += Radius2[j];
 
-				if (MinR2 > Radius1[j]) MinR2 = Radius2[j];
-				if (MaxR2 < Radius1[j]) MaxR2 = Radius2[j];
-				if (MinL2 > Lengths1[j]) MinL2 = Lengths2[j];
-				if (MaxL2 < Lengths1[j]) MaxR2 = Lengths2[j];
+				if ((!j) || (MinR2 > Radius2[j])) MinR2 = Radius2[j];
+				if ((!j) || (MaxR2 < Radius2[j])) MaxR2 = Radius2[j];
+				if ((!j) || (MinL2 > Lengths2[j])) MinL2 = Lengths2[j];
+				if ((!j) || (MaxL2 < Lengths2[j])) MaxL2 = Lengths2[j];
 			}
-			if (MinRadius > MinR2) MinRadius = MinR2;
-			if (MaxRadius < MaxR2) MaxRadius = MinR2;
-			if (MinLength > MinL2) MinLength = MinL2;
-			if (MaxLength < MaxL2) MaxLength = MaxL2;
+			if ((!i) || (MinRadius > MinR2)) MinRadius = MinR2;
+			if ((!i) || (MaxRadius < MaxR2)) MaxRadius = MaxR2;
+			if ((!i) || (MinLength > MinL2)) MinLength = MinL2;
+			if ((!i) || (MaxLength < MaxL2)) MaxLength = MaxL2;
 
 			Ave = (sum1 + sum2) / (LengthNO1 + LengthNO2);
 			SD = sqrt((sq1 + sq2) / (LengthNO1 + LengthNO2) - Ave*Ave);
@@ -213,25 +191,21 @@ void CalculateStatistics(void) {
 			sq2R = 0;
 			sum2R = 0;
 
-			MinR2 = 0;
-			MinL2 = 0;
-			MaxR2 = 0;
-			MaxL2 = 0;
 			for (j = 0; j < LengthNO2; j++) {
 				sq2 += Lengths2[j] * Lengths2[j];
 				sum2 += Lengths2[j];
 				sq2R += Radius2[j] * Radius2[j];
 				sum2R += Radius2[j];
 
-				if (MinR2 > Radius1[j]) MinR2 = Radius2[j];
-				if (MaxR2 < Radius1[j]) MaxR2 = Radius2[j];
-				if (MinL2 > Lengths1[j]) MinL2 = Lengths2[j];
-				if (MaxL2 < Lengths1[j]) MaxR2 = Lengths2[j];
+				if ((!j) || (MinR2 > Radius2[j])) MinR2 = Radius2[j];
+				if ((!j) || (MaxR2 < Radius2[j])) MaxR2 = Radius2[j];
+				if ((!j) || (MinL2 > Lengths2[j])) MinL2 = Lengths2[j];
+				if ((!j) || (MaxL2 < Lengths2[j])) MaxL2 = Lengths2[j];
 			}
-			if (MinRadius > MinR2) MinRadius = MinR2;
-			if (MaxRadius < MaxR2) MaxRadius = MinR2;
-			if (MinLength > MinL2) MinLength = MinL2;
-			if (MaxLength < MaxL2) MaxLength = MaxL2;
+			if ((!i) || (MinRadius > MinR2)) MinRadius = MinR2;
+			if ((!i) || (MaxRadius < MaxR2)) MaxRadius = MaxR2;
+			if ((!i) || (MinLength > MinL2)) MinLength = MinL2;
+			if ((!i) || (MaxLength < MaxL2)) MaxLength = MaxL2;
 
 			Ave = (sum1 + sum2) / (LengthNO1 + LengthNO2);
 			SD = sqrt((sq1 + sq2) / (LengthNO1 + LengthNO2) - Ave*Ave);
@@ -253,25 +227,21 @@ void CalculateStatistics(void) {
 			sq2R = 0;
 			sum2R = 0;
 
-			MinR2 = 0;
-			MinL2 = 0;
-			MaxR2 = 0;
-			MaxL2 = 0;
 			for (j = 0; j < LengthNO2; j++) {
 				sq2 += Lengths2[j] * Lengths2[j];
 				sum2 += Lengths2[j];
 				sq2R += Radius2[j] * Radius2[j];
 				sum2R += Radius2[j];
 
-				if (MinR2 > Radius1[j]) MinR2 = Radius2[j];
-				if (MaxR2 < Radius1[j]) MaxR2 = Radius2[j];
-				if (MinL2 > Lengths1[j]) MinL2 = Lengths2[j];
-				if (MaxL2 < Lengths1[j]) MaxR2 = Lengths2[j];
+				if ((!j) || (MinR2 > Radius2[j])) MinR2 = Radius2[j];
+				if ((!j) || (MaxR2 < Radius2[j])) MaxR2 = Radius2[j];
+				if ((!j) || (MinL2 > Lengths2[j])) MinL2 = Lengths2[j];
+				if ((!j) || (MaxL2 < Lengths2[j])) MaxL2 = Lengths2[j];
 			}
-			if (MinRadius > MinR2) MinRadius = MinR2;
-			if (MaxRadius < MaxR2) MaxRadius = MinR2;
-			if (MinLength > MinL2) MinLength = MinL2;
-			if (MaxLength < MaxL2) MaxLength = MaxL2;
+			if ((!i) || (MinRadius > MinR2)) MinRadius = MinR2;
+			if ((!i) || (MaxRadius < MaxR2)) MaxRadius = MaxR2;
+			if ((!i) || (MinLength > MinL2)) MinLength = MinL2;
+			if ((!i) || (MaxLength < MaxL2)) MaxLength = MaxL2;
 
 			Ave = (sum1 + sum2) / (LengthNO1 + LengthNO2);
 			SD = sqrt((sq1 + sq2) / (LengthNO1 + LengthNO2) - Ave*Ave);
@@ -293,25 +263,21 @@ void CalculateStatistics(void) {
 			sq2R = 0;
 			sum2R = 0;
 
-			MinR2 = 0;
-			MinL2 = 0;
-			MaxR2 = 0;
-			MaxL2 = 0;
 			for (j = 0; j < LengthNO2; j++) {
 				sq2 += Lengths2[j] * Lengths2[j];
 				sum2 += Lengths2[j];
 				sq2R += Radius2[j] * Radius2[j];
 				sum2R += Radius2[j];
 
-				if (MinR2 > Radius1[j]) MinR2 = Radius2[j];
-				if (MaxR2 < Radius1[j]) MaxR2 = Radius2[j];
-				if (MinL2 > Lengths1[j]) MinL2 = Lengths2[j];
-				if (MaxL2 < Lengths1[j]) MaxR2 = Lengths2[j];
+				if ((!j) || (MinR2 > Radius2[j])) MinR2 = Radius2[j];
+				if ((!j) || (MaxR2 < Radius2[j])) MaxR2 = Radius2[j];
+				if ((!j) || (MinL2 > Lengths2[j])) MinL2 = Lengths2[j];
+				if ((!j) || (MaxL2 < Lengths2[j])) MaxL2 = Lengths2[j];
 			}
-			if (MinRadius > MinR2) MinRadius = MinR2;
-			if (MaxRadius < MaxR2) MaxRadius = MinR2;
-			if (MinLength > MinL2) MinLength = MinL2;
-			if (MaxLength < MaxL2) MaxLength = MaxL2;
+			if ((!i) || (MinRadius > MinR2)) MinRadius = MinR2;
+			if ((!i) || (MaxRadius < MaxR2)) MaxRadius = MaxR2;
+			if ((!i) || (MinLength > MinL2)) MinLength = MinL2;
+			if ((!i) || (MaxLength < MaxL2)) MaxLength = MaxL2;
 
 			Ave = (sum1 + sum2) / (LengthNO1 + LengthNO2);
 			SD = sqrt((sq1 + sq2) / (LengthNO1 + LengthNO2) - Ave*Ave);
