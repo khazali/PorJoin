@@ -442,7 +442,7 @@ void PoreNetwork::MakeNewConnections(void) {
 		}
 	}
 
-	std::cout << AddedPores << "\n Pores connected!\n";
+	std::cout << '\r' << AddedPores << "\t\tPores connected!\n\n";
 }
 
 void PoreNetwork::WriteStatoilFormat(char *FilePath) {
