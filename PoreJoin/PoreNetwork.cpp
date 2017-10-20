@@ -140,14 +140,14 @@ void PoreNetwork::ReadStatoilFormat(char *FilePath, char *Prefix) {
 	PoreData2.close();
 }
 
-void PoreNetwork::SetNeighbours(PoreNetwork *XBefore, PoreNetwork *XAfter, PoreNetwork *YBefore, PoreNetwork *YAfter, PoreNetwork *ZBefore, PoreNetwork *ZAfter) {
+/*void PoreNetwork::SetNeighbours(PoreNetwork *XBefore, PoreNetwork *XAfter, PoreNetwork *YBefore, PoreNetwork *YAfter, PoreNetwork *ZBefore, PoreNetwork *ZAfter) {
 	X_Before = XBefore;
 	X_After = XAfter;
 	Y_Before = YBefore;
 	Y_After = YAfter;
 	Z_Before = ZBefore;
 	Z_After = ZAfter;
-}
+}*/
 
 void PoreNetwork::SetNetworkIndex(unsigned int XIndex, unsigned int YIndex, unsigned int ZIndex) {
 	NetworkIndex_X = XIndex;
@@ -186,8 +186,8 @@ unsigned int PoreNetwork::GetThroatNO(void) {
 void PoreNetwork::UpdateElementIndex(unsigned int PorRef, unsigned int ThroatRef) {
 	register unsigned int i;
 
-	for (i = 0; i < PoreNO; i++) pores[i].UpdatePoreIndexes(PorRef, ThroatRef);
-	for (i = 0; i < ThroatNO; i++) throats[i].UpdateThroatIndexes(PorRef, ThroatRef);
+	for (i = 0; i < PoreNO; i++) pores[i].UpdatePoreIndexes(PorRef);
+	for (i = 0; i < ThroatNO; i++) throats[i].UpdateThroatIndexes(ThroatRef);
 }
 
 void PoreNetwork::GetPoreProperties(unsigned int PIndex, unsigned int &PoreIndex, FloatType &X, FloatType &Y, FloatType &Z, unsigned int &CoordinationNumber, int &IOStat, FloatType &Volume, FloatType &InscribedRadius, FloatType &ShapeFactor, FloatType &ClayVolume, FloatType &Length) {

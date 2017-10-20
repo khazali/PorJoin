@@ -313,16 +313,16 @@ bool NormalSelect(FloatType Length, FloatType Average, FloatType StandardDeviati
 	Integral = 0;
 	for (i = 0; i < SIMPSON_1_3_INTEGRATION; i++) {
 		x = Min + i*h;
-		if ((!i) || (i == (SIMPSON_1_3_INTEGRATION - 1))) a = exp(-(x - Average)*(x - Average) / (2 * x*x));
-		else if ((i % 2)) a = 4 * exp(-(x - Average)*(x - Average) / (2 * x*x));
-		else a = 2 * exp(-(x - Average)*(x - Average) / (2 * x*x));
+		if ((!i) || (i == (SIMPSON_1_3_INTEGRATION - 1))) a = exp(-(x - Average)*(x - Average) / (2 * StandardDeviation*StandardDeviation));
+		else if ((i % 2)) a = 4 * exp(-(x - Average)*(x - Average) / (2 * StandardDeviation*StandardDeviation));
+		else a = 2 * exp(-(x - Average)*(x - Average) / (2 * StandardDeviation*StandardDeviation));
 
 		Integral += a;
 	}
 	Integral *= h / 3;
 
 	cProb = CONNECTION_FRACTION*(Max - Min) / Integral;
-	SelectionProbability = cProb*exp(-(Length - Average)*(Length - Average) / (2 * Length*Length));
+	SelectionProbability = cProb*exp(-(Length - Average)*(Length - Average) / (2 * StandardDeviation*StandardDeviation));
 
 	return ((((FloatType)rand()) / RAND_MAX) < SelectionProbability);
 }

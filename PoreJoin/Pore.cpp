@@ -88,7 +88,7 @@ void Pore::UpdateLocation(FloatType X_Origin, FloatType Y_Origin, FloatType Z_Or
 	Z += Z_Origin;
 }
 
-void Pore::UpdatePoreIndexes(unsigned int PoreRef, unsigned int ThroatRef) {
+void Pore::UpdatePoreIndexes(unsigned int PoreRef) {
 	//register unsigned int i;
 
 	Index += PoreRef;

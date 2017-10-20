@@ -15,7 +15,7 @@ void ReadInput(char *InfileName) {
 	DIR *dir;
 	struct dirent *ent;
 	unsigned int sLen, sLen1;
-	PoreNetwork *X_Before, *X_After, *Y_Before, *Y_After, *Z_Before, *Z_After;
+	//PoreNetwork *X_Before, *X_After, *Y_Before, *Y_After, *Z_Before, *Z_After;
 	FloatType XDim, YDim, ZDim;
 	
 	std::srand((unsigned int)time(NULL));
@@ -72,7 +72,7 @@ void ReadInput(char *InfileName) {
 							Fname[n] = '\0';
 							Networks[k*(MainNy*MainNx) + j*MainNx + i].ReadStatoilFormat(str, Fname);
 
-							if (i == 0) X_Before = NULL;
+							/*if (i == 0) X_Before = NULL;
 							else X_Before = &Networks[k*(MainNy*MainNx) + j*MainNx + i - 1];
 							if (i == (MainNx - 1)) X_After = NULL;
 							else X_After = &Networks[k*(MainNy*MainNx) + j*MainNx + i + 1];
@@ -85,7 +85,7 @@ void ReadInput(char *InfileName) {
 							if (k == (MainNz - 1)) Z_After = NULL;
 							else Z_After = &Networks[(k + 1)*(MainNy*MainNx) + j*MainNx + i];
 
-							Networks[k*(MainNy*MainNx) + j*MainNx + i].SetNeighbours(X_Before, X_After, Y_Before, Y_After, Z_Before, Z_After);
+							Networks[k*(MainNy*MainNx) + j*MainNx + i].SetNeighbours(X_Before, X_After, Y_Before, Y_After, Z_Before, Z_After);*/
 							Networks[k*(MainNy*MainNx) + j*MainNx + i].SetNetworkIndex(i, j, k);
 
 							SumPoreNO[k*(MainNy*MainNx) + j*MainNx + i + 1] = SumPoreNO[k*(MainNy*MainNx) + j*MainNx + i] + Networks[k*(MainNy*MainNx) + j*MainNx + i].GetPoreNO();

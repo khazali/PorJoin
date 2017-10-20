@@ -24,19 +24,19 @@ private:
 	
 	//FloatType MinX, MinY, MinZ;
 
-	PoreNetwork *X_Before;
+	/*PoreNetwork *X_Before;
 	PoreNetwork *X_After;
 	PoreNetwork *Y_Before;
 	PoreNetwork *Y_After;
 	PoreNetwork *Z_Before;
-	PoreNetwork *Z_After;
+	PoreNetwork *Z_After;*/
 	unsigned int NetworkIndex_X, NetworkIndex_Y, NetworkIndex_Z;
 
 public:
 	void ReadStatoilFormat(char *, char *);
 	PoreNetwork();
 	~PoreNetwork();
-	void SetNeighbours(PoreNetwork *, PoreNetwork *, PoreNetwork *, PoreNetwork *, PoreNetwork *, PoreNetwork *);
+	//void SetNeighbours(PoreNetwork *, PoreNetwork *, PoreNetwork *, PoreNetwork *, PoreNetwork *, PoreNetwork *);
 	void SetNetworkIndex(unsigned int, unsigned int, unsigned int);
 	void GetNetworkIndex(unsigned int&, unsigned int&, unsigned int&);
 	FloatType GetXDim(void);

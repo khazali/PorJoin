@@ -110,7 +110,7 @@ int Throat::GetPore2Index(void) {
 	return Pore2Index;
 }
 
-void Throat::UpdateThroatIndexes(unsigned int PoreRef, unsigned int ThroatRef) {
+void Throat::UpdateThroatIndexes(unsigned int ThroatRef) {
 	Index += ThroatRef;
 	//Pore1Index += PoreRef;
 	//Pore2Index += PoreRef;	

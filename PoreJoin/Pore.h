@@ -28,7 +28,7 @@ public:
 	void ReadNode2(MIfstream&);	
 	unsigned int GetCoordinationNumber(void);	
 	void UpdateLocation(FloatType, FloatType, FloatType);
-	void UpdatePoreIndexes(unsigned int, unsigned int);
+	void UpdatePoreIndexes(unsigned int);
 	void SetProperties(unsigned int, FloatType, FloatType, FloatType, unsigned int, int, FloatType, FloatType, FloatType, FloatType, FloatType, bool, unsigned int);
 	void GetProperties(unsigned int&, FloatType &, FloatType &, FloatType &, unsigned int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
 	void SetConnectingPoreAndThroats(int *, int *);
