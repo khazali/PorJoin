@@ -210,10 +210,13 @@ void Pore::WriteNeighbours(std::ofstream &Output) {
 	switch (IOStat) {
 	case -1:
 		Output << 1 << '\t' << 0 << '\t';
+		break;
 	case 0:
 		Output << 0 << '\t' << 1 << '\t';
+		break;
 	case 1:
-		Output << 0 << '\t' << 0 << '\t';	
+		Output << 0 << '\t' << 0 << '\t';
+		break;
 	}
 
 	for (i = 0; i < CoordinationNumber; i++) Output << ThroatIndexes[i] << '\t';
