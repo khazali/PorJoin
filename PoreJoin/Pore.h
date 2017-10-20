@@ -24,7 +24,7 @@ public:
 	Pore();
 	~Pore();
 	void SetLength(FloatType);
-	unsigned int ReadNode1(MIfstream&, Pore *, Throat*);
+	void ReadNode1(MIfstream&, Pore *, Throat*);
 	void ReadNode2(MIfstream&);	
 	unsigned int GetCoordinationNumber(void);	
 	void UpdateLocation(FloatType, FloatType, FloatType);

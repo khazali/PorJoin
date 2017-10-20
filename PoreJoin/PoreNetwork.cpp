@@ -281,8 +281,8 @@ void PoreNetwork::CopyFromOthers(void) {
 						DeadEndCondition = true;
 					}
 					else DeadEndCondition = false;
-					Pore1Index += BasePoreNO;
-					Pore2Index += BasePoreNO;
+					if (Pore1Index > 0) Pore1Index += BasePoreNO;
+					if (Pore2Index > 0) Pore2Index += BasePoreNO;
 					SetThroatProperties(i + BaseThroatNO, PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);
 				}
 			}
@@ -399,7 +399,7 @@ void PoreNetwork::MakeNewConnections(void) {
 		
 		if ((!i) || (CompletePercent != (unsigned int)((i + 1.0)*100.0 / PoreNO))) {
 			CompletePercent = (unsigned int)((i + 1.0)*100.0 / PoreNO);
-			std::cout << "\r" << CompletePercent << "\t\tPercent Completed!";
+			std::cout << "\r" << CompletePercent << "\tPercent Completed!";
 		}
 		
 		for (j = (i + 1); j < PoreNO; j++) {
@@ -433,10 +433,10 @@ void PoreNetwork::MakeNewConnections(void) {
 				//throats[k].SetProperties(PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);
 				TLength = Distance - pores[i].GetLength() - pores[j].GetLength();
 				TVolume = PI*TRadius*TRadius*TLength;
-				throats[ThroatNO].SetProperties(ThroatNO + 1, i, j, 1, TRadius, 1.0 / (4.0*PI), Distance, TLength, TVolume, 0, false);
+				throats[ThroatNO].SetProperties(ThroatNO, i + 1, j + 1, 1, TRadius, 1.0 / (4.0*PI), Distance, TLength, TVolume, 0, false);
 				ThroatNO++;
-				pores[i].AddThroat(ThroatNO, j);
-				pores[j].AddThroat(ThroatNO, i);
+				pores[i].AddThroat(ThroatNO, j + 1);
+				pores[j].AddThroat(ThroatNO, i + 1);
 				AddedPores++;
 			}
 		}
@@ -451,7 +451,7 @@ void PoreNetwork::WriteStatoilFormat(char *FilePath) {
 	unsigned int sLen;
 
 	unsigned int i;
-	FloatType X, Y, Z, Volume, InscribedRadius, ShapeFactor, ClayVolume, Length, TotalLength;
+	FloatType X, Y, Z, Volume, InscribedRadius, ShapeFactor, ClayVolume, Length, TotalLength, P1Length, P2Length;
 	unsigned int CoordinationNumber, PTIndex;
 	int IOStat, Pore1Index, Pore2Index;
 	char Prefix[MAX_STRING_LENGTH] = "Result";
@@ -540,8 +540,13 @@ void PoreNetwork::WriteStatoilFormat(char *FilePath) {
 	ThroatData1 << ThroatNO << std::endl;
 	for (i = 0; i < ThroatNO; i++) {
 		throats[i].GetProperties(PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume);
-		ThroatData1 << i << '\t' << Pore1Index << '\t' << Pore2Index << '\t' << InscribedRadius << '\t' << ShapeFactor << '\t' << TotalLength << std::endl;
-		ThroatData2 << i << '\t' << Pore1Index << '\t' << Pore2Index << '\t' << pores[Pore1Index].GetLength() << '\t' << pores[Pore2Index].GetLength() << '\t' << Length << '\t' << Volume << '\t' << ClayVolume << std::endl;
+		ThroatData1 << i + 1 << '\t' << Pore1Index << '\t' << Pore2Index << '\t' << InscribedRadius << '\t' << ShapeFactor << '\t' << TotalLength << std::endl;
+		if (Pore1Index > 0) P1Length = pores[Pore1Index - 1].GetLength();
+		else P1Length = 0;
+		if (Pore2Index > 0) P2Length = pores[Pore2Index - 1].GetLength();
+		else P2Length = 0;
+		ThroatData2 << i + 1 << '\t' << Pore1Index << '\t' << Pore2Index << '\t' << P1Length << '\t' << P2Length << '\t' << Length << '\t' << Volume << '\t' << ClayVolume << std::endl;
+		
 	}
 	ThroatData1.close();
 	ThroatData2.close();
@@ -549,10 +554,10 @@ void PoreNetwork::WriteStatoilFormat(char *FilePath) {
 	PoreData1 << PoreNO << '\t' << Dx << '\t' << Dy << '\t' << Dz << std::endl;
 	for (i = 0; i < PoreNO; i++) {
 		pores[i].GetProperties(PTIndex, X, Y, Z, CoordinationNumber, IOStat, Volume, InscribedRadius, ShapeFactor, ClayVolume, Length);
-		PoreData1 << i << '\t' << X << '\t' << Y << '\t' << Z << '\t' << CoordinationNumber << '\t';
+		PoreData1 << i + 1 << '\t' << X << '\t' << Y << '\t' << Z << '\t' << CoordinationNumber << '\t';
 		pores[i].WriteNeighbours(PoreData1);
 		PoreData1 << std::endl;
-		PoreData2 << i << '\t' << Volume << '\t' << InscribedRadius << '\t' << ShapeFactor << '\t' << ClayVolume << std::endl;
+		PoreData2 << i + 1 << '\t' << Volume << '\t' << InscribedRadius << '\t' << ShapeFactor << '\t' << ClayVolume << std::endl;
 	}
 	PoreData1.close();
 	PoreData2.close();
