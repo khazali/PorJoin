@@ -321,7 +321,7 @@ bool NormalSelect(FloatType Length, FloatType Average, FloatType StandardDeviati
 	}
 	Integral *= h / 3;
 
-	cProb = CONNECTION_FRACTION*(Max - Min) / Integral;
+	cProb = ConnectionFraction*(Max - Min) / Integral;
 	SelectionProbability = cProb*exp(-(Length - Average)*(Length - Average) / (2 * StandardDeviation*StandardDeviation));
 
 	return ((((FloatType)rand()) / RAND_MAX) < SelectionProbability);

@@ -110,6 +110,10 @@ void ReadInput(char *InfileName) {
 		ResultPath[sLen1] = '\\';
 		ResultPath[sLen1 + 1] = '\0';
 	}
+
+	if (!MainInput.ReadWord(str)) TerM("Incorrect main file format!");
+	ConnectionFraction = atof(str);
+
 	MainInput.close();
 
 

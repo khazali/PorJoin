@@ -10,6 +10,7 @@ unsigned int MaxThroatNO;
 FloatType ***StatMatrix;
 FloatType LengthTotalSD, LengthTotalAve, RadiusTotalSD, RadiusTotalAve;
 FloatType MaxLength, MinLength, MaxRadius, MinRadius;
+FloatType ConnectionFraction;
 
 PoreNetwork *Networks;
 PoreNetwork GeneralNetwork;

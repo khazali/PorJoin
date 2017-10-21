@@ -18,7 +18,7 @@ int __cdecl main(void) {
 	GeneralNetwork.RemoveDeadEnds();
 	CalculateStatistics();
 	GeneralNetwork.MakeNewConnections();
-	GeneralNetwork.WriteStatoilFormat(ResultPath);	
+	GeneralNetwork.WriteStatoilFormat();	
 	NormalFinish();
 
 	return 0;

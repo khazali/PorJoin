@@ -445,7 +445,7 @@ void PoreNetwork::MakeNewConnections(void) {
 	std::cout << '\r' << AddedPores << "\t\tPores connected!\n\n";
 }
 
-void PoreNetwork::WriteStatoilFormat(char *FilePath) {
+void PoreNetwork::WriteStatoilFormat(void) {
 	std::ofstream ThroatData1, ThroatData2, PoreData1, PoreData2;
 	char ThroatData1File[MAX_PATH_LENGTH], ThroatData2File[MAX_PATH_LENGTH], PoreData1File[MAX_PATH_LENGTH], PoreData2File[MAX_PATH_LENGTH];
 	unsigned int sLen;
@@ -456,7 +456,7 @@ void PoreNetwork::WriteStatoilFormat(char *FilePath) {
 	int IOStat, Pore1Index, Pore2Index;
 	char Prefix[MAX_STRING_LENGTH] = "Result";
 
-	sLen = (unsigned int)strlen(FilePath);
+	sLen = (unsigned int)strlen(ResultPath);
 	/*if (FilePath[sLen - 1] != '\\') {		//MS Windows Path for now
 	FilePath[sLen] = '\\';
 	sLen++;
@@ -464,20 +464,20 @@ void PoreNetwork::WriteStatoilFormat(char *FilePath) {
 
 	i = 0;
 	while (Prefix[i]) {
-		FilePath[sLen] = Prefix[i];
+		ResultPath[sLen] = Prefix[i];
 		sLen++;
 		i++;
 	}
 
-	FilePath[sLen] = '\0';
+	ResultPath[sLen] = '\0';
 	//sLen++;
 
 	//std::cout<<FilePath;
 
-	strcpy_s(ThroatData1File, MAX_PATH_LENGTH - 12, FilePath);
-	strcpy_s(ThroatData2File, MAX_PATH_LENGTH - 12, FilePath);
-	strcpy_s(PoreData1File, MAX_PATH_LENGTH - 12, FilePath);
-	strcpy_s(PoreData2File, MAX_PATH_LENGTH - 12, FilePath);
+	strcpy_s(ThroatData1File, MAX_PATH_LENGTH - 12, ResultPath);
+	strcpy_s(ThroatData2File, MAX_PATH_LENGTH - 12, ResultPath);
+	strcpy_s(PoreData1File, MAX_PATH_LENGTH - 12, ResultPath);
+	strcpy_s(PoreData2File, MAX_PATH_LENGTH - 12, ResultPath);
 
 
 	ThroatData1File[sLen] = '_';
