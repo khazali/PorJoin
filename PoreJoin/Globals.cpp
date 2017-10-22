@@ -6,11 +6,12 @@ unsigned int TotalNetworks;
 FloatType *DXs, *DYs, *DZs;
 FloatType *SumDXs, *SumDYs, *SumDZs;
 unsigned int *SumPoreNO, *SumThroatNO;
-unsigned int MaxThroatNO;
+unsigned int MaxThroatNO, MaxPoreNO;
 FloatType ***StatMatrix;
-FloatType LengthTotalSD, LengthTotalAve, RadiusTotalSD, RadiusTotalAve;
-FloatType MaxLength, MinLength, MaxRadius, MinRadius;
+FloatType LengthTotalSD, LengthTotalAve, RadiusTotalSD, RadiusTotalAve, CoNOAve, CoNOSD;
+FloatType MaxLength, MinLength, MaxRadius, MinRadius, CoNOMin, CoNOMax;
 FloatType ConnectionFraction;
+FloatType LIntegral, CIntegral;
 
 PoreNetwork *Networks;
 PoreNetwork GeneralNetwork;

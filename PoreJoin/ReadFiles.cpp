@@ -35,8 +35,8 @@ void ReadInput(char *InfileName) {
 	for (i = 0; i < TotalNetworks; ++i) {
 		StatMatrix[i] = new FloatType *[TotalNetworks];
 		for (j = 0; j < TotalNetworks; j++) {
-			StatMatrix[i][j] = new FloatType[8];
-			for (k = 0; k < 8; k++) StatMatrix[i][j][k] = 0;
+			StatMatrix[i][j] = new FloatType[14];
+			for (k = 0; k < 14; k++) StatMatrix[i][j][k] = 0;
 		}
 	}
 
@@ -53,6 +53,7 @@ void ReadInput(char *InfileName) {
 	SumPoreNO[0] = 0;
 	SumThroatNO[0] = 0;
 	MaxThroatNO = 0;
+	MaxPoreNO = 0;
 	for (k = 0; k < MainNz; k++) {
 		for (j = 0; j < MainNy; j++) {
 			for (i = 0; i < MainNx; i++) {
@@ -92,6 +93,7 @@ void ReadInput(char *InfileName) {
 							SumThroatNO[k*(MainNy*MainNx) + j*MainNx + i + 1] = SumThroatNO[k*(MainNy*MainNx) + j*MainNx + i] + Networks[k*(MainNy*MainNx) + j*MainNx + i].GetThroatNO();
 
 							if (Networks[k*(MainNy*MainNx) + j*MainNx + i].GetThroatNO() > MaxThroatNO) MaxThroatNO = Networks[k*(MainNy*MainNx) + j*MainNx + i].GetThroatNO();
+							if (Networks[k*(MainNy*MainNx) + j*MainNx + i].GetPoreNO() > MaxPoreNO) MaxPoreNO = Networks[k*(MainNy*MainNx) + j*MainNx + i].GetPoreNO();
 
 							break;
 						}

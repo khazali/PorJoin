@@ -11,6 +11,7 @@
 #define SIMPSON_1_3_INTEGRATION 1000
 #define MAX_THROATS_COEFFICIENT 2
 #define PI 3.1415926535897932384626433832795
+#define FLOWDIRECTION 'X'
 
 typedef double FloatType;
 
@@ -33,10 +34,11 @@ extern FloatType *DXs, *DYs, *DZs;
 extern FloatType *SumDXs, *SumDYs, *SumDZs;
 extern unsigned int *SumPoreNO, *SumThroatNO;
 extern PoreNetwork GeneralNetwork;
-extern unsigned int MaxThroatNO;
+extern unsigned int MaxThroatNO, MaxPoreNO;
 extern FloatType ***StatMatrix;
-extern FloatType LengthTotalSD, LengthTotalAve, RadiusTotalSD, RadiusTotalAve;
-extern FloatType MaxLength, MinLength, MaxRadius, MinRadius;
+extern FloatType LengthTotalSD, LengthTotalAve, RadiusTotalSD, RadiusTotalAve, CoNOAve, CoNOSD;
+extern FloatType MaxLength, MinLength, MaxRadius, MinRadius, CoNOMin, CoNOMax;
+extern FloatType LIntegral, CIntegral;
 extern char ResultPath[MAX_PATH_LENGTH];
 extern FloatType ConnectionFraction;
 
@@ -44,10 +46,11 @@ void TerM(char *);
 void NormalFinish(void);
 void UpdatePoresLocation(void);
 void ReadInput(char *);
-bool NormalSelect(FloatType, FloatType, FloatType, FloatType, FloatType);
+FloatType NormalSelect(FloatType, FloatType, FloatType, FloatType, FloatType, FloatType);
 FloatType NormRand(FloatType, FloatType, FloatType, FloatType);
 void UpdateIndexes(void);
 void CalculateStatistics(void);
 void ReadInput(char *);
+FloatType CalculateIntegral(FloatType, FloatType, FloatType, FloatType);
 
 #endif

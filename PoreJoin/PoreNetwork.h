@@ -55,8 +55,9 @@ public:
 	void SetThroatProperties(unsigned int, unsigned int, int, int, int, FloatType, FloatType, FloatType, FloatType, FloatType, FloatType, bool);
 	void RemoveDeadEnds(void);
 	void GetThroatPropertiesWithDeadEnd(unsigned int, unsigned int&, int &, int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, bool &);
-	void GetAllThroatsLength(unsigned int &, FloatType *, FloatType *);
+	void GetAllThroatsLengthAndRadius(unsigned int &, FloatType *, FloatType *);
 	void MakeNewConnections(void);
 	void WriteStatoilFormat(void);
+	void GetAllCoNOs(unsigned int &, FloatType *);
 };
 #endif
