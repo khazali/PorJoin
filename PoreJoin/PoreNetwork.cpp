@@ -140,15 +140,6 @@ void PoreNetwork::ReadStatoilFormat(char *FilePath, char *Prefix) {
 	PoreData2.close();
 }
 
-/*void PoreNetwork::SetNeighbours(PoreNetwork *XBefore, PoreNetwork *XAfter, PoreNetwork *YBefore, PoreNetwork *YAfter, PoreNetwork *ZBefore, PoreNetwork *ZAfter) {
-	X_Before = XBefore;
-	X_After = XAfter;
-	Y_Before = YBefore;
-	Y_After = YAfter;
-	Z_Before = ZBefore;
-	Z_After = ZAfter;
-}*/
-
 void PoreNetwork::SetNetworkIndex(unsigned int XIndex, unsigned int YIndex, unsigned int ZIndex) {
 	NetworkIndex_X = XIndex;
 	NetworkIndex_Y = YIndex;
@@ -210,12 +201,8 @@ void PoreNetwork::GetThroatProperties(unsigned int TIndex, unsigned int &ThroatI
 	throats[TIndex].GetProperties(ThroatIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume);
 }
 
-void PoreNetwork::GetThroatPropertiesWithDeadEnd(unsigned int TIndex, unsigned int &ThroatIndex, int &Pore1Index, int &Pore2Index, int &IOStat, FloatType &InscribedRadius, FloatType &ShapeFactor, FloatType &TotalLength, FloatType &Length, FloatType &Volume, FloatType &ClayVolume, bool &DeadEndCondition) {
-	throats[TIndex].GetPropertiesWithDeadEnd(ThroatIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);
-}
-
-void PoreNetwork::SetThroatProperties(unsigned int TIndex, unsigned int ThroatIndex, int Pore1Index, int Pore2Index, int IOStat, FloatType InscribedRadius, FloatType ShapeFactor, FloatType TotalLength, FloatType Length, FloatType Volume, FloatType ClayVolume, bool DeadEndCondition) {
-	throats[TIndex].SetProperties(ThroatIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);
+void PoreNetwork::SetThroatProperties(unsigned int TIndex, unsigned int ThroatIndex, int Pore1Index, int Pore2Index, int IOStat, FloatType InscribedRadius, FloatType ShapeFactor, FloatType TotalLength, FloatType Length, FloatType Volume, FloatType ClayVolume) {
+	throats[TIndex].SetProperties(ThroatIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume);
 }
 
 void PoreNetwork::CopyFromOthers(void) {
@@ -276,16 +263,9 @@ void PoreNetwork::CopyFromOthers(void) {
 				SourceThroatNO = Source->GetThroatNO();
 				for (i = 0; i < SourceThroatNO; i++) {
 					Source->GetThroatProperties(i, PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume);
-					if (((FLOWDIRECTION == 'X') && (((IOStat == 0) && (N_X != (MainNx - 1))) || ((IOStat == (-1)) && (N_X != 0)))) ||
-						((FLOWDIRECTION == 'Y') && (((IOStat == 0) && (N_Y != (MainNy - 1))) || ((IOStat == (-1)) && (N_Y != 0)))) ||
-						((FLOWDIRECTION == 'Z') && (((IOStat == 0) && (N_Z != (MainNz - 1))) || ((IOStat == (-1)) && (N_Z != 0))))) {
-						IOStat = 1;
-						DeadEndCondition = true;
-					}
-					else DeadEndCondition = false;
 					if (Pore1Index > 0) Pore1Index += BasePoreNO;
 					if (Pore2Index > 0) Pore2Index += BasePoreNO;
-					SetThroatProperties(i + BaseThroatNO, PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);
+					SetThroatProperties(i + BaseThroatNO, PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume);
 				}
 			}
 		}
@@ -300,7 +280,6 @@ void PoreNetwork::RemoveDeadEnds(void) {
 	unsigned int PTIndex;
 	FloatType Volume, InscribedRadius, ShapeFactor, ClayVolume, Length, TotalLength;
 	int IOStat, Pore1Index, Pore2Index;	
-	bool DeadEndCondition;
 	unsigned int DeletedThroats = 0;
 	unsigned int *DeadPool = new unsigned int[2 * ThroatNO];
 	unsigned int *ReverseIndex = new unsigned int[ThroatNO];
@@ -319,8 +298,7 @@ void PoreNetwork::RemoveDeadEnds(void) {
 					pores[i].DelBranch(j - Nulls);
 					Nulls++;
 				}
-			}
-			//pores[i].SetCoordinationNumber(CoNumber - Nulls);
+			}			
 		}
 	}
 	///////////////////////////////////////
@@ -360,8 +338,8 @@ void PoreNetwork::RemoveDeadEnds(void) {
 	for (i = 0; i < (ThroatNO - DeletedThroats); i++) {
 		ReverseIndex[i] = i - j;
 		if (j) {
-			throats[i].GetPropertiesWithDeadEnd(PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);
-			throats[i - j].SetProperties(i - j, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);			
+			throats[i].GetProperties(PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume);
+			throats[i - j].SetProperties(i - j, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume);			
 		}
 		if (((i + 1) == DeadPool[j]) && (j < DeletedThroats)) {
 			j++;
@@ -392,7 +370,8 @@ void PoreNetwork::MakeNewConnections(void) {
 	register unsigned int i, j;
 	FloatType Distance, LAve, LSD, RAve, RSD, LMin, LMax, RMin, RMax, CMin, CMax, CoAve, CoSD, cProbL, cProbCo;
 	unsigned int iPrimaryIndex, jPrimaryIndex;
-	FloatType TRadius, TVolume, TLength, temp;
+	FloatType TRadius, TVolume, TLength;
+	//FloatType temp;
 	//int TPore1Index, TPore2Index;
 	unsigned int AddedPores = 0;
 	unsigned int CompletePercent;
@@ -445,15 +424,15 @@ void PoreNetwork::MakeNewConnections(void) {
 			
 			CoNO1 = pores[i].GetCoordinationNumber() + 1;
 			CoNO2 = pores[j].GetCoordinationNumber() + 1;
-			temp = NormalSelect(Distance, LAve, LSD, LMin, LMax, cProbL)*NormalSelect(CoNO1, CoAve, CoSD, CMin, CMax, cProbCo)*NormalSelect(CoNO2, CoAve, CoSD, CMin, CMax, cProbCo);
-			if ((((FloatType)rand()) / RAND_MAX) < temp) {
-			//if ((((FloatType)rand()) / RAND_MAX) < (NormalSelect(Distance, LAve, LSD, LMin, LMax)*NormalSelect(CoNO1, CoAve, CoSD, CMin, CMax)*NormalSelect(CoNO2, CoAve, CoSD, CMin, CMax))) {
+			//temp = NormalSelect(Distance, LAve, LSD, LMin, LMax, cProbL)*NormalSelect(CoNO1, CoAve, CoSD, CMin, CMax, cProbCo)*NormalSelect(CoNO2, CoAve, CoSD, CMin, CMax, cProbCo);
+			//if ((((FloatType)rand()) / RAND_MAX) < temp) {
+			if ((((FloatType)rand()) / RAND_MAX) < (NormalSelect(Distance, LAve, LSD, LMin, LMax, cProbL)*NormalSelect(CoNO1, CoAve, CoSD, CMin, CMax, cProbCo)*NormalSelect(CoNO2, CoAve, CoSD, CMin, CMax, cProbCo))) {
 				TRadius = NormRand(RAve, RSD, RMin, RMax);
 				//add throats between i and j
 				//throats[k].SetProperties(PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);
 				TLength = Distance - pores[i].GetLength() - pores[j].GetLength();
 				TVolume = PI*TRadius*TRadius*TLength;
-				throats[ThroatNO].SetProperties(ThroatNO, i + 1, j + 1, 1, TRadius, 1.0 / (4.0*PI), Distance, TLength, TVolume, 0, false);
+				throats[ThroatNO].SetProperties(ThroatNO, i + 1, j + 1, 1, TRadius, 1.0 / (4.0*PI), Distance, TLength, TVolume, 0);
 				ThroatNO++;
 				pores[i].AddThroat(ThroatNO, j + 1);
 				pores[j].AddThroat(ThroatNO, i + 1);
@@ -462,7 +441,7 @@ void PoreNetwork::MakeNewConnections(void) {
 		}
 	}
 
-	std::cout << '\r' << AddedPores << "\t\tPores connected!\n\n";
+	std::cout << '\r' << AddedPores << "\t Pairs of pores connected!\n\n";
 }
 
 void PoreNetwork::WriteStatoilFormat(void) {

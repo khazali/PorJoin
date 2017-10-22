@@ -21,19 +21,14 @@ void Throat::ReadLink1(MIfstream& InputFile) {
 	switch (i) {
 		case -1:
 			//IOStat=-1;
-			//ConnectingPores[0]=NULL;
 			Pore1Index = -1;
-			//InletThroats.AddElement(Index);
 			break;
 		case 0:
 			//IOStat=0;
-			//ConnectingPores[0]=NULL;
 			Pore1Index = 0;
-			//OutletThroats.AddElement(Index);
 			break;
 		default:
 			//IOStat=1;
-			//ConnectingPores[0]=&pores[i-1];
 			Pore1Index = i;
 	}	
 	if (!InputFile.ReadWord(str)) TerM("Incorrect link1 file format!");
@@ -41,19 +36,14 @@ void Throat::ReadLink1(MIfstream& InputFile) {
 	switch (j) {
 		case -1:
 			//IOStat=-1;
-			//ConnectingPores[1]=NULL;
 			Pore2Index = -1;
-			//InletThroats.AddElement(Index);
 			break;
 		case 0:
 			//IOStat=0;
-			//ConnectingPores[1]=NULL;
 			Pore2Index = 0;
-			//OutletThroats.AddElement(Index);
 			break;
 		default:
 			//IOStat=1;
-			//ConnectingPores[1]=&pores[j-1];
 			Pore2Index = j;
 	}	
 
@@ -111,9 +101,7 @@ int Throat::GetPore2Index(void) {
 }
 
 void Throat::UpdateThroatIndexes(unsigned int ThroatRef) {
-	Index += ThroatRef;
-	//Pore1Index += PoreRef;
-	//Pore2Index += PoreRef;	
+	Index += ThroatRef;	
 }
 
 void Throat::GetProperties(unsigned int &ThroatIndex, int &Pore1Pointer, int &Pore2Pointer, int &IOStatus, FloatType &ThroatInscribedRadius, FloatType &ThroatShapeFactor, FloatType &ThroatTotalLength, FloatType &ThroatLength, FloatType &ThroatVolume, FloatType &ThroatClayVolume) {
@@ -129,22 +117,7 @@ void Throat::GetProperties(unsigned int &ThroatIndex, int &Pore1Pointer, int &Po
 	ThroatIndex = Index;
 }
 
-void Throat::GetPropertiesWithDeadEnd(unsigned int &ThroatIndex, int &Pore1Pointer, int &Pore2Pointer, int &IOStatus, FloatType &ThroatInscribedRadius, FloatType &ThroatShapeFactor, FloatType &ThroatTotalLength, FloatType &ThroatLength, FloatType &ThroatVolume, FloatType &ThroatClayVolume, bool &DeadEndCondition) {
-	Pore1Pointer = Pore1Index;
-	Pore2Pointer = Pore2Index;
-	IOStatus = IOStat;
-	ThroatInscribedRadius = InscribedRadius;
-	ThroatShapeFactor = ShapeFactor;
-	ThroatTotalLength = TotalLength;
-	ThroatLength = Length;
-	ThroatVolume = Volume;
-	ThroatClayVolume = ClayVolume;
-	ThroatIndex = Index;
-	DeadEndCondition = HasDeadEnds;
-}
-
-
-void Throat::SetProperties(unsigned int ThroatIndex, int Pore1Pointer, int Pore2Pointer, int IOStatus, FloatType ThroatInscribedRadius, FloatType ThroatShapeFactor, FloatType ThroatTotalLength, FloatType ThroatLength, FloatType ThroatVolume, FloatType ThroatClayVolume, bool DeadEndCondition) {
+void Throat::SetProperties(unsigned int ThroatIndex, int Pore1Pointer, int Pore2Pointer, int IOStatus, FloatType ThroatInscribedRadius, FloatType ThroatShapeFactor, FloatType ThroatTotalLength, FloatType ThroatLength, FloatType ThroatVolume, FloatType ThroatClayVolume) {
 	Pore1Index = Pore1Pointer;
 	Pore2Index = Pore2Pointer;
 	IOStat = IOStatus;
@@ -155,7 +128,6 @@ void Throat::SetProperties(unsigned int ThroatIndex, int Pore1Pointer, int Pore2
 	Volume = ThroatVolume;
 	ClayVolume = ThroatClayVolume;
 	Index = ThroatIndex;
-	HasDeadEnds = DeadEndCondition;
 }
 
 FloatType Throat::GetInscribedRadius(void) {

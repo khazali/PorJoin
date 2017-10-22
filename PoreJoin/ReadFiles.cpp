@@ -14,8 +14,7 @@ void ReadInput(char *InfileName) {
 	register unsigned int i, j, k, n;
 	DIR *dir;
 	struct dirent *ent;
-	unsigned int sLen, sLen1;
-	//PoreNetwork *X_Before, *X_After, *Y_Before, *Y_After, *Z_Before, *Z_After;
+	unsigned int sLen, sLen1;	
 	FloatType XDim, YDim, ZDim;
 	
 	std::srand((unsigned int)time(NULL));
@@ -58,8 +57,10 @@ void ReadInput(char *InfileName) {
 		for (j = 0; j < MainNy; j++) {
 			for (i = 0; i < MainNx; i++) {
 				*str = '\0';
-				MainInput.getline(str, MAX_STRING_LENGTH, '\n');
-				if ((*str) == '\0') TerM("Incorrect main file format!");
+				while ((*str) == '\0') {
+					if (MainInput.eof()) TerM("Incorrect main file format!");
+					MainInput.getline(str, MAX_STRING_LENGTH, '\n');					
+				}
 				sLen1 = strlen(str);
 				if (str[sLen1 - 1] != '\\') {
 					str[sLen1] = '\\';
@@ -72,21 +73,7 @@ void ReadInput(char *InfileName) {
 							for (n = 0; n < sLen; n++) Fname[n] = ent->d_name[n];
 							Fname[n] = '\0';
 							Networks[k*(MainNy*MainNx) + j*MainNx + i].ReadStatoilFormat(str, Fname);
-
-							/*if (i == 0) X_Before = NULL;
-							else X_Before = &Networks[k*(MainNy*MainNx) + j*MainNx + i - 1];
-							if (i == (MainNx - 1)) X_After = NULL;
-							else X_After = &Networks[k*(MainNy*MainNx) + j*MainNx + i + 1];
-							if (j == 0) Y_Before = NULL;
-							else Y_Before = &Networks[k*(MainNy*MainNx) + (j - 1)*MainNx + i];
-							if (j == (MainNy - 1)) Y_After = NULL;
-							else Y_After = &Networks[k*(MainNy*MainNx) + (j + 1)*MainNx + i];
-							if (k == 0) Z_Before = NULL;
-							else Z_Before = &Networks[(k - 1)*(MainNy*MainNx) + j*MainNx + i];
-							if (k == (MainNz - 1)) Z_After = NULL;
-							else Z_After = &Networks[(k + 1)*(MainNy*MainNx) + j*MainNx + i];
-
-							Networks[k*(MainNy*MainNx) + j*MainNx + i].SetNeighbours(X_Before, X_After, Y_Before, Y_After, Z_Before, Z_After);*/
+							
 							Networks[k*(MainNy*MainNx) + j*MainNx + i].SetNetworkIndex(i, j, k);
 
 							SumPoreNO[k*(MainNy*MainNx) + j*MainNx + i + 1] = SumPoreNO[k*(MainNy*MainNx) + j*MainNx + i] + Networks[k*(MainNy*MainNx) + j*MainNx + i].GetPoreNO();
@@ -105,8 +92,10 @@ void ReadInput(char *InfileName) {
 		}
 	}
 	*ResultPath = '\0';
-	MainInput.getline(ResultPath, MAX_STRING_LENGTH, '\n');
-	if ((*ResultPath) == '\0') TerM("Incorrect main file format!");
+	while ((*ResultPath) == '\0') {
+		if (MainInput.eof()) TerM("Incorrect main file format!");
+		MainInput.getline(ResultPath, MAX_STRING_LENGTH, '\n');
+	}
 	sLen1 = strlen(ResultPath);
 	if (ResultPath[sLen1 - 1] != '\\') {
 		ResultPath[sLen1] = '\\';
@@ -114,7 +103,7 @@ void ReadInput(char *InfileName) {
 	}
 
 	if (!MainInput.ReadWord(str)) TerM("Incorrect main file format!");
-	ConnectionFraction = atof(str);
+	ConnectionFraction = pow(atof(str), (1.0/3.0));
 
 	MainInput.close();
 

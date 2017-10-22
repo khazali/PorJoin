@@ -16,7 +16,7 @@ protected:
 	FloatType ShapeFactor;
 	FloatType InscribedRadius;
 	unsigned int NetworkIndex_X, NetworkIndex_Y, NetworkIndex_Z;
-	bool HasDeadEnds;
+	
 
 public:
 	void SetIndex(unsigned int);
@@ -30,8 +30,6 @@ public:
 	void SetIsEnabled(bool);
 	FloatType GetLength(void);
 	void SetNetworkIndex(unsigned int, unsigned int, unsigned int);
-	void GetNetworkIndex(unsigned int&, unsigned int&, unsigned int&);
-	void SetDeadEnds(bool);
-	bool GetDeadEnds(void);
+	void GetNetworkIndex(unsigned int&, unsigned int&, unsigned int&);	
 };
 #endif

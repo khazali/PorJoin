@@ -11,14 +11,12 @@
 class Pore: public NetworkElement {
 private:
 
-	unsigned int CoordinationNumber;
-	//Pore** AdjacentPores;
-	//Throat** ConnectingThroats;
+	unsigned int CoordinationNumber;	
 	FloatType X, Y, Z;					//Pore location coordinates	
-	//unsigned int MatrixPlace;	
-
+	
 	int *PoreIndexes, *ThroatIndexes;
 	unsigned int Primary_Index;
+	bool HasDeadEnds;
 	
 public:
 	Pore();
@@ -43,5 +41,7 @@ public:
 	void WriteNeighbours(std::ofstream &);
 	void DelBranch(unsigned int);
 	void UpdateConnectingThroatIndexes(unsigned int *);
+	void SetDeadEnds(bool);
+	bool GetDeadEnds(void);
 };
 #endif

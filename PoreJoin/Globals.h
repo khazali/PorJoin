@@ -7,7 +7,6 @@
 #define MAX_STRING_LENGTH 1024
 #define MAX_PATH_LENGTH 4096
 #define USE_GLOBAL_DISTRIBUTION false
-//#define ConnectionFraction 0.1
 #define SIMPSON_1_3_INTEGRATION 1000
 #define MAX_THROATS_COEFFICIENT 2
 #define PI 3.1415926535897932384626433832795
@@ -16,14 +15,11 @@
 typedef double FloatType;
 
 
-
-enum ElementType {PORE, THROAT};
 class NetworkElement;
 class PoreNetwork;
 class MIfstream;
 class Pore;
 class Throat;
-class ElementList;
 
 
 

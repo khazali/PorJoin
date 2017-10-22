@@ -18,18 +18,7 @@ private:
 	Throat *throats;
 	unsigned int PoreNO, ThroatNO;
 	FloatType Dx, Dy, Dz;				//Dimensions of the porous media
-	//ElementList OutletThroats, InletThroats;
-	unsigned int *PorePointer, *ThroatPointer;
-	
-	
-	//FloatType MinX, MinY, MinZ;
-
-	/*PoreNetwork *X_Before;
-	PoreNetwork *X_After;
-	PoreNetwork *Y_Before;
-	PoreNetwork *Y_After;
-	PoreNetwork *Z_Before;
-	PoreNetwork *Z_After;*/
+	unsigned int *PorePointer, *ThroatPointer;		
 	unsigned int NetworkIndex_X, NetworkIndex_Y, NetworkIndex_Z;
 
 public:
@@ -52,9 +41,8 @@ public:
 	void SetPoreAndThroatsPointers(unsigned int, int *, int *);
 	void GetPoreAndThroatsPointers(unsigned int, int *, int *);
 	void GetThroatProperties(unsigned int, unsigned int&, int &, int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &);
-	void SetThroatProperties(unsigned int, unsigned int, int, int, int, FloatType, FloatType, FloatType, FloatType, FloatType, FloatType, bool);
+	void SetThroatProperties(unsigned int, unsigned int, int, int, int, FloatType, FloatType, FloatType, FloatType, FloatType, FloatType);
 	void RemoveDeadEnds(void);
-	void GetThroatPropertiesWithDeadEnd(unsigned int, unsigned int&, int &, int &, int &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, FloatType &, bool &);
 	void GetAllThroatsLengthAndRadius(unsigned int &, FloatType *, FloatType *);
 	void MakeNewConnections(void);
 	void WriteStatoilFormat(void);

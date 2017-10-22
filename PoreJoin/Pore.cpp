@@ -7,7 +7,7 @@
 
 
 Pore::Pore(void) {
-
+	HasDeadEnds = false;
 }
 
 Pore::~Pore(void) {	
@@ -89,13 +89,7 @@ void Pore::UpdateLocation(FloatType X_Origin, FloatType Y_Origin, FloatType Z_Or
 }
 
 void Pore::UpdatePoreIndexes(unsigned int PoreRef) {
-	//register unsigned int i;
-
-	Index += PoreRef;
-	/*for (i = 0; i < CoordinationNumber; i++) {
-		PoreIndexes[i] += PoreRef;
-		ThroatIndexes[i] += ThroatRef;
-	}*/
+	Index += PoreRef;	
 }
 
 void Pore::GetProperties(unsigned int &PIndex, FloatType &XLocation, FloatType &YLocation, FloatType &ZLocation, unsigned int &CN, int &IOStatus, FloatType &PoreVolume, FloatType &PoreInscribedRadius, FloatType &PoreShapeFactor, FloatType &PoreClayVolume, FloatType &PoreLength) {
@@ -236,4 +230,11 @@ void Pore::UpdateConnectingThroatIndexes(unsigned int *UpdatePointer) {
 	register unsigned int i;
 
 	for (i = 0; i < CoordinationNumber; i++) ThroatIndexes[i] = UpdatePointer[ThroatIndexes[i] - 1] + 1;
+}
+
+void Pore::SetDeadEnds(bool DeadEndCondition) {
+	HasDeadEnds = DeadEndCondition;
+}
+bool Pore::GetDeadEnds(void) {
+	return HasDeadEnds;
 }

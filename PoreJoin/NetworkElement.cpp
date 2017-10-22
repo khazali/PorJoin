@@ -10,8 +10,7 @@ void NetworkElement::SetIndex(unsigned int ElementIndex) {
 }
 
 NetworkElement::NetworkElement(void) {
-	IsEnabled = true;
-	HasDeadEnds = false;
+	IsEnabled = true;	
 }
 
 void NetworkElement::SetIsConnectedToInlet(bool ConnectionStatus) {
@@ -55,11 +54,4 @@ void NetworkElement::GetNetworkIndex(unsigned int &XIndex, unsigned int &YIndex,
 	XIndex = NetworkIndex_X;
 	YIndex = NetworkIndex_Y;
 	ZIndex = NetworkIndex_Z;
-}
-
-void NetworkElement::SetDeadEnds(bool DeadEndCondition) {
-	HasDeadEnds = DeadEndCondition;
-}
-bool NetworkElement::GetDeadEnds(void) {
-	return HasDeadEnds;
 }
