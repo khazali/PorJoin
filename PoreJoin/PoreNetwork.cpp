@@ -208,7 +208,7 @@ void PoreNetwork::SetThroatProperties(unsigned int TIndex, unsigned int ThroatIn
 void PoreNetwork::CopyFromOthers(void) {
 	register unsigned int i, Ix, Iy, Iz, j;
 	FloatType X, Y, Z, Volume, InscribedRadius, ShapeFactor, ClayVolume, Length, TotalLength;
-	unsigned int Coordination_Number, SourcePoreNO, SourceThroatNO, PTIndex, N_X, N_Y, N_Z, PrimaryIndex;
+	unsigned int Coordination_Number, SourcePoreNO, SourceThroatNO, PTIndex, PrimaryIndex;
 	int IOStat, Pore1Index, Pore2Index;
 	int *AdjacentPores, *ConnectingThroats;
 	bool DeadEndCondition;
@@ -233,10 +233,10 @@ void PoreNetwork::CopyFromOthers(void) {
 				SourcePoreNO = Source->GetPoreNO();
 				for (i = 0; i < SourcePoreNO; i++) {
 					Source->GetPoreProperties(i, PTIndex, X, Y, Z, Coordination_Number, IOStat, Volume, InscribedRadius, ShapeFactor, ClayVolume, Length);
-					Source->GetNetworkIndex(N_X, N_Y, N_Z);
-					if (((FLOWDIRECTION == 'X') && (((IOStat == 0) && (N_X != (MainNx - 1))) || ((IOStat == (-1)) && (N_X != 0)))) ||
-						((FLOWDIRECTION == 'Y') && (((IOStat == 0) && (N_Y != (MainNy - 1))) || ((IOStat == (-1)) && (N_Y != 0)))) ||
-						((FLOWDIRECTION == 'Z') && (((IOStat == 0) && (N_Z != (MainNz - 1))) || ((IOStat == (-1)) && (N_Z != 0))))) {
+					//Source->GetNetworkIndex(N_X, N_Y, N_Z);
+					if (((FLOWDIRECTION == 'X') && (((IOStat == 0) && (Ix != (MainNx - 1))) || ((IOStat == (-1)) && (Ix != 0)))) ||
+						((FLOWDIRECTION == 'Y') && (((IOStat == 0) && (Iy != (MainNy - 1))) || ((IOStat == (-1)) && (Iy != 0)))) ||
+						((FLOWDIRECTION == 'Z') && (((IOStat == 0) && (Iz != (MainNz - 1))) || ((IOStat == (-1)) && (Iz != 0))))) {
 						IOStat = 1;
 						DeadEndCondition = true;
 					}
