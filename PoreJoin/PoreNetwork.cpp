@@ -269,7 +269,23 @@ void PoreNetwork::CopyFromOthers(void) {
 				}
 			}
 		}
-	}	
+	}
+
+	/*for (i = 0; i < PoreNO; i++) {
+		Coordination_Number = pores[i].GetCoordinationNumber();
+		AdjacentPores = new int[Coordination_Number];
+		ConnectingThroats = new int[Coordination_Number];
+		GetPoreAndThroatsPointers(i, AdjacentPores, ConnectingThroats);
+		for (j = 0; (j + 1) < Coordination_Number; j++) {
+			if (ConnectingThroats[j] == ConnectingThroats[j + 1]) {
+				system("pause");
+			}
+		}
+		delete[] AdjacentPores;
+		delete[] ConnectingThroats;
+		AdjacentPores = NULL;
+		ConnectingThroats = NULL;
+	}*/
 }
 
 void PoreNetwork::RemoveDeadEnds(void) {
@@ -284,10 +300,13 @@ void PoreNetwork::RemoveDeadEnds(void) {
 	unsigned int *DeadPool = new unsigned int[2 * ThroatNO];
 	unsigned int *ReverseIndex = new unsigned int[ThroatNO];
 
+	/*unsigned int Coordination_Number;
+	int *AdjacentPores, *ConnectingThroats;*/
+
 	for (i = 0; i < ThroatNO; i++) ReverseIndex[i] = 0;
 
 	for (i = 0; i < PoreNO; i++) {
-		if (pores[i].GetDeadEnds()) {
+ 		if (pores[i].GetDeadEnds()) {
 			CoNumber = pores[i].GetCoordinationNumber();
 			Nulls = 0;
 			for (j = 0; j < (CoNumber - Nulls); j++) {
@@ -300,7 +319,7 @@ void PoreNetwork::RemoveDeadEnds(void) {
 				}
 			}			
 		}
-	}
+	}	
 	///////////////////////////////////////
 	
 
@@ -335,7 +354,8 @@ void PoreNetwork::RemoveDeadEnds(void) {
 	}
 
 	j = 0;
-	for (i = 0; i < (ThroatNO - DeletedThroats); i++) {
+	//for (i = 0; i < (ThroatNO - DeletedThroats); i++) {
+	for (i = 0; i < ThroatNO; i++) {
 		ReverseIndex[i] = i - j;
 		if (j) {
 			throats[i].GetProperties(PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume);
@@ -348,12 +368,30 @@ void PoreNetwork::RemoveDeadEnds(void) {
 	////////////////////////////////////////
 	ThroatNO -= DeletedThroats;
 
+	
+
 	for (i = 0; i < PoreNO; i++) {
 		pores[i].UpdateConnectingThroatIndexes(ReverseIndex);
 	}
 		
 	delete[] DeadPool;
 	delete[] ReverseIndex;
+
+	/*for (i = 0; i < PoreNO; i++) {
+		Coordination_Number = pores[i].GetCoordinationNumber();
+		AdjacentPores = new int[Coordination_Number];
+		ConnectingThroats = new int[Coordination_Number];
+		GetPoreAndThroatsPointers(i, AdjacentPores, ConnectingThroats);
+		for (j = 0; (j + 1) < Coordination_Number; j++) {
+			if (ConnectingThroats[j] == ConnectingThroats[j + 1]) {
+				system("pause");
+			}
+		}
+		delete[] AdjacentPores;
+		delete[] ConnectingThroats;
+		AdjacentPores = NULL;
+		ConnectingThroats = NULL;
+	}*/
 }
 
 void PoreNetwork::GetAllThroatsLengthAndRadius(unsigned int &NumberOfThroats , FloatType *Lengths, FloatType *IR) {
