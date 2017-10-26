@@ -427,6 +427,7 @@ void PoreNetwork::MakeNewConnections(void) {
 			jPrimaryIndex = pores[j].GetPrimaryIndex();
 			if (iPrimaryIndex == jPrimaryIndex) continue;
 			Distance = sqrt((pores[i].GetX() - pores[j].GetX())*(pores[i].GetX() - pores[j].GetX()) + (pores[i].GetY() - pores[j].GetY())*(pores[i].GetY() - pores[j].GetY()) + (pores[i].GetZ() - pores[j].GetZ())*(pores[i].GetZ() - pores[j].GetZ()));
+			
 			if (USE_GLOBAL_DISTRIBUTION) {
 				LAve = LengthTotalAve;
 				LSD = LengthTotalSD;
@@ -465,16 +466,18 @@ void PoreNetwork::MakeNewConnections(void) {
 			//temp = NormalSelect(Distance, LAve, LSD, LMin, LMax, cProbL)*NormalSelect(CoNO1, CoAve, CoSD, CMin, CMax, cProbCo)*NormalSelect(CoNO2, CoAve, CoSD, CMin, CMax, cProbCo);
 			//if ((((FloatType)rand()) / RAND_MAX) < temp) {
 			if ((((FloatType)rand()) / RAND_MAX) < (NormalSelect(Distance, LAve, LSD, LMin, LMax, cProbL)*NormalSelect(CoNO1, CoAve, CoSD, CMin, CMax, cProbCo)*NormalSelect(CoNO2, CoAve, CoSD, CMin, CMax, cProbCo))) {
-				TRadius = NormRand(RAve, RSD, RMin, RMax);
 				//add throats between i and j
 				//throats[k].SetProperties(PTIndex, Pore1Index, Pore2Index, IOStat, InscribedRadius, ShapeFactor, TotalLength, Length, Volume, ClayVolume, DeadEndCondition);
 				TLength = Distance - pores[i].GetLength() - pores[j].GetLength();
-				TVolume = PI*TRadius*TRadius*TLength;
-				throats[ThroatNO].SetProperties(ThroatNO, i + 1, j + 1, 1, TRadius, 1.0 / (4.0*PI), Distance, TLength, TVolume, 0);
-				ThroatNO++;
-				pores[i].AddThroat(ThroatNO, j + 1);
-				pores[j].AddThroat(ThroatNO, i + 1);
-				AddedPores++;
+				if (TLength > 0) {
+					TVolume = PI*TRadius*TRadius*TLength;
+					TRadius = NormRand(RAve, RSD, RMin, RMax);
+					throats[ThroatNO].SetProperties(ThroatNO, i + 1, j + 1, 1, TRadius, 1.0 / (4.0*PI), Distance, TLength, TVolume, 0);
+					ThroatNO++;
+					pores[i].AddThroat(ThroatNO, j + 1);
+					pores[j].AddThroat(ThroatNO, i + 1);
+					AddedPores++;
+				}
 			}
 		}
 	}
